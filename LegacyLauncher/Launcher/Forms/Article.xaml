@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Launcher.Forms.Article"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Launcher.Forms"
+             mc:Ignorable="d" d:DesignWidth="800" Height="225.748">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="TextStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Border BorderBrush="#FFBFBFBF" BorderThickness="2.5" CornerRadius="7" Grid.RowSpan="2">
+        <Border.Background>
+            <SolidColorBrush Color="White" Opacity="0.5"/>
+        </Border.Background>
+        <Grid x:Name="ArticleGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox IsReadOnly="True" IsReadOnlyCaretVisible="True" x:Name="TXT_Text" Margin="10" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" Background="{x:Null}" BorderBrush="{x:Null}" Style="{DynamicResource TextStyle}"/>
+            <TextBox IsReadOnly="True" IsReadOnlyCaretVisible="True" x:Name="TXT_Name" Margin="10,5.952,10,0" TextWrapping="Wrap" Text="TextBox" Background="{x:Null}" BorderBrush="{x:Null}" Style="{DynamicResource TextStyle}" FontWeight="Bold" FontSize="14"/>
+
+        </Grid>
+
+    </Border>
+</UserControl>

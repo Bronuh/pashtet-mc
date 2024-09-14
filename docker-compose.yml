@@ -1,0 +1,12 @@
+﻿services:
+  bronuhmcbackend:
+    image: bronuhmcbackend
+    build:
+      context: .
+      dockerfile: BronuhMcBackend/Dockerfile
+
+  bronuhmcbackend-1:
+    image: bronuhmcbackend-1
+    build:
+      context: .
+      dockerfile: BronuhMcBackend/Dockerfile
