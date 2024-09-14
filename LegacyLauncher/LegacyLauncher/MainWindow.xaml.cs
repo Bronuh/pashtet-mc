@@ -1,6 +1,4 @@
-﻿using Launcher.Forms;
-using Launcher.Updaters;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -12,8 +10,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using LegacyLauncher.Forms;
+using LegacyLauncher.Updaters;
 
-namespace Launcher
+namespace LegacyLauncher
 {
 	/// <summary>
 	/// Логика взаимодействия для MainWindow.xaml
@@ -319,7 +319,7 @@ namespace Launcher
 
 		private void BTN_Mods_Click(object sender, RoutedEventArgs e)
 		{
-			var form = new Launcher.Forms.Mods();
+			var form = new Mods();
 			form.Tag = Mod.FoundMods;
 			form.Show();
 		}

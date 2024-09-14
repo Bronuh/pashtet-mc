@@ -1,11 +1,11 @@
-﻿<Window x:Class="Launcher.Forms.Info"
+﻿<Window x:Class="LegacyLauncher.Forms.Info"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Launcher.Forms"
+        xmlns:local="clr-namespace:LegacyLauncher.Forms"
         mc:Ignorable="d"
-        Title="Info" Height="153.987" Width="481.562" Icon="/Launcher;component/Assets/Icon.png">
+        Title="Info" Height="153.987" Width="481.562" Icon="/LegacyLauncher;component/Assets/Icon.png">
     <Grid>
         <TextBlock x:Name="TXT_Text" HorizontalAlignment="Left" Height="102.987" Margin="10,10,0,0" TextWrapping="Wrap" Text="Подождите..." VerticalAlignment="Top" Width="453.562" FontSize="16"/>
 

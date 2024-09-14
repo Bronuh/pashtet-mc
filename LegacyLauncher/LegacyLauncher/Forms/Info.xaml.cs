@@ -12,16 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Launcher.Forms
+namespace LegacyLauncher.Forms
 {
 	/// <summary>
-	/// Логика взаимодействия для UpdateAvailable.xaml
+	/// Логика взаимодействия для Info.xaml
 	/// </summary>
-	public partial class UpdateAvailable : Window
+	public partial class Info : Window
 	{
-		public UpdateAvailable()
+		public Info(string info)
 		{
 			InitializeComponent();
+
+			TXT_Text.Text = info;
 		}
 	}
 }

@@ -9,8 +9,9 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using LegacyLauncher.Forms;
 
-namespace Launcher.Updaters
+namespace LegacyLauncher.Updaters
 {
 	class Installer
 	{
@@ -43,7 +44,7 @@ namespace Launcher.Updaters
 			}
 
 
-			var info = new Launcher.Forms.Info("Идет настройка клиента, подождите...");
+			var info = new Info("Идет настройка клиента, подождите...");
 			info.Show();
 
 			Utils.DirectoryCopy(".", @".\" + MainWindow.HOME, true);
@@ -68,7 +69,7 @@ namespace Launcher.Updaters
 
 			foreach (FileInfo file in directory.GetFiles())
 			{
-				if (file.Name != "Launcher.exe")
+				if (file.Name != "LegacyLauncher.exe")
 				{
 					try
 					{
@@ -94,7 +95,7 @@ namespace Launcher.Updaters
 
 		public static void Install(VersionInfo version)
 		{
-			var info = new Launcher.Forms.Info("Установка...\nЯ не завис честно, просто много работы");
+			var info = new Info("Установка...\nЯ не завис честно, просто много работы");
 			info.Show();
 			Logger.Log("Установка...\nЯ не завис честно, просто много работы");
 

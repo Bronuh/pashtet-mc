@@ -1,4 +1,4 @@
-﻿using Launcher;
+﻿using LegacyLauncher;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ class Utils
 
 	public static void InstallLauncher(VersionInfo version)
 	{
-		string command = "timeout /t 5 /nobreak >nul\ndel launcher.exe\nren tmp_Launcher.exe Launcher.exe";
+		string command = "timeout /t 5 /nobreak >nul\ndel launcher.exe\nren tmp_Launcher.exe LegacyLauncher.exe";
 		SaveLoad.SaveString(command,"update.bat");
 
 
@@ -131,8 +131,8 @@ class Utils
 
 		try
 		{
-			string[] enabledModFiles = Directory.GetFiles(Launcher.MainWindow.ModsFolder, "*.jar");
-			string[] disabledModFiles = Directory.GetFiles(Launcher.MainWindow.DisabledModsFolder, "*.jar");
+			string[] enabledModFiles = Directory.GetFiles(LegacyLauncher.MainWindow.ModsFolder, "*.jar");
+			string[] disabledModFiles = Directory.GetFiles(LegacyLauncher.MainWindow.DisabledModsFolder, "*.jar");
 
 			foreach (var file in enabledModFiles)
 			{

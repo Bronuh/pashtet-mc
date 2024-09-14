@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Launcher
+namespace LegacyLauncher
 {
 	/// <summary>
 	/// Логика взаимодействия для App.xaml

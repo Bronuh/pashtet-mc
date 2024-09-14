@@ -1,11 +1,11 @@
-﻿<Window x:Class="Launcher.Forms.Mods"
+﻿<Window x:Class="LegacyLauncher.Forms.Mods"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Launcher.Forms"
+        xmlns:local="clr-namespace:LegacyLauncher.Forms"
         mc:Ignorable="d"
-        Title="Mods" Height="450" Width="800" Icon="/Launcher;component/Assets/Icon.png" MaxWidth="800" MaxHeight="450">
+        Title="Mods" Height="450" Width="800" Icon="/LegacyLauncher;component/Assets/Icon.png" MaxWidth="800" MaxHeight="450">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="157*"/>

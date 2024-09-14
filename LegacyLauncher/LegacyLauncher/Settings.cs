@@ -1,4 +1,4 @@
-﻿using Launcher;
+﻿using LegacyLauncher;
 using System;
 
 
@@ -27,7 +27,7 @@ public class Settings : ILoadable, ISaveable
 			Storage.Set("Close", true);
 			Storage.Set("Console", false);
 		}
-		Launcher.MainWindow.WINDOW.UpdateUI(Storage);
+		LegacyLauncher.MainWindow.WINDOW.UpdateUI(Storage);
 	}
 
 	public void Save()

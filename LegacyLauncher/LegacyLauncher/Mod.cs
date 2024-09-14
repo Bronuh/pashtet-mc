@@ -1,4 +1,4 @@
-﻿using Launcher;
+﻿using LegacyLauncher;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -86,13 +86,13 @@ public class Mod : ISaveable, ILoadable
 
 	internal void Disable()
 	{
-		File.Move(Launcher.MainWindow.ModsFolder+"\\"+Filename, Launcher.MainWindow.DisabledModsFolder + "\\" + Filename);
+		File.Move(LegacyLauncher.MainWindow.ModsFolder+"\\"+Filename, LegacyLauncher.MainWindow.DisabledModsFolder + "\\" + Filename);
 		Enabled = false;
 	}
 
 	internal void Enable()
 	{
-		File.Move(Launcher.MainWindow.DisabledModsFolder + "\\" + Filename, Launcher.MainWindow.ModsFolder + "\\" + Filename);
+		File.Move(LegacyLauncher.MainWindow.DisabledModsFolder + "\\" + Filename, LegacyLauncher.MainWindow.ModsFolder + "\\" + Filename);
 		Enabled = true;
 	}
 

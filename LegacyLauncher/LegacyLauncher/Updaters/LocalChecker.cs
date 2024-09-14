@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Launcher.Updaters
+namespace LegacyLauncher.Updaters
 {
 	public class LocalChecker : UpdateChecker
 	{
@@ -25,7 +25,7 @@ namespace Launcher.Updaters
 			version.ClientLink = "http://localhost:25567/Update.zip";
 
 			version.LauncherVersion = Int32.Parse(parts[1]);
-			version.LauncherLink = "http://localhost:25567/Launcher.exe";
+			version.LauncherLink = "http://localhost:25567/LegacyLauncher.exe";
 
 			webClient.Dispose();
 			return version;

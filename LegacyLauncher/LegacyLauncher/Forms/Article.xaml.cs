@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Launcher.Forms
+namespace LegacyLauncher.Forms
 {
 	/// <summary>
 	/// Логика взаимодействия для Article.xaml
