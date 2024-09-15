@@ -34,9 +34,12 @@ public sealed class FilesystemContext
     public string NewsFilePath => NewsFileName;
     
     public string RootPath { get; private set; }
+    
+    private ILogger _logger;
 
-    public FilesystemContext(IOptions<DirectorySettings> options)
+    public FilesystemContext(IOptions<DirectorySettings> options, ILogger logger)
     {
+        _logger = logger;
         RootPath = options.Value.RootDirectory;
     }
 
@@ -48,6 +51,7 @@ public sealed class FilesystemContext
 
     public IEnumerable<FileEntry> GetFiles(string path = "", bool loose = true)
     {
+        _logger.LogDebug($"""GetFiles: {path}""");
         return new DirectoryEntry(path, RootPath, loose).GetFiles();
     }
 

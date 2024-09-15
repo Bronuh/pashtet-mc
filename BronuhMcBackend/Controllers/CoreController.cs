@@ -10,10 +10,12 @@ namespace BronuhMcBackend.Controllers;
 public class CoreController : ControllerBase
 {
     private readonly FilesystemContext _filesCtx;
+    private ILogger _logger;
 
-    public CoreController(IOptions<DirectorySettings> options, FilesystemContext filesCtx)
+    public CoreController(IOptions<DirectorySettings> options, FilesystemContext filesCtx, ILogger logger)
     {
         _filesCtx = filesCtx;
+        _logger = logger;
     }
     
     // GET: api/core/jre

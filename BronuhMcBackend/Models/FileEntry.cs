@@ -8,7 +8,7 @@ public class FileEntry : FsEntry
     public FileEntry(string path, string rootPath, bool loose = false) : base(path, rootPath, loose)
     {
         if(!File.Exists(path))
-            throw new FileNotFoundException();
+            throw new FileNotFoundException(path);
         
         Checksum = loose ? "" : CalculateFileChecksum();
     }

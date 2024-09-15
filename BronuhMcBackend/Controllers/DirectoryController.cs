@@ -13,11 +13,13 @@ public class DirectoryController : ControllerBase
 {
     private readonly string _rootDirectory;
     private readonly FilesystemContext _filesCtx;
+    private ILogger _logger;
 
-    public DirectoryController(IOptions<DirectorySettings> options, FilesystemContext filesCtx)
+    public DirectoryController(IOptions<DirectorySettings> options, FilesystemContext filesCtx, ILogger logger)
     {
         _rootDirectory = options.Value.RootDirectory;
         _filesCtx = filesCtx;
+        _logger = logger;
     }
 
     // GET: api/directory

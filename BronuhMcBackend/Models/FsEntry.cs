@@ -6,8 +6,9 @@ public abstract class FsEntry
 {
     public string Name => Path.GetFileName(RelativePath);
     public string RelativePath { get; private set; }
-    public bool IsLoose { get; private set; }
     
+    [JsonIgnore]
+    public bool IsLoose { get; private set; }
     [JsonIgnore]
     public string AbsolutePath { get; private set; }
     [JsonIgnore]
