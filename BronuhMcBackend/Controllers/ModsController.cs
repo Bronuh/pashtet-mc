@@ -30,11 +30,11 @@ public class ModsController : ControllerBase
     [HttpGet("list")]
     public IActionResult GetModsList()
     {
-        _logger.LogInformation($"Receiving current mods list...");
-        Console.WriteLine();
+        //_logger.LogInformation($"Receiving current mods list...");
+        //Console.WriteLine();
         Console.WriteLine("""Receiving current mods list...""");
         var modsPath = _filesCtx.AsAbsolute(_filesCtx.ModsDirPath);
-        _logger.LogInformation($"Mods path: {modsPath}");
+        //_logger.LogInformation($"Mods path: {modsPath}");
         Console.WriteLine($"""Mods path: {modsPath}""");
         var mods = _filesCtx.GetFiles(modsPath, loose: false);
         return Ok(mods);

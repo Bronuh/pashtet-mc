@@ -20,7 +20,7 @@ public class CoreController : ControllerBase
     
     // GET: api/core/jre
     [HttpGet("jre")]
-    public IActionResult DownloadJre(string modName)
+    public IActionResult DownloadJre()
     {
         var file = _filesCtx.GetFile(_filesCtx.AsAbsolute(_filesCtx.JreFilePath));
         var fullPath = file.AbsolutePath;
@@ -36,7 +36,7 @@ public class CoreController : ControllerBase
     
     // GET: api/core/minecraft
     [HttpGet("minecraft")]
-    public IActionResult DownloadMinecraft(string modName)
+    public IActionResult DownloadMinecraft()
     {
         var file = _filesCtx.GetFile(_filesCtx.AsAbsolute(_filesCtx.MinecraftFilePath));
         var fullPath = file.AbsolutePath;
