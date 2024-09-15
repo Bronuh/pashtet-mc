@@ -4,9 +4,7 @@
     build:
       context: .
       dockerfile: BronuhMcBackend/Dockerfile
-
-  bronuhmcbackend-1:
-    image: bronuhmcbackend-1
-    build:
-      context: .
-      dockerfile: BronuhMcBackend/Dockerfile
+    volumes:
+      - ./data:/data
+    ports:
+      - "5011:80"
