@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftLauncher", "MinecraftLauncher\MinecraftLauncher.csproj", "{B3300F08-8401-4995-BBF6-3512FB047A46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{B3300F08-8401-4995-BBF6-3512FB047A46}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40EDE27E-B667-4E07-A87D-4B6C14A8A489}"
 	ProjectSection(SolutionItems) = preProject
