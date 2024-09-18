@@ -13,7 +13,13 @@ config_version=5
 config/name="Launcher"
 run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="res://icon.png"
+config/icon="res://icon.png"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 

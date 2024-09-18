@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://da7d5i2dqlnnr"]
+[gd_scene load_steps=11 format=3 uid="uid://da7d5i2dqlnnr"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_41ihv"]
 [ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
 [ext_resource type="Texture2D" uid="uid://bprk4d7es37f8" path="res://assets/background.jpg" id="3_6ng3e"]
+[ext_resource type="Texture2D" uid="uid://0ibtr2oelyhf" path="res://assets/LOGO.png" id="4_piw32"]
+[ext_resource type="VideoStream" path="res://assets/bg-anim.ogv" id="4_wrtgj"]
 
 [sub_resource type="Gradient" id="Gradient_na32n"]
 offsets = PackedFloat32Array(0.714286, 1)
@@ -43,6 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Canvas/Background"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,6 +56,18 @@ texture = ExtResource("3_6ng3e")
 expand_mode = 2
 stretch_mode = 6
 
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Canvas/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("4_wrtgj")
+autoplay = true
+expand = true
+loop = true
+
 [node name="ColorRect" type="ColorRect" parent="Canvas/Background"]
 layout_mode = 1
 anchors_preset = 15
@@ -60,7 +75,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.47451)
+color = Color(0, 0, 0, 0.254902)
 
 [node name="Vingette" type="TextureRect" parent="Canvas/Background"]
 layout_mode = 1
@@ -99,6 +114,10 @@ theme_override_constants/margin_bottom = 20
 
 [node name="MainVBox" type="VBoxContainer" parent="Canvas/Ui/MarginContainer"]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Canvas/Ui/MarginContainer/MainVBox"]
+layout_mode = 2
+texture = ExtResource("4_piw32")
 
 [node name="CenterContainer" type="CenterContainer" parent="Canvas/Ui/MarginContainer/MainVBox"]
 layout_mode = 2
@@ -158,7 +177,7 @@ text = " XX / YY Gb"
 
 [node name="RunButton" type="Button" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "ЕБОШШШ"
+text = "ЛОМАТЬ"
 
 [node name="TasksHBox" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox"]
 layout_mode = 2
@@ -166,7 +185,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 20
 
 [node name="RunningPanel" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox"]
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_jpxdq")
@@ -194,7 +213,7 @@ layout_mode = 2
 text = "Запущенные задачи"
 
 [node name="PendingPanel" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox"]
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_mwp3r")

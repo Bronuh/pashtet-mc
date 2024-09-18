@@ -9,6 +9,11 @@ bg_color = Color(0.147672, 0.147672, 0.147672, 1)
 font_size = 12
 
 [node name="Task" type="PanelContainer" node_paths=PackedStringArray("TaskNameLabel", "ProgressBar")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_kkc8g")
 script = ExtResource("1_0a1m3")
 TaskNameLabel = NodePath("MarginContainer/TaskVBox/TasskName")
@@ -28,6 +33,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Task Name"
 label_settings = SubResource("LabelSettings_aqn1v")
+autowrap_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer/TaskVBox"]
 layout_mode = 2
