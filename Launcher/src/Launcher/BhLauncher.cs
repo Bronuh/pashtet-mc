@@ -35,7 +35,7 @@ public class BhLauncher
 
     private int GbToMb(double gb)
     {
-        return Mathf.RoundToInt(gb / GbToMbFactor);
+        return Mathf.RoundToInt(gb * GbToMbFactor);
     }
 
     private async Task<int> RunMinecraftAsync()
@@ -45,7 +45,14 @@ public class BhLauncher
         
         wrapper.OutputReceived += (sender, msg) =>
         {
-            Log.Info(msg);
+            if (Log4JProcessor.IsLog4JOutput(msg))
+            {
+                Log4JProcessor.ProcessLog4JOutput(msg);
+            }
+            else
+            {
+                Log.Info(msg);
+            }
         };
         wrapper.StartWithEvents();
         
@@ -115,10 +122,11 @@ public class BhLauncher
 
     private async Task<ProcessWrapper> BuildProcess(MinecraftLauncher launcher)
     {
+        var ramMb = GbToMb(Ram);
         var process = await launcher.BuildProcessAsync("Forge 1.20.1", new MLaunchOption
         {
             Session = MSession.CreateOfflineSession(PlayerName),
-            MaximumRamMb = GbToMb(Ram),
+            MaximumRamMb = ramMb,
             JavaPath = JrePath
         });
 
