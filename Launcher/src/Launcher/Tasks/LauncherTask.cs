@@ -18,6 +18,8 @@ public abstract class LauncherTask
     public TaskState State { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
+
+    public static bool DoThrow { get; set; } = false;
     
     public bool IsBranchFinished => State == TaskState.Finished && ChildrenTasks.All(task => task.IsBranchFinished);
 
@@ -69,8 +71,8 @@ public abstract class LauncherTask
     public LauncherTask ParentTask { get; set; }
     
     public List<LauncherTask> ChildrenTasks { get; private set; } = new List<LauncherTask>();
-    
-    public string Name { get; protected set; }
+
+    public abstract string Name { get; }
 
     /// <summary>
     /// Value in range 0-1, representing progress.
@@ -78,15 +80,43 @@ public abstract class LauncherTask
     public virtual double Progress => CompletedWorkAmount / TotalWorkAmount;
 
     public virtual double TotalWorkAmount { get; } = 1;
-    public virtual double CompletedWorkAmount { get; } = 1;
+    public virtual double CompletedWorkAmount { get; } = 0;
 
     public async Task Run()
     {
         State = TaskState.Started;
         StartTime = DateTime.Now;
-        await Start();
+        try
+        {
+            Log.Info($"Running task {Name}");
+            await Start();
+        }
+        catch (Exception e)
+        {
+            if (DoThrow)
+            {
+                throw;
+            }
+            else
+            {
+                Log.Error($"Error while running task: {Name} {e.Message}\n{e}");
+            }
+        }
+        Log.Info($"Finished task {Name}");
         EndTime = DateTime.Now;
         State = TaskState.Finished;
+    }
+
+    private string GetNameSafe()
+    {
+        try
+        {
+            return Name;
+        }
+        catch (Exception e)
+        {
+            return $"NAME ERRORED ({e.Message})";
+        }
     }
 
     public LauncherTask WithCondition(Func<bool> condition)

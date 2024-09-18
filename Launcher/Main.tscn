@@ -1,0 +1,221 @@
+[gd_scene load_steps=9 format=3 uid="uid://da7d5i2dqlnnr"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_41ihv"]
+[ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
+[ext_resource type="Texture2D" uid="uid://bprk4d7es37f8" path="res://assets/background.jpg" id="3_6ng3e"]
+
+[sub_resource type="Gradient" id="Gradient_na32n"]
+offsets = PackedFloat32Array(0.714286, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.603922)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cyun3"]
+gradient = SubResource("Gradient_na32n")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pj5hx"]
+bg_color = Color(0, 0, 0, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpxdq"]
+bg_color = Color(0, 0, 0, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwp3r"]
+bg_color = Color(0, 0, 0, 0.588235)
+
+[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "RamSlider", "RunButton", "RamLabel", "RunningTasksContainer", "PendingTasksContainer")]
+script = ExtResource("1_41ihv")
+PlayerNameTextBox = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
+RamSlider = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamSlider")
+RunButton = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/RunButton")
+RamLabel = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamLabel")
+TaskTrackerScene = ExtResource("2_2ek23")
+RunningTasksContainer = NodePath("Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
+PendingTasksContainer = NodePath("Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="Background" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Canvas/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_6ng3e")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="Canvas/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47451)
+
+[node name="Vingette" type="TextureRect" parent="Canvas/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_cyun3")
+
+[node name="Ui" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.0
+offset_top = -73.0
+offset_right = 294.0
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainVBox" type="VBoxContainer" parent="Canvas/Ui/MarginContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Canvas/Ui/MarginContainer/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_pj5hx")
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="InputVBox" type="VBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="NameLine" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine"]
+layout_mode = 2
+text = "Имя игрока: "
+
+[node name="NameBox" type="LineEdit" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLine2" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+layout_mode = 2
+text = "Оперативная память:  "
+
+[node name="RamSlider" type="HSlider" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+
+[node name="RamLabel" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+layout_mode = 2
+text = " XX / YY Gb"
+
+[node name="RunButton" type="Button" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "ЕБОШШШ"
+
+[node name="TasksHBox" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="RunningPanel" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jpxdq")
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RunningScroll" type="ScrollContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="RunningTasksContainer" type="VBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer"]
+layout_mode = 2
+text = "Запущенные задачи"
+
+[node name="PendingPanel" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_mwp3r")
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PendingScroll" type="ScrollContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="PendingTasksContainer" type="VBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer"]
+layout_mode = 2
+text = "Очередь задач"

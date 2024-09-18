@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="Launcher"
-run/main_scene="res://Bootstrapper.tscn"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="Launcher"
+
+[gui]
+
+theme/custom="res://assets/default.tres"
+theme/custom_font="res://assets/minecraft.ttf"
 
 [rendering]
 

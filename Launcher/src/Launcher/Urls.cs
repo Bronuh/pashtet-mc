@@ -8,7 +8,7 @@ public static class Urls
     
     public const string ModsUrl = BaseUrl + "directory/mods/list/";
     public const string FileDownloadUrl = BaseUrl + "directory/download/";
-    public const string ModsDownloadBaseUrl = BaseUrl + "directory/download/snapshots/current/";
+    public const string ModsDownloadBaseUrl = BaseUrl + "directory/download/snapshots/current/mods/";
 
     public static string GetModDownloadUrl(string modName)
     {

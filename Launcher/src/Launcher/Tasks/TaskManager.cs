@@ -26,6 +26,7 @@ public class TaskManager
     {
         _scheduler = scheduler;
         WorkersCount = workersCount;
+        scheduler.RunCoroutine(RunTasksCorutine());
     }
 
     public void AddTask(LauncherTask pendingTask)
@@ -34,39 +35,50 @@ public class TaskManager
         UnfinishedTasks.Add(pendingTask);
     }
 
+    public void AddTasks(IEnumerable<LauncherTask> pendingTasks)
+    {
+        foreach (var task in pendingTasks)
+        {
+            AddTask(task);
+        }
+    }
+
     private IEnumerator<ITiming> RunTasksCorutine()
     {
-        if (PendingTasks.Any() || RunningTasks.Any())
+        while (true)
         {
-            if (RunningTasks.Count < WorkersCount && ReadyToRunTasks.Any())
+            if (PendingTasks.Any() || RunningTasks.Any())
             {
-                var runningTask = ReadyToRunTasks.First();
-                PendingTasks.Remove(runningTask);
-                RunningTasks.Add(runningTask);
-            }
-            
-            foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))
-            {
-                var newTasks = finishedTask.GetNextTasks();
-                if (newTasks is not null)
+                if (RunningTasks.Count < WorkersCount && ReadyToRunTasks.Any())
                 {
-                    foreach (var newTask in newTasks)
+                    var runningTask = ReadyToRunTasks.First();
+                    PendingTasks.Remove(runningTask);
+                    RunningTasks.Add(runningTask);
+                    _ = runningTask.Run();
+                }
+            
+                foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))
+                {
+                    var newTasks = finishedTask.GetNextTasks();
+                    if (newTasks is not null)
                     {
-                        if(newTask is not null)
+                        foreach (var newTask in newTasks)
                         {
-                            AddTask(newTask);
-                            newTask.ParentTask = finishedTask;
-                            finishedTask.ChildrenTasks.Add(newTask);
+                            if(newTask is not null)
+                            {
+                                AddTask(newTask);
+                                newTask.ParentTask = finishedTask;
+                                finishedTask.ChildrenTasks.Add(newTask);
+                            }
                         }
                     }
                 }
+
+                UnfinishedTasks.RemoveAll(task => task.IsBranchFinished);
+
+                RunningTasks.RemoveAll(t => t.State == TaskState.Finished);
             }
-
-            UnfinishedTasks.RemoveAll(task => task.IsBranchFinished);
-
-            RunningTasks.RemoveAll(t => t.State == TaskState.Finished);
+            yield return Wait.ForNextTick();
         }
-
-        yield return Wait.ForNextTick();
     }
 }
