@@ -172,8 +172,9 @@ min_value = 1.0
 value = 1.0
 
 [node name="RamLabel" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = " XX / YY Gb"
+text = " RAM: XX.X / YY.Y Gb"
 
 [node name="RunButton" type="Button" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2

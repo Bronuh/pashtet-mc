@@ -113,10 +113,12 @@ public partial class Main : Node
 
 		GameIsRunning = true;
 
-		var deploy = new DeployModpackTask();
-		var run = new RunMinecraftTask().AfterTasks(deploy);
+		var deployMods = new DeployModpackTask();
+		var updateServers = new UpdateServersTask();
+		var deletePacks = new DeleteServerResourcepackTask();
+		var run = new RunMinecraftTask().AfterTasks(deployMods, updateServers, deletePacks);
 		
-		TaskManager.AddTasks([deploy, run]);
+		TaskManager.AddTasks([deployMods, updateServers, deletePacks, run]);
 	}
 
 	private void UpdatePlayerName(string name)
