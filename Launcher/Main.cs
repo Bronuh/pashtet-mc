@@ -94,7 +94,7 @@ public partial class Main : Node
 		PlayerNameTextBox.TextChanged += UpdatePlayerName;
 		PlayerNameTextBox.Text = Settings.PlayerName;
 		
-		RamSlider.MinValue = 0;
+		RamSlider.MinValue = 1;
 		RamSlider.MaxValue = GetInstalledRamAmount();
 		RamSlider.ValueChanged += UpdateRam;
 		RamSlider.Value = Settings.MaxRam;
