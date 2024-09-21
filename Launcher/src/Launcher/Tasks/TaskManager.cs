@@ -49,7 +49,7 @@ public class TaskManager
         {
             if (PendingTasks.Any() || RunningTasks.Any())
             {
-                if (RunningTasks.Count < WorkersCount && ReadyToRunTasks.Any())
+                if (RunningTasks.Count(t => t.TakingSlot) < WorkersCount && ReadyToRunTasks.Any())
                 {
                     var runningTask = ReadyToRunTasks.First();
                     PendingTasks.Remove(runningTask);

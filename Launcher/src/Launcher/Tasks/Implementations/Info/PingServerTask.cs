@@ -13,6 +13,8 @@ public class PingServerTask : LauncherTask
     public PingServerTask(double delay = 0)
     {
         _delay = delay;
+        TakingSlot = false;
+        IsVisible = false;
     }
 
     protected override async Task Start()

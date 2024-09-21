@@ -23,6 +23,9 @@ public abstract class LauncherTask
     public static bool DoThrow { get; set; } = false;
     
     public bool IsBranchFinished => State == TaskState.Finished && ChildrenTasks.All(task => task.IsBranchFinished);
+    
+    public bool IsVisible { get; set; } = true;
+    public bool TakingSlot { get; set; } = true;
 
     public virtual bool CanRun => (!RequiredTasks.Any() || RequiredTasks.All(x => x.IsBranchFinished)) && (!AdditionalConditions.Any() || AdditionalConditions.All(x => x?.Invoke() ?? true));
     public string RunningTime

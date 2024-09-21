@@ -7,6 +7,12 @@ namespace Tasks.Implementations;
 public class RunMinecraftTask : LauncherTask
 {
     public override string Name { get; } = "Запуск Minecraft";
+
+    public RunMinecraftTask()
+    {
+        TakingSlot = false;
+        IsVisible = false;
+    }
     
     protected override async Task Start()
     {

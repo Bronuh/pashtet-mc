@@ -58,11 +58,11 @@ public partial class Main : Node
 		var shownRunningTasks = RunningTasksContainer.GetChildren().OfType<TaskTracker>().ToList();
 		var shownPendingTasks = PendingTasksContainer.GetChildren().OfType<TaskTracker>().ToList();
 
-		var missingRunningTasks = TaskManager.RunningTasks.Except(shownRunningTasks.Select(tt => tt.TrackingTask));
-		var missingPendingTasks = TaskManager.PendingTasks.Except(shownPendingTasks.Select(tt => tt.TrackingTask));
+		var missingRunningTasks = TaskManager.RunningTasks.Where(t => t.IsVisible).Except(shownRunningTasks.Select(tt => tt.TrackingTask));
+		var missingPendingTasks = TaskManager.PendingTasks.Where(t => t.IsVisible).Except(shownPendingTasks.Select(tt => tt.TrackingTask));
 
-		var runningTasksToHide = shownRunningTasks.Where(tt => !TaskManager.RunningTasks.Contains(tt.TrackingTask));
-		var pendingTasksToHide = shownPendingTasks.Where(tt => !TaskManager.PendingTasks.Contains(tt.TrackingTask));
+		var runningTasksToHide = shownRunningTasks.Where(tt => !TaskManager.RunningTasks.Where(t => t.IsVisible).Contains(tt.TrackingTask));
+		var pendingTasksToHide = shownPendingTasks.Where(tt => !TaskManager.PendingTasks.Where(t => t.IsVisible).Contains(tt.TrackingTask));
 
 		foreach (var pendingTask in missingPendingTasks)
 		{
@@ -84,8 +84,8 @@ public partial class Main : Node
 			taskTracker.QueueFree();
 		}
 
-		PendingTasksLabel.Text = $"Задач в очереди: {TaskManager.PendingTasks.Count}";
-		RunningTasksLabel.Text = $"Задач запущено: {TaskManager.RunningTasks.Count}";
+		PendingTasksLabel.Text = $"Задач в очереди: {TaskManager.PendingTasks.Count} ({TaskManager.PendingTasks.Count(t => !t.IsVisible)} скрыто)";
+		RunningTasksLabel.Text = $"Задач запущено: {TaskManager.RunningTasks.Count} ({TaskManager.RunningTasks.Count(t => !t.IsVisible)} скрыто)";
 	}
 
 	public static double GetInstalledRamAmount()

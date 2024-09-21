@@ -386,7 +386,7 @@ theme_override_constants/separation = 5
 
 [node name="VersionName" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer"]
 layout_mode = 2
-text = "Сервер:"
+text = "Версия:"
 
 [node name="VersionLabel" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer"]
 layout_mode = 2

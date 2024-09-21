@@ -29,7 +29,7 @@ public partial class ServerStatusPanel : PanelContainer
 			DividerPanel.Visible = true;
 			SideContainer.Visible = true;
 
-			foreach (var playerName in ServerInfo.PlayerList)
+			foreach (var playerName in players)
 			{
 				var label = new Label();
 				label.Text = playerName;
