@@ -1,13 +1,13 @@
 [gd_scene load_steps=19 format=3 uid="uid://da7d5i2dqlnnr"]
 
-[ext_resource type="Script" path="res://src/Launcher/Main.cs" id="1_41ihv"]
+[ext_resource type="Script" path="res://src/Launcher/Nodes/Main.cs" id="1_41ihv"]
 [ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
 [ext_resource type="Texture2D" uid="uid://bprk4d7es37f8" path="res://assets/background.jpg" id="3_6ng3e"]
 [ext_resource type="Texture2D" uid="uid://0ibtr2oelyhf" path="res://assets/LOGO.png" id="4_piw32"]
 [ext_resource type="VideoStream" path="res://assets/bg-anim.ogv" id="4_wrtgj"]
 [ext_resource type="Texture2D" uid="uid://b1oil2p6xodyk" path="res://assets/cog.png" id="6_bn536"]
-[ext_resource type="Script" path="res://src/Launcher/ConfigContainer.cs" id="6_wnwpy"]
-[ext_resource type="Script" path="res://src/Launcher/ServerStatusPanel.cs" id="8_k5apl"]
+[ext_resource type="Script" path="res://src/Launcher/Nodes/ConfigContainer.cs" id="6_wnwpy"]
+[ext_resource type="Script" path="res://src/Launcher/Nodes/ServerStatusPanel.cs" id="8_k5apl"]
 
 [sub_resource type="Gradient" id="Gradient_na32n"]
 offsets = PackedFloat32Array(0.714286, 1)
