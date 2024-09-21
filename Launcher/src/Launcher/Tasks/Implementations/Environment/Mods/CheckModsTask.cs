@@ -68,11 +68,6 @@ public class CheckModsTask : LauncherTask
             _updateTasks.AddRange(_modsToDownload.Select(modName => new ModUpdateTask(modName, ModAction.Download).AfterTasks(backupTask)));
             _updateTasks.AddRange(_modsToUpdate.Select(modName => new ModUpdateTask(modName, ModAction.Update).AfterTasks(backupTask)));
         }
-
-        var configDl = new DownloadConfigsTask();
-        var configUnpack = new UnpackConfigsTask().AfterTasks(configDl);
-        
-        _updateTasks.AddRange([configDl, configUnpack]);
         
         return _updateTasks;
     }

@@ -3,6 +3,7 @@ using System;
 using BronuhMcBackend.Utils;
 using KludgeBox.VFS;
 using Launcher;
+using Tasks.Implementations;
 
 public partial class ConfigContainer : PanelContainer
 {
@@ -10,6 +11,7 @@ public partial class ConfigContainer : PanelContainer
 	[Export] public Button ConfigButton;
 	[Export] public Button OpenWorkingDirButton;
 	[Export] public Button OpenUserModsDirButton;
+	[Export] public Button ResetConfigButton; 
 
 	public float Width => Size.X;
 	public float RootWidth => RootControl.Size.X;
@@ -27,6 +29,12 @@ public partial class ConfigContainer : PanelContainer
 		ConfigButton.Toggled += OnToggled;
 		OpenWorkingDirButton.Pressed += () => OpenDir(OS.GetUserDataDir());
 		OpenUserModsDirButton.Pressed += () => OpenDir(Paths.UserModsDirPath.AsAbsolute());
+		ResetConfigButton.Pressed += () =>
+		{
+			var configDl = new DownloadConfigsTask();
+			var configUnpack = new UnpackConfigsTask().AfterTasks(configDl);
+			Main.TaskManager.AddTasks([configDl, configUnpack]);
+		};
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
