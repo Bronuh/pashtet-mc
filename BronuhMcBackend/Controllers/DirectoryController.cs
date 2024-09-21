@@ -58,6 +58,21 @@ public class DirectoryController : ControllerBase
         return NotFound("File not found");
     }
     
+    // GET: api/directory/text/{*filePath}
+    [HttpGet("text/{*filePath}")]
+    public IActionResult GetText(string filePath)
+    {
+        var fullPath = Path.Combine(_rootDirectory, filePath);
+
+        if (System.IO.File.Exists(fullPath))
+        {
+            var text = System.IO.File.ReadAllText(fullPath);
+            return Ok(text);
+        }
+
+        return NotFound("File not found");
+    }
+    
     // GET: api/directory/details/{*subPath}
     [HttpGet("details/{*subPath}")]
     public IActionResult DetailedFiles(string subPath = "")

@@ -17,3 +17,4 @@
 - `api/directory/fileinfo/{path}` - returns detailed info about specified file
 - `api/directory/tree/` - returns files tree, starting from root directory
 - `api/directory/tree/{path}` - returns files tree, starting from specified directory
+- `api/directory/text/{path}` - returns file contents as string
