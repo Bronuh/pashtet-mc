@@ -72,6 +72,21 @@ public class DirectoryController : ControllerBase
         return NotFound("Directory not found");
     }
     
+    // GET: api/directory/fileinfo/{*subPath}
+    [HttpGet("fileinfo/{*filePath}")]
+    public IActionResult FileInfo(string filePath = "")
+    {
+        var fullPath = Path.Combine(_rootDirectory, filePath);
+
+        if (System.IO.File.Exists(fullPath))
+        {
+            return Ok(GetFileInfo(fullPath));
+        }
+        
+        Console.WriteLine($"File not found: {fullPath} @ {Url}");
+        return NotFound("File not found");
+    }
+    
     // GET: api/directory/details
     [HttpGet("details")]
     public IActionResult DetailedFiles()
@@ -173,9 +188,13 @@ public class DirectoryController : ControllerBase
 
         // Calculate the file's checksum using xxHash64
         var checksum = CalculateFileChecksum(filePath);
+        var relativePath = Path.GetRelativePath(_rootDirectory, filePath);
+        var downloadLink = $"{Request.Scheme}://{Request.Host}{Url.Action("DownloadFile", new { filePath = relativePath })}";
         return new
         {
             Name = fileName,
+            RelativePath = relativePath,
+            DownloadLink = downloadLink,
             Checksum = checksum
         };
     }
