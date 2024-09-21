@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://dykxfs237d0wb"]
+
+[ext_resource type="Script" path="res://src/Launcher/Nodes/ConfigContainer.cs" id="1_tfe6i"]
+
+[node name="ConfigContainer" type="PanelContainer" node_paths=PackedStringArray("OpenWorkingDirButton", "OpenUserModsDirButton", "ResetConfigButton")]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_tfe6i")
+OpenWorkingDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenWorkingDirButton")
+OpenUserModsDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenUserModsDirButton")
+ResetConfigButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/ResetConfigButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="OpenWorkingDirButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Открыть рабочую папку"
+
+[node name="OpenUserModsDirButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Открыть папку с 
+пользовательскими модами"
+
+[node name="ResetConfigButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+self_modulate = Color(1, 0.47451, 0.415686, 1)
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+tooltip_text = "Заменит текущие настройки Minecraft настройками по умолчанию."
+text = "Сбросить настройки"
+
+[node name="ClearDownloadsButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+modulate = Color(1, 0.47451, 0.372549, 1)
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+tooltip_text = "Очистит папку downloads лаунчера, вызвав тем самым необходимость повторного скачивания Java и Minecraft."
+text = "Очистить скачанные файлы"
+
+[node name="ResetGameFilesButton" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+modulate = Color(1, 0.47451, 0.372549, 1)
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+tooltip_text = "Очистит папку downloads лаунчера, вызвав тем самым необходимость повторного скачивания Java и Minecraft."
+text = "Очистить скачанные файлы"

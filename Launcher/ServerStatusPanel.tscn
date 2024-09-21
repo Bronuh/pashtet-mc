@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh664vii3rc03"]
+
+[ext_resource type="Script" path="res://src/Launcher/Nodes/ServerStatusPanel.cs" id="1_hjddb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifund"]
+
+[node name="ServerStatusPanel" type="PanelContainer" node_paths=PackedStringArray("StatusContainer", "VersionContainer", "PingContainer", "PlayersCountContainer", "DividerPanel", "SideContainer", "PlayersContainer", "StatusLabel", "VersionLabel", "PingLabel", "PlayersCountLabel")]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_hjddb")
+StatusContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer")
+VersionContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer")
+PingContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer")
+PlayersCountContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer")
+DividerPanel = NodePath("MarginContainer/HBoxContainer/Panel")
+SideContainer = NodePath("MarginContainer/HBoxContainer/SideVBoxContainer2")
+PlayersContainer = NodePath("MarginContainer/HBoxContainer/SideVBoxContainer2/VBoxContainer")
+StatusLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer/StatusLabel")
+VersionLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer/VersionLabel")
+PingLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer/PingLabel")
+PlayersCountLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer/PlayersCountLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MainVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatusContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MainVBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="StatusName" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer"]
+layout_mode = 2
+text = "Сервер:"
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer"]
+layout_mode = 2
+text = "Онлайн"
+
+[node name="VersionContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MainVBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="VersionName" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer"]
+layout_mode = 2
+text = "Версия:"
+
+[node name="VersionLabel" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer"]
+layout_mode = 2
+text = "Онлайн"
+
+[node name="PingContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MainVBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PingName" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer"]
+layout_mode = 2
+text = "Задержка:"
+
+[node name="PingLabel" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer"]
+layout_mode = 2
+text = "XX ms"
+
+[node name="PlayersCountContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MainVBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PlayersCountName" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer"]
+layout_mode = 2
+text = "Игроков:"
+
+[node name="PlayersCountLabel" type="Label" parent="MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer"]
+layout_mode = 2
+text = "XX/YY"
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ifund")
+
+[node name="SideVBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PlayersList" type="Label" parent="MarginContainer/HBoxContainer/SideVBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Список игроков:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/SideVBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3

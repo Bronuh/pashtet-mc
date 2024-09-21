@@ -39,13 +39,11 @@ public partial class Main : Node
 		SettingsUtils.SaveSettings(Settings);
 
 		var prepareTask = new PrepareEnvironmentTask();
-		var serverInfoTask = new PingServerTask();
 		var jreTask = new PrepareJreTask().AfterTasks(prepareTask);
 		var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask);
-		var modsTask = new CheckModsTask().AfterTasks(minecraftTask);
-		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask, modsTask);
+		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask);
 		
-		TaskManager.AddTasks([prepareTask, serverInfoTask, jreTask, minecraftTask, modsTask, finishTask]);
+		TaskManager.AddTasks([prepareTask, jreTask, minecraftTask, finishTask]);
 	}
 	
 	public override void _Process(double delta)
@@ -124,13 +122,14 @@ public partial class Main : Node
 		}
 
 		GameIsRunning = true;
-
-		var deployMods = new DeployModpackTask();
+		
+		var modsTask = new CheckModsTask();
+		var deployMods = new DeployModpackTask().AfterTasks(modsTask);
 		var updateServers = new UpdateServersTask();
 		var deletePacks = new DeleteServerResourcepackTask();
 		var run = new RunMinecraftTask().AfterTasks(deployMods, updateServers, deletePacks);
 		
-		TaskManager.AddTasks([deployMods, updateServers, deletePacks, run]);
+		TaskManager.AddTasks([modsTask, deployMods, updateServers, deletePacks, run]);
 	}
 
 	private void UpdatePlayerName(string name)

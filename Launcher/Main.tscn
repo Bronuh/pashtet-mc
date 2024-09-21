@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://da7d5i2dqlnnr"]
+[gd_scene load_steps=18 format=3 uid="uid://da7d5i2dqlnnr"]
 
 [ext_resource type="Script" path="res://src/Launcher/Nodes/Main.cs" id="1_41ihv"]
 [ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://0ibtr2oelyhf" path="res://assets/LOGO.png" id="4_piw32"]
 [ext_resource type="VideoStream" path="res://assets/bg-anim.ogv" id="4_wrtgj"]
 [ext_resource type="Texture2D" uid="uid://b1oil2p6xodyk" path="res://assets/cog.png" id="6_bn536"]
-[ext_resource type="Script" path="res://src/Launcher/Nodes/ConfigContainer.cs" id="6_wnwpy"]
-[ext_resource type="Script" path="res://src/Launcher/Nodes/ServerStatusPanel.cs" id="8_k5apl"]
+[ext_resource type="PackedScene" uid="uid://dykxfs237d0wb" path="res://ConfigContainer.tscn" id="6_w6vl0"]
+[ext_resource type="PackedScene" uid="uid://dh664vii3rc03" path="res://ServerStatusPanel.tscn" id="8_spb00"]
 
 [sub_resource type="Gradient" id="Gradient_na32n"]
 offsets = PackedFloat32Array(0.714286, 1)
@@ -47,19 +47,16 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ifund"]
-
-[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel")]
+[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer")]
 script = ExtResource("1_41ihv")
-PlayerNameTextBox = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
-RunningTasksLabel = NodePath("Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer/Label")
-PendingTasksLabel = NodePath("Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer/Label")
-RamLabel = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamLabel")
-RunButton = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/RunButton")
-RamSlider = NodePath("Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamSlider")
-RunningTasksContainer = NodePath("Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
-PendingTasksContainer = NodePath("Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
-ConfigPanel = NodePath("Canvas/Ui/ConfigContainer")
+PlayerNameTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
+RunningTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer/Label")
+PendingTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer/Label")
+RamLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamLabel")
+RunButton = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/RunButton")
+RamSlider = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamSlider")
+RunningTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
+PendingTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
 TaskTrackerScene = ExtResource("2_2ek23")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
@@ -114,7 +111,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_cyun3")
 
-[node name="Ui" type="Control" parent="Canvas"]
+[node name="UiRootControl" type="Control" parent="Canvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,7 +119,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui"]
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/UiRootControl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -140,23 +137,23 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="MainVBox" type="VBoxContainer" parent="Canvas/Ui/MarginContainer"]
+[node name="MainVBox" type="VBoxContainer" parent="Canvas/UiRootControl/MarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Canvas/Ui/MarginContainer/MainVBox"]
+[node name="TextureRect" type="TextureRect" parent="Canvas/UiRootControl/MarginContainer/MainVBox"]
 layout_mode = 2
 texture = ExtResource("4_piw32")
 
-[node name="CenterContainer" type="CenterContainer" parent="Canvas/Ui/MarginContainer/MainVBox"]
+[node name="CenterContainer" type="CenterContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_pj5hx")
 
-[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -164,155 +161,119 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="InputVBox" type="VBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="InputVBox" type="VBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_constants/separation = 15
 
-[node name="NameLine" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
+[node name="NameLine" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine"]
+[node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine"]
 layout_mode = 2
 text = "Имя игрока: "
 
-[node name="NameBox" type="LineEdit" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine"]
+[node name="NameBox" type="LineEdit" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NameLine2" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
+[node name="NameLine2" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+[node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
 layout_mode = 2
 text = "Оперативная память:  "
 
-[node name="RamSlider" type="HSlider" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+[node name="RamSlider" type="HSlider" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 value = 1.0
 
-[node name="RamLabel" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+[node name="RamLabel" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = " RAM: XX.X / YY.Y Gb"
 
-[node name="RunButton" type="Button" parent="Canvas/Ui/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="RunButton" type="Button" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "ЛОМАТЬ"
 
-[node name="TasksHBox" type="HBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox"]
+[node name="TasksHBox" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="RunningPanel" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox"]
+[node name="RunningPanel" type="PanelContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_jpxdq")
 
-[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="RunningScroll" type="ScrollContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer"]
+[node name="RunningScroll" type="ScrollContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 
-[node name="RunningTasksContainer" type="VBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll"]
+[node name="RunningTasksContainer" type="VBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer"]
+[node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer"]
 layout_mode = 2
 text = "Запущенные задачи"
 
-[node name="PendingPanel" type="PanelContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox"]
+[node name="PendingPanel" type="PanelContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_mwp3r")
 
-[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PendingScroll" type="ScrollContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer"]
+[node name="PendingScroll" type="ScrollContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 
-[node name="PendingTasksContainer" type="VBoxContainer" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll"]
+[node name="PendingTasksContainer" type="VBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Canvas/Ui/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer"]
+[node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer"]
 layout_mode = 2
 text = "Очередь задач"
 
-[node name="ConfigContainer" type="PanelContainer" parent="Canvas/Ui" node_paths=PackedStringArray("RootControl", "ConfigButton", "OpenWorkingDirButton", "OpenUserModsDirButton")]
+[node name="ConfigContainer" parent="Canvas/UiRootControl" node_paths=PackedStringArray("RootControl", "ConfigButton") instance=ExtResource("6_w6vl0")]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("6_wnwpy")
+offset_left = -358.0
 RootControl = NodePath("..")
 ConfigButton = NodePath("../OuterMarginContainer/ConfigButton")
-OpenWorkingDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenWorkingDirButton")
-OpenUserModsDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenUserModsDirButton")
 
-[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/ConfigContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Canvas/Ui/ConfigContainer/MarginContainer"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/Ui/ConfigContainer/MarginContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-
-[node name="OpenWorkingDirButton" type="Button" parent="Canvas/Ui/ConfigContainer/MarginContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "Открыть рабочую папку"
-
-[node name="OpenUserModsDirButton" type="Button" parent="Canvas/Ui/ConfigContainer/MarginContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-text = "Открыть папку с 
-пользовательскими модами"
-
-[node name="OuterMarginContainer" type="MarginContainer" parent="Canvas/Ui"]
+[node name="OuterMarginContainer" type="MarginContainer" parent="Canvas/UiRootControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -325,7 +286,7 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="ConfigButton" type="Button" parent="Canvas/Ui/OuterMarginContainer"]
+[node name="ConfigButton" type="Button" parent="Canvas/UiRootControl/OuterMarginContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -337,99 +298,5 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_1nymx")
 theme_override_styles/normal = SubResource("StyleBoxTexture_hli4v")
 toggle_mode = true
 
-[node name="ServerStatusPanel" type="PanelContainer" parent="Canvas/Ui/OuterMarginContainer" node_paths=PackedStringArray("StatusContainer", "VersionContainer", "PingContainer", "PlayersCountContainer", "DividerPanel", "SideContainer", "PlayersContainer", "StatusLabel", "VersionLabel", "PingLabel", "PlayersCountLabel")]
+[node name="ServerStatusPanel" parent="Canvas/UiRootControl/OuterMarginContainer" instance=ExtResource("8_spb00")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-script = ExtResource("8_k5apl")
-StatusContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer")
-VersionContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer")
-PingContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer")
-PlayersCountContainer = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer")
-DividerPanel = NodePath("MarginContainer/HBoxContainer/Panel")
-SideContainer = NodePath("MarginContainer/HBoxContainer/SideVBoxContainer2")
-PlayersContainer = NodePath("MarginContainer/HBoxContainer/SideVBoxContainer2/VBoxContainer")
-StatusLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer/StatusLabel")
-VersionLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer/VersionLabel")
-PingLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer/PingLabel")
-PlayersCountLabel = NodePath("MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer/PlayersCountLabel")
-
-[node name="MarginContainer" type="MarginContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="MainVBoxContainer" type="VBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="StatusContainer" type="HBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="StatusName" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer"]
-layout_mode = 2
-text = "Сервер:"
-
-[node name="StatusLabel" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/StatusContainer"]
-layout_mode = 2
-text = "Онлайн"
-
-[node name="VersionContainer" type="HBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="VersionName" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer"]
-layout_mode = 2
-text = "Версия:"
-
-[node name="VersionLabel" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/VersionContainer"]
-layout_mode = 2
-text = "Онлайн"
-
-[node name="PingContainer" type="HBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="PingName" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer"]
-layout_mode = 2
-text = "Задержка:"
-
-[node name="PingLabel" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/PingContainer"]
-layout_mode = 2
-text = "XX ms"
-
-[node name="PlayersCountContainer" type="HBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="PlayersCountName" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer"]
-layout_mode = 2
-text = "Игроков:"
-
-[node name="PlayersCountLabel" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/MainVBoxContainer/PlayersCountContainer"]
-layout_mode = 2
-text = "XX/YY"
-
-[node name="Panel" type="Panel" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(2, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ifund")
-
-[node name="SideVBoxContainer2" type="VBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="PlayersList" type="Label" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/SideVBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "Список игроков:"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/Ui/OuterMarginContainer/ServerStatusPanel/MarginContainer/HBoxContainer/SideVBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
