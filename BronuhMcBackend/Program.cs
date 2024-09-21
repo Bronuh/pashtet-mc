@@ -17,6 +17,7 @@ public class Program
         builder.Services.Configure<DirectorySettings>(builder.Configuration.GetSection("DirectorySettings"));
         builder.Services.AddSingleton<FilesystemContext>();
         builder.Services.AddSingleton<ILogger>(logger);
+        builder.Services.AddSingleton<PasswordHasher>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

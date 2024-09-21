@@ -33,6 +33,8 @@ public sealed class FilesystemContext
     public string LauncherDirPath => LauncherDirName;
     public string NewsFilePath => NewsFileName;
     
+    public string AuthDirPath => Path.Combine("auth");
+    
     public string RootPath { get; private set; }
     
     private ILogger _logger;
