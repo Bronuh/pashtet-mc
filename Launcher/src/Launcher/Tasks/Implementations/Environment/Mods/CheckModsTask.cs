@@ -58,7 +58,7 @@ public class CheckModsTask : LauncherTask
 
     record ModInfo(string name, string relativePath, string checksum);
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         if (_modsToRemove.Any() || _modsToUpdate.Any() || _modsToDownload.Any())
         {

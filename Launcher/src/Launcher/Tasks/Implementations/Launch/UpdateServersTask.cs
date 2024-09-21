@@ -24,7 +24,7 @@ public class UpdateServersTask : LauncherTask
         await _dlTask.RunAsync();
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return null;
     }

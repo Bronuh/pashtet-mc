@@ -7,6 +7,7 @@ using CmlLib.Core.ProcessBuilder;
 using KludgeBox.Scheduling;
 using Launcher;
 using Tasks.Implementations;
+using Tasks.Implementations.Info;
 using TaskState = Tasks.TaskState;
 
 public partial class Main : Node
@@ -38,12 +39,13 @@ public partial class Main : Node
 		SettingsUtils.SaveSettings(Settings);
 
 		var prepareTask = new PrepareEnvironmentTask();
+		var serverInfoTask = new PingServerTask();
 		var jreTask = new PrepareJreTask().AfterTasks(prepareTask);
 		var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask);
 		var modsTask = new CheckModsTask().AfterTasks(minecraftTask);
 		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask, modsTask);
 		
-		TaskManager.AddTasks([prepareTask, jreTask, minecraftTask, modsTask, finishTask]);
+		TaskManager.AddTasks([prepareTask, serverInfoTask, jreTask, minecraftTask, modsTask, finishTask]);
 	}
 	
 	public override void _Process(double delta)

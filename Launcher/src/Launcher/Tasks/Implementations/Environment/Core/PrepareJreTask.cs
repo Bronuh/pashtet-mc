@@ -26,7 +26,7 @@ public class PrepareJreTask : LauncherTask
         _nextTask = new DownloadJreTask();
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return [_nextTask];
     }

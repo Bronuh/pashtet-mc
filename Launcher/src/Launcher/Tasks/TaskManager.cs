@@ -59,7 +59,7 @@ public class TaskManager
             
                 foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))
                 {
-                    var newTasks = finishedTask.GetNextTasks();
+                    var newTasks = finishedTask.OnTaskFinished();
                     if (newTasks is not null)
                     {
                         foreach (var newTask in newTasks)

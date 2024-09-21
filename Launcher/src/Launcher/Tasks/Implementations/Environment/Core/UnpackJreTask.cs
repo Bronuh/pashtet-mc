@@ -26,7 +26,7 @@ public class UnpackJreTask : LauncherTask
         await _unpackTask.RunAsync();
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return null;
     }

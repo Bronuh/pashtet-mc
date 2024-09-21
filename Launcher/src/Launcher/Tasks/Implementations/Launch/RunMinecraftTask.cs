@@ -21,7 +21,7 @@ public class RunMinecraftTask : LauncherTask
         await launcher.Run();
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         Main.GameIsRunning = false;
         return null;

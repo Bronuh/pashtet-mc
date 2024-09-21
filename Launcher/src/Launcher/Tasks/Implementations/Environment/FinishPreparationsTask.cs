@@ -10,7 +10,7 @@ public class FinishPreparationsTask : LauncherTask
         Main.Instance.RunButton.Disabled = false;
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return null;
     }

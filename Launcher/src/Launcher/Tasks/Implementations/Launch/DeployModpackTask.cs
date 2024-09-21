@@ -46,7 +46,7 @@ public class DeployModpackTask : LauncherTask
         return modsToDeploy;
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return null;
     }

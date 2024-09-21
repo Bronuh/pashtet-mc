@@ -19,6 +19,7 @@ public abstract class LauncherTask
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
 
+    public bool IsCancelled { get; set; }
     public static bool DoThrow { get; set; } = false;
     
     public bool IsBranchFinished => State == TaskState.Finished && ChildrenTasks.All(task => task.IsBranchFinished);
@@ -133,8 +134,16 @@ public abstract class LauncherTask
     
     protected abstract Task Start();
 
-    public abstract IEnumerable<LauncherTask> GetNextTasks();
+    /// <summary>
+    /// Runs finishing logic
+    /// </summary>
+    /// <returns>Next tasks to perform</returns>
+    public abstract IEnumerable<LauncherTask> OnTaskFinished();
 
+    /// <summary>
+    /// Counts a current task generation. Every task returned from <see cref="OnTaskFinished"/> has incremented task generation.
+    /// </summary>
+    /// <returns></returns>
     public int GetTaskGeneration()
     {
         if (ParentTask is null)

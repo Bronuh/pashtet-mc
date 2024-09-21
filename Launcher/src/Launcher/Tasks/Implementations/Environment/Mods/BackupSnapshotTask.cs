@@ -23,7 +23,7 @@ public class BackupSnapshotTask : LauncherTask
         await _directoryCopyTask.Run();
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return null;
     }

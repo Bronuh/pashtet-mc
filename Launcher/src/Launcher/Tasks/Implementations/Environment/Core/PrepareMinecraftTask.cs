@@ -28,7 +28,7 @@ public class PrepareMinecraftTask : LauncherTask
         _nextTask = new DownloadMinecraftTask();
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return [_nextTask];
     }

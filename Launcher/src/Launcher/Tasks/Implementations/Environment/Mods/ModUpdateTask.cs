@@ -60,7 +60,7 @@ public class ModUpdateTask : LauncherTask
         }
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return null;
     }

@@ -26,7 +26,7 @@ public class PrepareEnvironmentTask : LauncherTask
         Directory.CreateDirectory(Paths.UserConfigDirPath.AsAbsolute());
     }
 
-    public override IEnumerable<LauncherTask> GetNextTasks()
+    public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         return null;
     }
