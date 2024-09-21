@@ -174,7 +174,6 @@ public class DirectoryController : ControllerBase
     private object ListDetailedFiles(string dirPath)
     {
         var files = Directory.GetFiles(dirPath);
-        Url.Action("DownloadFile", new { filePath = dirPath });
         return new
         {
             Files = files.Select(GetFileInfo)
