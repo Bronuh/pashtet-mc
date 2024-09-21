@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 using BronuhMcBackend.Utils;
 using KludgeBox.VFS;
 using Launcher;
@@ -11,7 +12,9 @@ public partial class ConfigContainer : PanelContainer
 	[Export] public Button ConfigButton;
 	[Export] public Button OpenWorkingDirButton;
 	[Export] public Button OpenUserModsDirButton;
-	[Export] public Button ResetConfigButton; 
+	[Export] public Button ResetConfigButton;
+	[Export] public Button ClearDownloadsButton;
+	[Export] public Button ResetGameFilesButton;
 
 	public float Width => Size.X;
 	public float RootWidth => RootControl.Size.X;
@@ -34,6 +37,30 @@ public partial class ConfigContainer : PanelContainer
 			var configDl = new DownloadConfigsTask();
 			var configUnpack = new UnpackConfigsTask().AfterTasks(configDl);
 			Main.TaskManager.AddTasks([configDl, configUnpack]);
+		};
+		ClearDownloadsButton.Pressed += () =>
+		{
+			Directory.Delete(Paths.DownloadsDirPath.AsAbsolute(), true);
+		};
+		
+		ResetGameFilesButton.Pressed += () =>
+		{
+			Directory.CreateDirectory(Paths.JreDirPath.AsAbsolute());
+			Directory.CreateDirectory(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "assets"));
+			Directory.CreateDirectory(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "libraries"));
+			Directory.CreateDirectory(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "versions"));
+			
+			Directory.Delete(Paths.JreDirPath.AsAbsolute(), true);
+			Directory.Delete(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "assets"));
+			Directory.Delete(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "libraries"));
+			Directory.Delete(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "versions"));
+			
+			var prepareTask = new PrepareEnvironmentTask();
+			var jreTask = new PrepareJreTask().AfterTasks(prepareTask);
+			var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask);
+			var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask);
+		
+			Main.TaskManager.AddTasks([prepareTask, jreTask, minecraftTask, finishTask]);
 		};
 	}
 

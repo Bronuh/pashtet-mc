@@ -39,11 +39,12 @@ public partial class Main : Node
 		SettingsUtils.SaveSettings(Settings);
 
 		var prepareTask = new PrepareEnvironmentTask();
+		var serverCheckTask = new PingServerTask();
 		var jreTask = new PrepareJreTask().AfterTasks(prepareTask);
 		var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask);
 		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask);
 		
-		TaskManager.AddTasks([prepareTask, jreTask, minecraftTask, finishTask]);
+		TaskManager.AddTasks([serverCheckTask, prepareTask, jreTask, minecraftTask, finishTask]);
 	}
 	
 	public override void _Process(double delta)

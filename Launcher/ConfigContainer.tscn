@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/Launcher/Nodes/ConfigContainer.cs" id="1_tfe6i"]
 
-[node name="ConfigContainer" type="PanelContainer" node_paths=PackedStringArray("OpenWorkingDirButton", "OpenUserModsDirButton", "ResetConfigButton")]
+[node name="ConfigContainer" type="PanelContainer" node_paths=PackedStringArray("OpenWorkingDirButton", "OpenUserModsDirButton", "ResetConfigButton", "ClearDownloadsButton", "ResetGameFilesButton")]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -13,6 +13,8 @@ script = ExtResource("1_tfe6i")
 OpenWorkingDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenWorkingDirButton")
 OpenUserModsDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenUserModsDirButton")
 ResetConfigButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/ResetConfigButton")
+ClearDownloadsButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/ClearDownloadsButton")
+ResetGameFilesButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/ResetGameFilesButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -60,5 +62,5 @@ text = "Очистить скачанные файлы"
 modulate = Color(1, 0.47451, 0.372549, 1)
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-tooltip_text = "Очистит папку downloads лаунчера, вызвав тем самым необходимость повторного скачивания Java и Minecraft."
-text = "Очистить скачанные файлы"
+tooltip_text = "Удалит текущую версию Java и базовые файлы Minecraft. После этого лаунчер попытается переустановить их."
+text = "Сбросить файлы ядра"
