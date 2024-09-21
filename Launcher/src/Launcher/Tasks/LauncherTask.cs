@@ -88,7 +88,7 @@ public abstract class LauncherTask
         StartTime = DateTime.Now;
         try
         {
-            Log.Info($"Running task {Name}");
+            Log.Info($"Выполняется задача: {Name}");
             await Start();
         }
         catch (Exception e)
@@ -99,10 +99,10 @@ public abstract class LauncherTask
             }
             else
             {
-                Log.Error($"Error while running task: {Name} {e.Message}\n{e}");
+                Log.Error($"Ошибка при выполнении задачи:: {Name} {e.Message}\n{e}");
             }
         }
-        Log.Info($"Finished task {Name}");
+        Log.Info($"Завершена задача: {Name}");
         EndTime = DateTime.Now;
         State = TaskState.Finished;
     }

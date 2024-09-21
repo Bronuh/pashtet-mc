@@ -13,6 +13,7 @@ public static class VectorExtensions
     /// Returns a Vector2 instance with specified x and y values.
     /// </summary>
     public static Vector2 Vec(real x, real y) { return new Vector2(x, y); }
+    public static Vector2 Vec(altreal x, altreal y) { return new Vector2((real)x, (real)y); }
     
     /// <summary>
     /// Returns a Vector2 instance with specified x and y values.
@@ -23,6 +24,7 @@ public static class VectorExtensions
     /// Returns a Vector2 instance with all values set to the specified value.
     /// </summary>
     public static Vector2 Vec(real xy) { return new Vector2(xy, xy); }
+    public static Vector2 Vec(altreal xy) { return new Vector2((real)xy, (real)xy); }
 
     /// <summary>
     /// Returns a Vector2 instance with all values set to zero.

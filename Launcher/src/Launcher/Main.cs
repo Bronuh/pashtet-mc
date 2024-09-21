@@ -18,13 +18,15 @@ public partial class Main : Node
 	public static bool GameIsRunning { get; set; } = false;
 
 	[Export] public LineEdit PlayerNameTextBox;
-	[Export] public HSlider RamSlider;
-	[Export] public Button RunButton;
+	[Export] public Label RunningTasksLabel;
+	[Export] public Label PendingTasksLabel;
 	[Export] public Label RamLabel;
-	[Export] public PackedScene TaskTrackerScene;
-
+	[Export] public Button RunButton;
+	[Export] public HSlider RamSlider;
 	[Export] public VBoxContainer RunningTasksContainer;
 	[Export] public VBoxContainer PendingTasksContainer;
+	[Export] public PanelContainer ConfigPanel;
+	[Export] public PackedScene TaskTrackerScene;
 	
 	public override void _Ready()
 	{
@@ -36,7 +38,12 @@ public partial class Main : Node
 		SettingsUtils.SaveSettings(Settings);
 
 		var prepareTask = new PrepareEnvironmentTask();
-		TaskManager.AddTask(prepareTask);
+		var jreTask = new PrepareJreTask().AfterTasks(prepareTask);
+		var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask);
+		var modsTask = new CheckModsTask().AfterTasks(minecraftTask);
+		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask, modsTask);
+		
+		TaskManager.AddTasks([prepareTask, jreTask, minecraftTask, modsTask, finishTask]);
 	}
 	
 	public override void _Process(double delta)
@@ -74,6 +81,9 @@ public partial class Main : Node
 		{
 			taskTracker.QueueFree();
 		}
+
+		PendingTasksLabel.Text = $"Задач в очереди: {TaskManager.PendingTasks.Count}";
+		RunningTasksLabel.Text = $"Задач запущено: {TaskManager.RunningTasks.Count}";
 	}
 
 	public static double GetInstalledRamAmount()

@@ -28,11 +28,6 @@ public class PrepareEnvironmentTask : LauncherTask
 
     public override IEnumerable<LauncherTask> GetNextTasks()
     {
-        var jreTask = new PrepareJreTask();
-        var minecraftTask = new PrepareMinecraftTask();
-        var modsTask = new CheckModsTask().AfterTasks(minecraftTask);
-        var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask, modsTask);
-        
-        return [jreTask, minecraftTask, modsTask, finishTask];
+        return null;
     }
 }
