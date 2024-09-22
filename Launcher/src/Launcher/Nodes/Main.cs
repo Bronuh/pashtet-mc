@@ -125,10 +125,10 @@ public partial class Main : Node
 		GameIsRunning = true;
 		
 		var modsTask = new CheckModsTask();
-		var deployMods = new DeployModpackTask().AfterTasks(modsTask);
 		var updateServers = new UpdateServersTask();
 		var deletePacks = new DeleteServerResourcepackTask();
-		var run = new RunMinecraftTask().AfterTasks(deployMods, updateServers, deletePacks);
+		var deployMods = new DeployModpackTask().AfterTasks(modsTask);
+		var run = new RunMinecraftTask().AfterTasks(modsTask, deployMods, updateServers, deletePacks);
 		
 		TaskManager.AddTasks([modsTask, deployMods, updateServers, deletePacks, run]);
 	}

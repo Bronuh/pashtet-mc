@@ -49,14 +49,6 @@ public class TaskManager
         {
             if (PendingTasks.Any() || RunningTasks.Any())
             {
-                if (RunningTasks.Count(t => t.TakingSlot) < WorkersCount && ReadyToRunTasks.Any())
-                {
-                    var runningTask = ReadyToRunTasks.First();
-                    PendingTasks.Remove(runningTask);
-                    RunningTasks.Add(runningTask);
-                    _ = runningTask.Run();
-                }
-            
                 foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))
                 {
                     var newTasks = finishedTask.OnTaskFinished();
@@ -74,6 +66,14 @@ public class TaskManager
                     }
                 }
 
+                if (RunningTasks.Count(t => t.TakingSlot) < WorkersCount && ReadyToRunTasks.Any())
+                {
+                    var runningTask = ReadyToRunTasks.First();
+                    PendingTasks.Remove(runningTask);
+                    RunningTasks.Add(runningTask);
+                    _ = runningTask.Run();
+                }
+            
                 UnfinishedTasks.RemoveAll(task => task.IsBranchFinished);
 
                 RunningTasks.RemoveAll(t => t.State == TaskState.Finished);

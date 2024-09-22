@@ -47,7 +47,7 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer")]
+[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel")]
 script = ExtResource("1_41ihv")
 PlayerNameTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
 RunningTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer/Label")
@@ -57,6 +57,7 @@ RunButton = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContai
 RamSlider = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamSlider")
 RunningTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
 PendingTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
+ConfigPanel = NodePath("Canvas/UiRootControl/ConfigContainer")
 TaskTrackerScene = ExtResource("2_2ek23")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
