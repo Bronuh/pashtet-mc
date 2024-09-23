@@ -19,7 +19,7 @@ public class PrepareMinecraftTask : LauncherTask
             return;
         }
         
-        if (File.Exists(Paths.JreFileName.AsAbsolute()))
+        if (File.Exists(Paths.MinecraftZipPath.AsAbsolute()))
         {
             _nextTask = new UnpackMinecraftTask();
             return;

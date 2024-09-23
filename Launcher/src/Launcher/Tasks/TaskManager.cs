@@ -7,7 +7,8 @@ public class TaskManager
 {
     public bool IsWorking { get; private set; } = false;
     public List<LauncherTask> PendingTasks { get; private set; } = new ();
-    public IEnumerable<LauncherTask> ReadyToRunTasks => PendingTasks.Where(task => task.CanRun && task.State is not TaskState.Finished and not TaskState.Started);
+    public IEnumerable<LauncherTask> ReadyToRunTasks => PendingTasks.Where(task => task.CanRun 
+        && task.State is not (TaskState.Finished or TaskState.Finalized) and not TaskState.Started);
     
     public List<LauncherTask> UnfinishedTasks { get; private set; } = new ();
     
@@ -49,6 +50,14 @@ public class TaskManager
         {
             if (PendingTasks.Any() || RunningTasks.Any())
             {
+                if (RunningTasks.Count(t => t.TakingSlot) < WorkersCount && ReadyToRunTasks.Any())
+                {
+                    var runningTask = ReadyToRunTasks.First();
+                    PendingTasks.Remove(runningTask);
+                    RunningTasks.Add(runningTask);
+                    _ = runningTask.Run();
+                }
+                
                 foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))
                 {
                     var newTasks = finishedTask.OnTaskFinished();
@@ -64,19 +73,13 @@ public class TaskManager
                             }
                         }
                     }
-                }
 
-                if (RunningTasks.Count(t => t.TakingSlot) < WorkersCount && ReadyToRunTasks.Any())
-                {
-                    var runningTask = ReadyToRunTasks.First();
-                    PendingTasks.Remove(runningTask);
-                    RunningTasks.Add(runningTask);
-                    _ = runningTask.Run();
+                    finishedTask.State = TaskState.Finalized;
                 }
             
                 UnfinishedTasks.RemoveAll(task => task.IsBranchFinished);
 
-                RunningTasks.RemoveAll(t => t.State == TaskState.Finished);
+                RunningTasks.RemoveAll(t => t.IsTaskFinished);
             }
             yield return Wait.ForNextTick();
         }

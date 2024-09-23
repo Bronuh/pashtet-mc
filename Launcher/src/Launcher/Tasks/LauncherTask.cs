@@ -8,21 +8,38 @@ public enum TaskState
 {
     Pending,
     Started,
-    Finished
+    Finished,
+    
+    /// <summary>
+    /// OnTaskFinished was called
+    /// </summary>
+    Finalized
 }
 public abstract class LauncherTask
 {
+    private TaskState _state;
+
     /// <summary>
     /// Current task state
     /// </summary>
-    public TaskState State { get; set; }
+    public TaskState State
+    {
+        get => _state;
+        set
+        {
+            _state = value;
+        }
+    }
+
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
 
     public bool IsCancelled { get; set; }
     public static bool DoThrow { get; set; } = false;
     
-    public bool IsBranchFinished => State == TaskState.Finished && ChildrenTasks.All(task => task.IsBranchFinished);
+    public bool IsBranchFinished => IsTaskFinalized && ChildrenTasks.All(task => task.IsBranchFinished);
+    public bool IsTaskFinished => State is TaskState.Finished or TaskState.Finalized;
+    public bool IsTaskFinalized => State is TaskState.Finalized;
     
     public bool IsVisible { get; set; } = true;
     public bool TakingSlot { get; set; } = true;
@@ -38,6 +55,7 @@ public abstract class LauncherTask
                 TaskState.Pending => TimeSpan.Zero,
                 TaskState.Started => DateTime.Now - StartTime,
                 TaskState.Finished => EndTime - StartTime,
+                TaskState.Finalized => EndTime - StartTime,
                 _ => throw new ArgumentOutOfRangeException()
             };
 
