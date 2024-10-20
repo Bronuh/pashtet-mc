@@ -52,9 +52,9 @@ script = ExtResource("1_41ihv")
 PlayerNameTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
 RunningTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer/Label")
 PendingTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer/Label")
-RamLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamLabel")
+RamLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine/RamLabel")
 RunButton = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/RunButton")
-RamSlider = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2/RamSlider")
+RamSlider = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine/RamSlider")
 RunningTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
 PendingTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
 ConfigPanel = NodePath("Canvas/UiRootControl/ConfigContainer")
@@ -184,21 +184,34 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NameLine2" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
+[node name="PasswordLine" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+[node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/PasswordLine"]
+layout_mode = 2
+text = "Пароль:           "
+
+[node name="PasswordBox" type="LineEdit" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/PasswordLine"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+secret = true
+
+[node name="RamLine" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine"]
 layout_mode = 2
 text = "Оперативная память:  "
 
-[node name="RamSlider" type="HSlider" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+[node name="RamSlider" type="HSlider" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 value = 1.0
 
-[node name="RamLabel" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine2"]
+[node name="RamLabel" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = " RAM: XX.X / YY.Y Gb"

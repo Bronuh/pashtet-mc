@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace BronuhMcBackend.Utils;
+namespace BhCommon;
 
 public sealed class PasswordHasher
 {

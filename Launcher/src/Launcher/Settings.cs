@@ -9,11 +9,13 @@ public sealed class Settings
 {
     public double MaxRam;
     public string PlayerName;
+    public string Password;
 
     public Settings()
     {
         MaxRam = Main.GetInstalledRamAmount() / 2;
         PlayerName = $"{(new string[] {"Biba", "Boba", "Afafaf", "Mingebag", "Aboba", "Oof"}).GetRandom()}{Rand.Int}";
+        Password = "";
     }
 }
 

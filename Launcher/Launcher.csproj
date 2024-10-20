@@ -12,6 +12,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.IO.Hashing" Version="8.0.0" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\BhCommon\BhCommon.csproj" />
+  </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <ItemGroup>

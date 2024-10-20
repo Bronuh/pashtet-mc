@@ -19,6 +19,7 @@ public partial class Main : Node
 	public static bool GameIsRunning { get; set; } = false;
 
 	[Export] public LineEdit PlayerNameTextBox;
+	[Export] public LineEdit PasswordTextBox;
 	[Export] public Label RunningTasksLabel;
 	[Export] public Label PendingTasksLabel;
 	[Export] public Label RamLabel;
@@ -105,6 +106,9 @@ public partial class Main : Node
 		PlayerNameTextBox.TextChanged += UpdatePlayerName;
 		PlayerNameTextBox.Text = Settings.PlayerName;
 		
+		PasswordTextBox.TextChanged += UpdatePlayerName;
+		PasswordTextBox.Text = Settings.Password;
+		
 		RamSlider.MinValue = 1;
 		RamSlider.MaxValue = GetInstalledRamAmount();
 		RamSlider.ValueChanged += UpdateRam;
@@ -134,6 +138,12 @@ public partial class Main : Node
 	}
 
 	private void UpdatePlayerName(string name)
+	{
+		Settings.PlayerName = name;
+		SaveSettings();
+	}
+	
+	private void UpdatePassword(string name)
 	{
 		Settings.PlayerName = name;
 		SaveSettings();

@@ -64,3 +64,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 tooltip_text = "Удалит текущую версию Java и базовые файлы Minecraft. После этого лаунчер попытается переустановить их."
 text = "Сбросить файлы ядра"
+
+[node name="HashedPassword" type="LineEdit" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+editable = false

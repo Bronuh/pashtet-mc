@@ -15,6 +15,7 @@ public partial class ConfigContainer : PanelContainer
 	[Export] public Button ResetConfigButton;
 	[Export] public Button ClearDownloadsButton;
 	[Export] public Button ResetGameFilesButton;
+	[Export] public LineEdit PasswordHashEdit;
 
 	public float Width => Size.X;
 	public float RootWidth => RootControl.Size.X;

@@ -1,4 +1,5 @@
-﻿using BronuhMcBackend.Utils;
+﻿using BhCommon;
+using BronuhMcBackend.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BronuhMcBackend.Controllers;
@@ -41,11 +42,11 @@ public class AuthController : ControllerBase
 
         if (isPassValid)
         {
-            return Ok("ok");
+            return Ok("true");
         }
         else
         {
-            return Unauthorized("failed");
+            return Unauthorized("false");
         }
     }
     
