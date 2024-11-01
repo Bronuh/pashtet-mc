@@ -20,10 +20,32 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+      <Content Remove="Controllers-Legacy\**" />
+      <Content Remove="Models-Legacy\**" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Common\Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Controllers-Legacy\**" />
+      <Compile Remove="Models-Legacy\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Controllers-Legacy\**" />
+      <EmbeddedResource Remove="Models-Legacy\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Controllers-Legacy\**" />
+      <None Remove="Models-Legacy\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+      <Folder Include="Models\" />
     </ItemGroup>
 
 </Project>
