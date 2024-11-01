@@ -1,6 +1,8 @@
 using BronuhMcBackend.Models;
 using BronuhMcBackend.Models.Api;
 using BronuhMcBackend.Utils;
+using Common;
+using Common.IO.Checksum;
 using Common.Password;
 
 namespace BronuhMcBackend;
@@ -14,7 +16,8 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllers();
         builder.Services.AddAuthorization();
-        builder.Services.AddSingleton<IPasswordHasher, Rfc2898PasswordHasher>();
+        builder.Services.AddSingleton<IPasswordHasher>(DefaultServices.PasswordHasher);
+        builder.Services.AddSingleton<IChecksumProvider>(DefaultServices.ChecksumProvider);
         builder.Services.AddSingleton<IApiProvider, DefaultApiProvider>();
         
         var app = builder.Build();
