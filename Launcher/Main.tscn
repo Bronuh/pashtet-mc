@@ -185,6 +185,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="PasswordLine" type="HBoxContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/PasswordLine"]
