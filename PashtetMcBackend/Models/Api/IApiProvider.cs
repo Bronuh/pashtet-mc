@@ -1,6 +1,18 @@
-﻿namespace BronuhMcBackend.Models.Api;
+﻿using Common.Api;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BronuhMcBackend.Models.Api;
 
 public interface IApiProvider
 {
-    F
+    LocalFile GetJavaFile();
+    LocalFile GetMinecraftFile();
+
+    IEnumerable<LocalFile> GetRequiredModsList();
+    IEnumerable<LocalFile> GetOptionalModsList();
+    
+    LocalFile GetRequiredModFile(string modName);
+    LocalFile GetOptionalModFile(string modName);
+
+    void Initialize();
 }

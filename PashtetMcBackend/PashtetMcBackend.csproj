@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>BronuhMcBackend</RootNamespace>
+        <RootNamespace>PashtetMcBackend</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -44,7 +44,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
       <Folder Include="Models\" />
     </ItemGroup>
 
