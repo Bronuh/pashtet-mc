@@ -14,7 +14,7 @@ public class ModsController : ControllerBase
     private readonly IApiProvider _apiProvider;
     private readonly IChecksumProvider _checksumProvider;
 
-    public ModsController(ILogger logger, IApiProvider apiProvider, IChecksumProvider checksumProvider)
+    public ModsController(ILogger<ModsController> logger, IApiProvider apiProvider, IChecksumProvider checksumProvider)
     {
         _logger = logger;
         _apiProvider = apiProvider;

@@ -13,7 +13,7 @@ public class CoreController : ControllerBase
     private ILogger _logger;
     private readonly IApiProvider _apiProvider;
 
-    public CoreController(ILogger logger, IApiProvider apiProvider)
+    public CoreController(ILogger<CoreController> logger, IApiProvider apiProvider)
     {
         _logger = logger;
         _apiProvider = apiProvider;
