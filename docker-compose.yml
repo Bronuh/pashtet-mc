@@ -9,7 +9,7 @@
         max-file: "10"
     build:
       context: .
-      dockerfile: PashtetMcBackend/Dockerfile
+      dockerfile: Dockerfile
     volumes:
       - ./data/storage:/storage
       - ./data/mcserver:/mcserver
