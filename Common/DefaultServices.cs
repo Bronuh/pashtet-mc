@@ -13,13 +13,18 @@ using SimpleInjector;
 
 namespace Common;
 
+
+/// <summary>
+/// This class is used exclusively for synchronizing strategies between the client and server sides. 
+/// The references stored here should ONLY be used during application initialization.
+/// </summary>
 [PublicAPI]
 public static class DefaultServices
 {
     static DefaultServices()
     {
         var platform = Utils.GetPlatform();
-
+            
         if (platform is PlatformType.Windows)
         {
             HardLinkChecker = new WindowsHardLinkDeploymentChecker();
@@ -35,6 +40,10 @@ public static class DefaultServices
             HardLinkChecker = new NoHardlinkDeploymentChecker();
             FileDeployer = new CopyDeployer();
         }
+        
+        // Combine main deployer and fallback deployer
+        FileDeployer = new CombinedDeployer(
+            FileDeployer, FallbackFileDeployer);
     }
     
     
