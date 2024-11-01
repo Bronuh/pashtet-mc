@@ -22,7 +22,7 @@ public class DeployModpackTask : LauncherTask
 
         foreach (var mod in deployedMods)
         {
-            File.Delete(mod);
+            Main.FileDeployer.UndeployFile(mod);
         }
 
         var modsToDeploy = BuildDeploymentListFrom(Paths.SnapshotModsDirPath.AsAbsolute())
@@ -35,7 +35,7 @@ public class DeployModpackTask : LauncherTask
             var name = Path.GetFileName(mod);
             var newPath = Path.Combine(Paths.MinecraftModsDirPath.AsAbsolute(), name);
             
-            HardLinkHelper.CreateHardLink(mod, newPath);
+            Main.FileDeployer.DeployFile(newPath, mod);
             _workCompleted++;
         }
     }
