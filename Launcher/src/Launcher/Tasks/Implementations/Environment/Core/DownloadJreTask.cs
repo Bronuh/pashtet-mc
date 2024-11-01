@@ -15,7 +15,7 @@ public class DownloadJreTask : LauncherTask
     
     protected override async Task Start()
     {
-        var jreUrl = Urls.JreUrl;
+        var jreUrl = Main.ApiProvider.GetJavaUrl();
         var targetZip = Paths.JreZipPath.AsAbsolute();
         
         if (File.Exists(targetZip))

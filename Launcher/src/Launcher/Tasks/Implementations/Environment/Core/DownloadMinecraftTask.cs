@@ -15,7 +15,7 @@ public class DownloadMinecraftTask : LauncherTask
     
     protected override async Task Start()
     {
-        var minecraftUrl = Urls.MinecraftUrl;
+        var minecraftUrl = Main.ApiProvider.GetMinecraftUrl();
         var targetZip = Paths.MinecraftZipPath.AsAbsolute();
         
         if (File.Exists(targetZip))
