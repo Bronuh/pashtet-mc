@@ -1,9 +1,13 @@
 using Godot;
 using System;
 using System.Linq;
+using Api;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
 using CmlLib.Core.ProcessBuilder;
+using Common;
+using Common.FileSystem.Deploy;
+using Common.IO.Checksum;
 using KludgeBox.Scheduling;
 using Launcher;
 using Tasks.Implementations;
@@ -13,6 +17,9 @@ using TaskState = Tasks.TaskState;
 public partial class Main : Node
 {
 	public static Main Instance { get; private set; }
+	public static IApiProvider ApiProvider { get; set; }
+	public static IChecksumProvider ChecksumProvider { get; set; }
+	public static IFileDeployer FileDeployer { get; set; }
 	public static TaskManager TaskManager { get; private set; }
 	public static Scheduler Scheduler { get; private set; }
 	public static Settings Settings { get; private set; }
@@ -36,6 +43,10 @@ public partial class Main : Node
 		Scheduler = new ();
 		TaskManager = new TaskManager(Scheduler);
 		Settings = SettingsUtils.LoadSettings();
+		ApiProvider = new DefaultApiProvider();
+		ChecksumProvider = DefaultServices.ChecksumProvider;
+		FileDeployer = DefaultServices.FileDeployer;
+		
 		SetupUi();
 		SettingsUtils.SaveSettings(Settings);
 
