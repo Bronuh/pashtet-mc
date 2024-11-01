@@ -1,20 +1,15 @@
-﻿## Available API endpoints
+﻿# Стек приватного сервера Minecraft
 
-### Core
-- `api/core/jre` - download Java packet in zip file
-- `api/core/minecraft` - download Minecraft minimal required files packed in zip file
+> Монорепа, содержащая исходники различных проектов, применяемых для создания инфраструктуры приватных Minecraft-серверов.
 
-### Mods
-- `api/mods/list` - returns list of mods with their checksums, required by minecraft client.
-- `api/mods/download/{mod-file-name}` - downloads mod
+## Состав
+- **PashtetMcBackend/** - web-бэкенд инфраструктуры, для обеспечения автоматического скачивания, установки и обновления клиентских компонентов.
+- **Launcher/** - лаунчер, отвечающий за скачивание, установку, обновление и запуск клиентской части игры.
+- **Common/** - библиотека общих компонентов для лаунчера и бэкенда.
 
-### Directory
-- `api/directory` - returns contents of root directory of filesystem
-- `api/directory/{path}` - returns contents of specified directory
-- `api/directory/download/{path}` - downloads specified file
-- `api/directory/details/` - returns detailed info about files in the root directory
-- `api/directory/details/{path}` - returns detailed info about files in the specified directory
-- `api/directory/fileinfo/{path}` - returns detailed info about specified file
-- `api/directory/tree/` - returns files tree, starting from root directory
-- `api/directory/tree/{path}` - returns files tree, starting from specified directory
-- `api/directory/text/{path}` - returns file contents as string
+
+## Стек
+- **[C# 12 / .NET 8](https://dotnet.microsoft.com/ru-ru/download)** - основной язык программирования
+- **[ASP.NET](https://dotnet.microsoft.com/ru-ru/apps/aspnet)** - платформа для разработки серверной части
+- **[Docker Compose](https://docs.docker.com/compose/)** - контейнеризация серверной части
+- **[Godot Engine 4.3 - .NET](https://godotengine.org/download/windows/)** - разработка клиентской части (лаунчера)
