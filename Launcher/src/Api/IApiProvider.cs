@@ -1,4 +1,5 @@
-﻿using Common.Api;
+﻿using System.Threading.Tasks;
+using Common.Api;
 
 namespace Api;
 
@@ -6,6 +7,6 @@ public interface IApiProvider
 {
     public string GetJavaUrl();
     public string GetMinecraftUrl();
-    public RemoteFilesList GetRequiredModsList();
-    public RemoteFilesList GetOptionalModsList();
+    public Task<RemoteFilesList> GetRequiredModsListAsync();
+    public Task<RemoteFilesList> GetOptionalModsListAsync();
 }

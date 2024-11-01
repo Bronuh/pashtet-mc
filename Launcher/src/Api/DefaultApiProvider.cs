@@ -1,4 +1,5 @@
-﻿using Common.Api;
+﻿using System.Threading.Tasks;
+using Common.Api;
 using IO;
 using Newtonsoft.Json;
 
@@ -23,22 +24,23 @@ public class DefaultApiProvider : IApiProvider
         return JavaUrl;
     }
 
+
     public string GetMinecraftUrl()
     {
         return MinecraftUrl;
     }
 
-    public RemoteFilesList GetRequiredModsList()
+    public async Task<RemoteFilesList> GetRequiredModsListAsync()
     {
-        var result = HttpHelper.Get(RequiredModsUrl).Body;
-        var mods = JsonConvert.DeserializeObject<RemoteFilesList>(result);
+        var result = await HttpHelper.GetAsync(RequiredModsUrl);
+        var mods = JsonConvert.DeserializeObject<RemoteFilesList>(result.Body);
         return mods;
     }
 
-    public RemoteFilesList GetOptionalModsList()
+    public async Task<RemoteFilesList> GetOptionalModsListAsync()
     {
-        var result = HttpHelper.Get(OptionalModsUrl).Body;
-        var mods = JsonConvert.DeserializeObject<RemoteFilesList>(result);
+        var result = await HttpHelper.GetAsync(OptionalModsUrl);
+        var mods = JsonConvert.DeserializeObject<RemoteFilesList>(result.Body);
         return mods;
     }
 }
