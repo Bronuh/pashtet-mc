@@ -19,5 +19,5 @@ RUN dotnet publish "BronuhMcBackend.csproj" -c $BUILD_CONFIGURATION -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV DirectorySettings__RootDirectory=/data
+#ENV DirectorySettings__RootDirectory=/data
 ENTRYPOINT ["dotnet", "BronuhMcBackend.dll"]
