@@ -22,6 +22,8 @@
       </Content>
       <Content Remove="Controllers-Legacy\**" />
       <Content Remove="Models-Legacy\**" />
+      <Content Remove="Models-Deprecated\**" />
+      <Content Remove="Controllers-Deprecated\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,20 +33,28 @@
     <ItemGroup>
       <Compile Remove="Controllers-Legacy\**" />
       <Compile Remove="Models-Legacy\**" />
+      <Compile Remove="Models-Deprecated\**" />
+      <Compile Remove="Controllers-Deprecated\**" />
+      <Compile Remove="Utils\FilesystemContext.cs" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="Controllers-Legacy\**" />
       <EmbeddedResource Remove="Models-Legacy\**" />
+      <EmbeddedResource Remove="Models-Deprecated\**" />
+      <EmbeddedResource Remove="Controllers-Deprecated\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Controllers-Legacy\**" />
       <None Remove="Models-Legacy\**" />
+      <None Remove="Models-Deprecated\**" />
+      <None Remove="Controllers-Deprecated\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Models\" />
+      <Folder Include="Utils\" />
     </ItemGroup>
 
 </Project>
