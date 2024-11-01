@@ -2,5 +2,5 @@
 
 public class DirectorySettings
 {
-    public string RootDirectory { get; set; }
+    //public string RootDirectory { get; set; }
 }
