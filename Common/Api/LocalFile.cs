@@ -41,7 +41,7 @@ public record LocalFile
         var name = FileName ?? Path.GetFileName(FilePath);
         var checksum = CalculateChecksum(checksumProvider);
         
-        return new RemoteFile(url, name, checksum);
+        return new RemoteFile(name, url, checksum);
     }
     
     public byte[] GetBytes() => File.ReadAllBytes(AbsolutePath);

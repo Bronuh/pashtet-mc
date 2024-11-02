@@ -27,8 +27,8 @@ public class ModsController : ControllerBase
     {
         _logger.LogInformation("Mods list requested from {user}", Request.HttpContext.Connection.RemoteIpAddress?.ToString());
         var modsLocal = _apiProvider.GetRequiredModsList();
-        var baseUrl = Url.Action(nameof(DownloadRequiredMod), new { modName = "" });
-        _logger.LogInformation("Base URL is {baseUrl}", baseUrl);
+        var baseUrl = $"{Request.Scheme}://{Request.Host}{Url.Action(nameof(DownloadRequiredMod), new { modName = "" })}";
+        _logger.LogInformation("Base URL is {baseUrl}. Current URL is {currentUrl}", baseUrl, Url.ToString());
         
         var modsRemote = new RemoteFilesList(modsLocal, baseUrl, _checksumProvider);
 
@@ -40,7 +40,7 @@ public class ModsController : ControllerBase
     public IActionResult GetOptionalModsList()
     {
         var modsLocal = _apiProvider.GetOptionalModsList();
-        var baseUrl = Url.Action(nameof(DownloadRequiredMod), new { modName = "" });
+        var baseUrl = $"{Request.Scheme}://{Request.Host}{Url.Action(nameof(DownloadOptionalMod), new { modName = "" })}";
         
         var modsRemote = new RemoteFilesList(modsLocal, baseUrl, _checksumProvider);
 
