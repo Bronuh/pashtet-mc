@@ -1,6 +1,10 @@
-using Godot;
-using System;
-using Tasks;
+#region
+
+using Launcher.Tasks;
+
+#endregion
+
+namespace Launcher.Nodes;
 
 public partial class TaskTracker : PanelContainer
 {

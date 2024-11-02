@@ -1,4 +1,4 @@
-﻿namespace KludgeBox.SaveLoad
+﻿namespace KludgeBox.SaveLoad.SaveLoadTypes
 {
 	/// <summary>
 	/// Provides methods for saving and loading value types.

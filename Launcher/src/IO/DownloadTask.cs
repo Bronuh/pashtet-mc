@@ -1,8 +1,12 @@
-﻿using System.IO;
+﻿#region
+
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FileAccess = System.IO.FileAccess;
 using HttpClient = System.Net.Http.HttpClient;
+
+#endregion
 
 namespace IO;
 

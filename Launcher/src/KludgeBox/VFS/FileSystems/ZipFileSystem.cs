@@ -3,12 +3,13 @@
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using KludgeBox.VFS.Base;
 using FileAccess = System.IO.FileAccess;
 
 #endregion
 
 
-namespace KludgeBox.VFS;
+namespace KludgeBox.VFS.FileSystems;
 
 public class ZipFileSystem : ArchiveFileSystem
 {

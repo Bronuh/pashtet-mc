@@ -1,4 +1,10 @@
-﻿namespace KludgeBox.VFS;
+﻿#region
+
+using KludgeBox.VFS.Base;
+
+#endregion
+
+namespace KludgeBox.VFS.FileSystems;
 
 public abstract class ArchiveFileSystem : FileSystem, IDisposable
 {

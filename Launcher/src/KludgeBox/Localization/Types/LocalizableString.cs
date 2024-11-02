@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace KludgeBox.Localization.Types;
+﻿namespace KludgeBox.Localization.Types;
 
 public sealed class LocalizableString: ILocalizable
 {

@@ -1,9 +1,12 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using BronuhMcBackend.Utils;
-using Launcher;
+﻿#region
 
-namespace Tasks.Implementations;
+using System.IO;
+using System.Threading.Tasks;
+using HashedFiles;
+
+#endregion
+
+namespace Launcher.Tasks.Implementations.Launch;
 
 public class DeleteServerResourcepackTask : LauncherTask
 {

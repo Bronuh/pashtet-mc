@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿#region
+
+using System.Diagnostics;
 using KludgeBox.Godot.Extensions;
+
+#endregion
 
 namespace KludgeBox.Scheduling;
 

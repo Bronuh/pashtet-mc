@@ -1,4 +1,4 @@
-﻿namespace Common.IO;
+﻿namespace Common.IO.Http;
 
 public class DownloadTask
 {

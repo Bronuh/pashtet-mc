@@ -1,5 +1,10 @@
-﻿using System.IO;
+﻿#region
+
+using System.ComponentModel;
+using System.IO;
 using System.Runtime.InteropServices;
+
+#endregion
 
 namespace IO;
 
@@ -26,7 +31,7 @@ public static class HardLinkHelper
         if (!CreateHardLink(to, from, IntPtr.Zero))
         {
             int error = Marshal.GetLastWin32Error();
-            throw new System.ComponentModel.Win32Exception(error);
+            throw new Win32Exception(error);
         }
     }
 }

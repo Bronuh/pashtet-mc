@@ -1,4 +1,4 @@
-﻿namespace KludgeBox.SaveLoad
+﻿namespace KludgeBox.SaveLoad.SaveLoadTypes
 {
 	public static class SaveLoad_Array
 	{

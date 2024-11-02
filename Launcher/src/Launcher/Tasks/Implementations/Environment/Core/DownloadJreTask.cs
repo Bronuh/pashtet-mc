@@ -1,10 +1,14 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using BronuhMcBackend.Utils;
-using IO;
-using Launcher;
+﻿#region
 
-namespace Tasks.Implementations;
+using System.IO;
+using System.Threading.Tasks;
+using HashedFiles;
+using IO;
+using Launcher.Nodes;
+
+#endregion
+
+namespace Launcher.Tasks.Implementations.Environment.Core;
 
 public class DownloadJreTask : LauncherTask
 {

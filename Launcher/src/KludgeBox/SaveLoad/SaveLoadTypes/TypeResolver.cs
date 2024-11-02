@@ -1,4 +1,4 @@
-﻿namespace KludgeBox.SaveLoad
+﻿namespace KludgeBox.SaveLoad.SaveLoadTypes
 {
 	/// <summary>
 	/// Enum representing the preferred property processing method for a type link.

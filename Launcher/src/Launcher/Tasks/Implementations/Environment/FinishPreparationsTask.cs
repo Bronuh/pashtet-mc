@@ -1,6 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿#region
 
-namespace Tasks.Implementations;
+using System.Threading.Tasks;
+using Launcher.Nodes;
+
+#endregion
+
+namespace Launcher.Tasks.Implementations.Environment;
 
 public class FinishPreparationsTask : LauncherTask
 {

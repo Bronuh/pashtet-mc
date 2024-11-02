@@ -1,7 +1,11 @@
-﻿using BronuhMcBackend.Models.Api;
-using Microsoft.AspNetCore.Mvc;
+﻿#region
 
-namespace BronuhMcBackend.Controllers.Api.V1;
+using Microsoft.AspNetCore.Mvc;
+using PashtetMcBackend.Models.Api;
+
+#endregion
+
+namespace PashtetMcBackend.Controllers.Api.V1;
 
 [Route("api/v1/data")]
 [ApiController]

@@ -1,7 +1,10 @@
-﻿using Common.Api;
-using Microsoft.AspNetCore.Mvc;
+﻿#region
 
-namespace BronuhMcBackend.Models.Api;
+using Common.Api;
+
+#endregion
+
+namespace PashtetMcBackend.Models.Api;
 
 public interface IApiProvider
 {

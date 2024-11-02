@@ -6,7 +6,7 @@ using System.Text;
 
 #endregion
 
-namespace KludgeBox.VFS;
+namespace KludgeBox.VFS.Base;
 
 
 /// <summary>

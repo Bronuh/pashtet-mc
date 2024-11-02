@@ -1,6 +1,10 @@
-﻿using System.Net.Http;
+﻿#region
+
+using System.Net.Http;
 using System.Threading.Tasks;
 using HttpClient = System.Net.Http.HttpClient;
+
+#endregion
 
 namespace IO;
 

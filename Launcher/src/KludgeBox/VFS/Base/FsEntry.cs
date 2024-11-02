@@ -1,4 +1,4 @@
-﻿namespace KludgeBox.VFS;
+﻿namespace KludgeBox.VFS.Base;
 
 public class FsEntry : IEquatable<FsEntry>
 {

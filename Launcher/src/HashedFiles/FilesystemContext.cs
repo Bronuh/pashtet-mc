@@ -1,8 +1,11 @@
-﻿using System.IO;
-using System.Reflection.PortableExecutable;
+﻿#region
+
+using System.IO;
 using Launcher;
 
-namespace BronuhMcBackend.Utils;
+#endregion
+
+namespace HashedFiles;
 
 public static class FilesystemContext
 {

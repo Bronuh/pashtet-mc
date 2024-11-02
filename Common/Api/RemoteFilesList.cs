@@ -1,4 +1,8 @@
-﻿using Common.IO.Checksum;
+﻿#region
+
+using Common.IO.Checksum;
+
+#endregion
 
 namespace Common.Api;
 

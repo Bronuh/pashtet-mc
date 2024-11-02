@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿#region
 
-namespace BronuhMcBackend.Controllers;
+using Microsoft.AspNetCore.Mvc;
+
+#endregion
+
+namespace PashtetMcBackend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

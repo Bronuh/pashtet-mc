@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿#region
+
+using System.Linq;
 using System.Text;
-using System.Xml;
 using System.Xml.Linq;
+
+#endregion
 
 namespace Launcher;
 

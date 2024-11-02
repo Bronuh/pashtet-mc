@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿#region
+
+using System.Linq;
 using KludgeBox.Scheduling;
-using Tasks;
-using TaskState = Tasks.TaskState;
+
+#endregion
+
+namespace Launcher.Tasks;
 
 public class TaskManager
 {

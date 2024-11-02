@@ -1,7 +1,11 @@
-﻿using System.IO;
+﻿#region
+
+using System.IO;
 using System.Linq;
 
-namespace BronuhMcBackend.Utils;
+#endregion
+
+namespace HashedFiles;
 
 public sealed class DirectoryTreeEntry : DirectoryEntry
 {

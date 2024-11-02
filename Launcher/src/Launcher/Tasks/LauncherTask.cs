@@ -1,8 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using KludgeBox.Scheduling;
+﻿#region
 
-namespace Tasks;
+using System.Linq;
+using System.Threading.Tasks;
+
+#endregion
+
+namespace Launcher.Tasks;
 
 public enum TaskState
 {

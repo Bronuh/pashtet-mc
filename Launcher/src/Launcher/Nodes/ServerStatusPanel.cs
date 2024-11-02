@@ -1,6 +1,4 @@
-using Godot;
-using System;
-using Launcher;
+namespace Launcher.Nodes;
 
 public partial class ServerStatusPanel : PanelContainer
 {

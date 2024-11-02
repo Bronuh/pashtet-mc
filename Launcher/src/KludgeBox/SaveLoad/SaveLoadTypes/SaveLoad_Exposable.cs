@@ -4,7 +4,7 @@ using KludgeBox.Core;
 
 #endregion
 
-namespace KludgeBox.SaveLoad
+namespace KludgeBox.SaveLoad.SaveLoadTypes
 {
 	/// <summary>
 	/// Provides methods for saving and loading data of classes that implement the IExposable interface.

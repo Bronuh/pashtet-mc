@@ -1,18 +1,21 @@
-using Godot;
-using System;
+#region
+
 using System.Linq;
 using Api;
-using CmlLib.Core;
-using CmlLib.Core.Auth;
-using CmlLib.Core.ProcessBuilder;
 using Common;
 using Common.FileSystem.Deploy;
 using Common.IO.Checksum;
 using KludgeBox.Scheduling;
-using Launcher;
-using Tasks.Implementations;
-using Tasks.Implementations.Info;
-using TaskState = Tasks.TaskState;
+using Launcher.Tasks;
+using Launcher.Tasks.Implementations.Environment;
+using Launcher.Tasks.Implementations.Environment.Core;
+using Launcher.Tasks.Implementations.Environment.Mods;
+using Launcher.Tasks.Implementations.Info;
+using Launcher.Tasks.Implementations.Launch;
+
+#endregion
+
+namespace Launcher.Nodes;
 
 public partial class Main : Node
 {

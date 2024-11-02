@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
-using BronuhMcBackend.Utils;
-using Launcher;
+﻿#region
 
-namespace Tasks.Implementations;
+using System.Threading.Tasks;
+using HashedFiles;
+using Launcher.Nodes;
+
+#endregion
+
+namespace Launcher.Tasks.Implementations.Launch;
 
 public class RunMinecraftTask : LauncherTask
 {

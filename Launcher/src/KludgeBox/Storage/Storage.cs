@@ -1,6 +1,8 @@
 ﻿#region
 
 using KludgeBox.VFS;
+using KludgeBox.VFS.Base;
+using KludgeBox.VFS.FileSystems;
 
 #endregion
 

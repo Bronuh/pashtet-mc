@@ -1,7 +1,11 @@
-﻿using System.IO;
+﻿#region
+
+using System.IO;
 using System.Text.Json.Serialization;
 
-namespace BronuhMcBackend.Utils;
+#endregion
+
+namespace HashedFiles;
 
 public abstract class FsEntry
 {

@@ -7,6 +7,7 @@ using Common.Password;
 using Common.Platform;
 using JetBrains.Annotations;
 using SimpleInjector;
+
 // ReSharper disable RedundantTypeArgumentsOfMethod
 
 #endregion

@@ -1,6 +1,10 @@
-﻿using Common.Api;
+﻿#region
 
-namespace BronuhMcBackend.Models.Api;
+using Common.Api;
+
+#endregion
+
+namespace PashtetMcBackend.Models.Api;
 
 public class DefaultApiProvider : IApiProvider
 {

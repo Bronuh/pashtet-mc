@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
-using Launcher;
+﻿#region
+
+using System.Threading.Tasks;
 using MineStatLib;
 
-namespace Tasks.Implementations.Info;
+#endregion
+
+namespace Launcher.Tasks.Implementations.Info;
 
 public class PingServerTask : LauncherTask
 {

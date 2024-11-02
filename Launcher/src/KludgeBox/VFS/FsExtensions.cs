@@ -1,4 +1,10 @@
-﻿namespace KludgeBox.VFS;
+﻿#region
+
+using KludgeBox.VFS.Base;
+
+#endregion
+
+namespace KludgeBox.VFS;
 
 public static class FsExtensions
 {

@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿#region
+
 using System.IO.Compression;
-using System.Threading;
-using System.Threading.Tasks;
 using FileAccess = System.IO.FileAccess;
 
-namespace IO;
+#endregion
+
+namespace Common.IO.Zip;
 
 public class PackTask
 {

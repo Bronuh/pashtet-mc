@@ -3,10 +3,11 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using KludgeBox.VFS.Base;
 
 #endregion
 
-namespace KludgeBox.VFS;
+namespace KludgeBox.VFS.FileSystems;
 
 public class MemoryFileSystem : FileSystem
 {

@@ -1,4 +1,8 @@
-﻿using System.IO.Hashing;
+﻿#region
+
+using System.IO.Hashing;
+
+#endregion
 
 namespace Common.IO.Checksum;
 

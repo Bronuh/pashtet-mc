@@ -2,10 +2,11 @@
 
 using System.IO;
 using System.Linq;
+using KludgeBox.VFS.Base;
 
 #endregion
 
-namespace KludgeBox.VFS;
+namespace KludgeBox.VFS.FileSystems;
 
 
 /// <summary>

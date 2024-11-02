@@ -1,6 +1,10 @@
-﻿using KludgeBox.Core;
-using KludgeBox.Localization;
+﻿#region
+
+using KludgeBox.Core;
+using Launcher.Nodes;
 using Newtonsoft.Json;
+
+#endregion
 
 namespace Launcher;
 

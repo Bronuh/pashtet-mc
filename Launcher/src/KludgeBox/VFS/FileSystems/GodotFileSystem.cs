@@ -3,11 +3,12 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using KludgeBox.VFS.Base;
 using FileAccess = Godot.FileAccess;
 
 #endregion
 
-namespace KludgeBox.VFS;
+namespace KludgeBox.VFS.FileSystems;
 
 public enum GodotFsRoot
 {

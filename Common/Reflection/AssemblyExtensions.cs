@@ -1,5 +1,9 @@
-﻿using System.Reflection;
+﻿#region
+
+using System.Reflection;
 using System.Runtime.Loader;
+
+#endregion
 
 namespace Common.Reflection;
 

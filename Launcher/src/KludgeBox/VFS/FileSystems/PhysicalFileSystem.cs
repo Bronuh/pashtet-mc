@@ -1,10 +1,11 @@
 ﻿#region
 
 using System.IO;
+using KludgeBox.VFS.Base;
 
 #endregion
 
-namespace KludgeBox.VFS;
+namespace KludgeBox.VFS.FileSystems;
 
 /// <summary>
 /// Provides access to the local file system.

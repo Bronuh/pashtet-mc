@@ -1,5 +1,9 @@
-﻿using System.Collections;
+﻿#region
+
+using System.Collections;
 using KludgeBox.Core;
+
+#endregion
 
 namespace KludgeBox.Collections;
 

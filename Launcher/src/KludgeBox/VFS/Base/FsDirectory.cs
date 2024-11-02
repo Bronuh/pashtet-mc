@@ -6,7 +6,7 @@ using System.IO;
 
 #endregion
 
-namespace KludgeBox.VFS;
+namespace KludgeBox.VFS.Base;
 
 public class FsDirectory : FsEntry
 {

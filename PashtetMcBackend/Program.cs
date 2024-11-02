@@ -1,11 +1,14 @@
-using BronuhMcBackend.Models;
-using BronuhMcBackend.Models.Api;
+#region
+
 using Common;
 using Common.IO.Checksum;
 using Common.Password;
 using Microsoft.AspNetCore.HttpOverrides;
+using PashtetMcBackend.Models.Api;
 
-namespace BronuhMcBackend;
+#endregion
+
+namespace PashtetMcBackend;
 
 public class Program
 {

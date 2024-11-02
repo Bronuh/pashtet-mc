@@ -1,5 +1,8 @@
-﻿using Common.IO.Checksum;
-using JetBrains.Annotations;
+﻿#region
+
+using Common.IO.Checksum;
+
+#endregion
 
 namespace Common.Api;
 

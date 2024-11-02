@@ -1,5 +1,6 @@
 ﻿#region
 
+using KludgeBox.SaveLoad.SaveLoadTypes;
 using Newtonsoft.Json.Linq;
 
 #endregion

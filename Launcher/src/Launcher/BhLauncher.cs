@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
 using CmlLib.Core.ProcessBuilder;
 using KludgeBox.Scheduling;
+
+#endregion
 
 namespace Launcher;
 

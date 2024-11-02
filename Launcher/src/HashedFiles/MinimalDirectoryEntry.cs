@@ -1,6 +1,10 @@
-﻿using System.IO;
+﻿#region
 
-namespace BronuhMcBackend.Utils;
+using System.IO;
+
+#endregion
+
+namespace HashedFiles;
 
 public class MinimalDirectoryEntry : FsEntry
 {

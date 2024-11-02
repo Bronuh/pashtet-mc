@@ -1,11 +1,14 @@
-﻿using System.IO;
+﻿#region
+
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using BronuhMcBackend.Utils;
-using IO;
-using Launcher;
+using HashedFiles;
+using Launcher.Nodes;
 
-namespace Tasks.Implementations;
+#endregion
+
+namespace Launcher.Tasks.Implementations.Launch;
 
 public class DeployModpackTask : LauncherTask
 {

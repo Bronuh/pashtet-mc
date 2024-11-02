@@ -1,7 +1,11 @@
-﻿using System.IO;
+﻿#region
+
+using System.IO;
 using System.IO.Hashing;
 
-namespace BronuhMcBackend.Utils;
+#endregion
+
+namespace HashedFiles;
 
 public class FileEntry : FsEntry
 {
@@ -16,7 +20,7 @@ public class FileEntry : FsEntry
     
     private string CalculateFileChecksum()
     {
-        using (var stream = System.IO.File.OpenRead(AbsolutePath))
+        using (var stream = File.OpenRead(AbsolutePath))
         {
             var hash = new XxHash3();
             hash.Append(stream);
