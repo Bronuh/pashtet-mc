@@ -28,7 +28,7 @@ public class ModsController : ControllerBase
         _logger.LogInformation("Mods list requested from {user}", Request.HttpContext.Connection.RemoteIpAddress?.ToString());
         var modsLocal = _apiProvider.GetRequiredModsList();
         var baseUrl = $"{Request.Scheme}://{Request.Host}{Url.Action(nameof(DownloadRequiredMod), new { modName = "" })}";
-        _logger.LogInformation("Base URL is {baseUrl}. Current URL is {currentUrl}", baseUrl, Url.ToString());
+        _logger.LogInformation("Base URL is {baseUrl}.", baseUrl);
         
         var modsRemote = new RemoteFilesList(modsLocal, baseUrl, _checksumProvider);
 
@@ -39,8 +39,10 @@ public class ModsController : ControllerBase
     [HttpGet("optional/list")]
     public IActionResult GetOptionalModsList()
     {
+        _logger.LogInformation("Optional mods list requested from {user}", Request.HttpContext.Connection.RemoteIpAddress?.ToString());
         var modsLocal = _apiProvider.GetOptionalModsList();
         var baseUrl = $"{Request.Scheme}://{Request.Host}{Url.Action(nameof(DownloadOptionalMod), new { modName = "" })}";
+        _logger.LogInformation("Base URL is {baseUrl}.", baseUrl);
         
         var modsRemote = new RemoteFilesList(modsLocal, baseUrl, _checksumProvider);
 
@@ -57,7 +59,7 @@ public class ModsController : ControllerBase
         {
             return File(modFile.GetBytes(), "application/octet-stream", modFile.FileName);
         }
-
+        _logger.LogWarning("Attempt to download non-existing mod: {modName} (path: {modPath})", modName, modFile.AbsolutePath);
         return NotFound("File not found");
     }
     
@@ -71,7 +73,7 @@ public class ModsController : ControllerBase
         {
             return File(modFile.GetBytes(), "application/octet-stream", modFile.FileName);
         }
-
+        _logger.LogWarning("Attempt to download non-existing mod: {modName} (path: {modPath})", modName, modFile.AbsolutePath);
         return NotFound("File not found");
     }
 }
