@@ -16,7 +16,7 @@ public class DefaultApiProvider : IApiProvider
     public const string ConfigDirName = "config";
     
     public const string LauncherDirName = "launcher";
-
+    public const string ServersFileName = "servers.dat";
     
     public const string StorageDirPath = "/storage";
     public const string McServerDirPath = "/mcserver";
@@ -30,6 +30,7 @@ public class DefaultApiProvider : IApiProvider
     public string ModsDirPath => Path.Combine(McServerDirPath, ModsDirName);
     public string OptionalModsDirPath => Path.Combine(StorageDirPath, OptionalModsDirName);
     public string ConfigDirPath => Path.Combine(McServerDirPath, ConfigDirName);
+    public string ServersFilePath => Path.Combine(StorageDirPath, ServersFileName);
     
 
     public string RootPath { get; private set; } = "";
@@ -41,6 +42,11 @@ public class DefaultApiProvider : IApiProvider
         _logger = logger;
     }
 
+
+    public LocalFile GetServersFile()
+    {
+        return new LocalFile(ServersFilePath);
+    }
 
     public void Initialize()
     {

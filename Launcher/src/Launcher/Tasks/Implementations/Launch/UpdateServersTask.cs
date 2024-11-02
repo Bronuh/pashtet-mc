@@ -14,7 +14,7 @@ public class UpdateServersTask : LauncherTask
     private DownloadTask _dlTask;
     protected override async Task Start()
     {
-        var serversUrl = Urls.FileSnapshotDownloadUrl + "/servers.dat";
+        var serversUrl = Main.ApiProvider.GetServersUrl();
         var targetFile = Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "servers.dat");
         
         if (File.Exists(targetFile))

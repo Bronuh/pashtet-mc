@@ -24,7 +24,6 @@ public class CoreController : ControllerBase
     public IActionResult DownloadJre()
     {
         var file = _apiProvider.GetJavaFile();
-        var fullPath = file.AbsolutePath;
 
         if (file.Exists())
         {
@@ -40,7 +39,6 @@ public class CoreController : ControllerBase
     public IActionResult DownloadMinecraft()
     {
         var file = _apiProvider.GetMinecraftFile();
-        var fullPath = file.AbsolutePath;
 
         if (file.Exists())
         {

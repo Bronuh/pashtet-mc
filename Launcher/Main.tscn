@@ -47,10 +47,10 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel")]
+[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "PasswordTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel")]
 script = ExtResource("1_41ihv")
-TaskTrackerScene = ExtResource("2_2ek23")
 PlayerNameTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
+PasswordTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/PasswordLine/PasswordBox")
 RunningTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer/Label")
 PendingTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer/Label")
 RamLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine/RamLabel")
@@ -59,6 +59,7 @@ RamSlider = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/CenterContai
 RunningTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
 PendingTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
 ConfigPanel = NodePath("Canvas/UiRootControl/ConfigContainer")
+TaskTrackerScene = ExtResource("2_2ek23")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 

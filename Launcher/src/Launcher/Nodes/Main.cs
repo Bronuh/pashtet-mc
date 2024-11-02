@@ -117,7 +117,7 @@ public partial class Main : Node
 		PlayerNameTextBox.TextChanged += UpdatePlayerName;
 		PlayerNameTextBox.Text = Settings.PlayerName;
 		
-		PasswordTextBox.TextChanged += UpdatePlayerName;
+		PasswordTextBox.TextChanged += UpdatePassword;
 		PasswordTextBox.Text = Settings.Password;
 		
 		RamSlider.MinValue = 1;
@@ -141,11 +141,11 @@ public partial class Main : Node
 		
 		var modsTask = new CheckModsTask();
 		var updateServers = new UpdateServersTask();
-		var deletePacks = new DeleteServerResourcepackTask();
+		//var deletePacks = new DeleteServerResourcepackTask();
 		var deployMods = new DeployModpackTask().AfterTasks(modsTask);
-		var run = new RunMinecraftTask().AfterTasks(modsTask, deployMods, updateServers, deletePacks);
+		var run = new RunMinecraftTask().AfterTasks(modsTask, deployMods);
 		
-		TaskManager.AddTasks([modsTask, deployMods, updateServers, deletePacks, run]);
+		TaskManager.AddTasks([modsTask, deployMods, run]);
 	}
 
 	private void UpdatePlayerName(string name)

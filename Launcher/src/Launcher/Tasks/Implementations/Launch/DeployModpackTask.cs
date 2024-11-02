@@ -35,7 +35,7 @@ public class DeployModpackTask : LauncherTask
             var name = Path.GetFileName(mod);
             var newPath = Path.Combine(Paths.MinecraftModsDirPath.AsAbsolute(), name);
             
-            Main.FileDeployer.DeployFile(newPath, mod);
+            Main.FileDeployer.DeployFile(mod, newPath);
             _workCompleted++;
         }
     }

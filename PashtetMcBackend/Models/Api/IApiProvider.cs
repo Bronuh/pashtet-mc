@@ -13,6 +13,8 @@ public interface IApiProvider
     
     LocalFile GetRequiredModFile(string modName);
     LocalFile GetOptionalModFile(string modName);
+    
+    LocalFile GetServersFile();
 
     void Initialize();
 }
