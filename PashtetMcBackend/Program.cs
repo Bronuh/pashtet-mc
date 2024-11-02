@@ -33,7 +33,9 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllers();
-
+        
+        app.UseStatusCodePagesWithReExecute("/api/error/notfound");
+        
         app.Run();
     }
 }
