@@ -34,7 +34,7 @@
       #- "24454:24454/udp" # Voice chat - unused/reserved
     environment:
       MODE: "${MC_MODE}"
-
+      UID: 1001
       # MC config
       #SEED: -7273786952444301725
       EULA: true

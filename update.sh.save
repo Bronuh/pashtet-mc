@@ -1,3 +1,4 @@
+#!/bin/sh
 # Stop everything
 docker compose down
 
@@ -5,15 +6,13 @@ docker compose down
 docker image remove mc-backend
 
 # Cleanup mcserver config
-rm ./data/mcserver/server.properties
+rm -f ./data/mcserver/server.properties
 
 # Update sources
 git pull
 
-# Setup storage
-mkdir data
-mkdir data/mcserver
-mkdir data/storage
+# prepare storage
+
 
 # Rebuild and start everything
 docker compose up -d
