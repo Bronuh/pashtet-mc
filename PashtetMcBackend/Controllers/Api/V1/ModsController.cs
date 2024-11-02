@@ -25,8 +25,10 @@ public class ModsController : ControllerBase
     [HttpGet("required/list")]
     public IActionResult GetRequiredModsList()
     {
+        _logger.LogInformation("Mods list requested from {user}", Request.HttpContext.Connection.RemoteIpAddress?.ToString());
         var modsLocal = _apiProvider.GetRequiredModsList();
         var baseUrl = Url.Action(nameof(DownloadRequiredMod), new { modName = "" });
+        _logger.LogInformation("Base URL is {baseUrl}", baseUrl);
         
         var modsRemote = new RemoteFilesList(modsLocal, baseUrl, _checksumProvider);
 
