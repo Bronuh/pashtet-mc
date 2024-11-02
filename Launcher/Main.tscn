@@ -1,10 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://da7d5i2dqlnnr"]
+[gd_scene load_steps=17 format=3 uid="uid://da7d5i2dqlnnr"]
 
 [ext_resource type="Script" path="res://src/Launcher/Nodes/Main.cs" id="1_41ihv"]
 [ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
 [ext_resource type="Texture2D" uid="uid://bnygxst3l8iq0" path="res://assets/background.png" id="3_3nlui"]
 [ext_resource type="Texture2D" uid="uid://0ibtr2oelyhf" path="res://assets/LOGO.png" id="4_piw32"]
-[ext_resource type="VideoStream" path="res://assets/bg-anim.ogv" id="4_wrtgj"]
 [ext_resource type="Texture2D" uid="uid://b1oil2p6xodyk" path="res://assets/cog.png" id="6_bn536"]
 [ext_resource type="PackedScene" uid="uid://dykxfs237d0wb" path="res://ConfigContainer.tscn" id="6_w6vl0"]
 [ext_resource type="PackedScene" uid="uid://dh664vii3rc03" path="res://ServerStatusPanel.tscn" id="8_spb00"]
@@ -81,19 +80,6 @@ grow_vertical = 2
 texture = ExtResource("3_3nlui")
 expand_mode = 2
 stretch_mode = 6
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Canvas/Background"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stream = ExtResource("4_wrtgj")
-autoplay = true
-expand = true
-loop = true
 
 [node name="ColorRect" type="ColorRect" parent="Canvas/Background"]
 layout_mode = 1
