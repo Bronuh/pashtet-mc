@@ -15,10 +15,10 @@ public class RemoteFilesList
 
     public RemoteFilesList(IEnumerable<LocalFile> files, string apiBase, IChecksumProvider checksumProvider)
     {
-        var baseUri = new Uri(apiBase);
+        var baseUri = new Uri(apiBase.EndsWith('/') ? apiBase : apiBase + "/");
         var filesList = files.ToList();
         var remoteFiles = new RemoteFile[filesList.Count];
-
+        Console.WriteLine($"baseUri: {baseUri}");
         int i = 0;
         foreach (var file in filesList)
         {
