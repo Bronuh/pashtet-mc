@@ -3,6 +3,7 @@ using BronuhMcBackend.Models.Api;
 using Common;
 using Common.IO.Checksum;
 using Common.Password;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace BronuhMcBackend;
 
@@ -19,6 +20,16 @@ public class Program
         builder.Services.AddSingleton<IChecksumProvider>(DefaultServices.ChecksumProvider);
         builder.Services.AddSingleton<IApiProvider, DefaultApiProvider>();
         
+        // Configure Forwarded Headers options
+        builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            
+            // Adjust this setting to match the reverse proxy's IP range if it's static
+            options.KnownProxies.Clear(); // Clear KnownProxies if not relevant or set if IP range is known
+            options.KnownNetworks.Clear(); // Clear or set KnownNetworks based on the proxy network
+        });
+        
         var app = builder.Build();
         app.Services.GetService<IApiProvider>()?.Initialize();
 
@@ -31,6 +42,9 @@ public class Program
         app.Urls.Add("http://*:80");
 
         app.UseAuthorization();
+        
+        // Apply Forwarded Headers Middleware
+        app.UseForwardedHeaders();
 
         app.MapControllers();
         
