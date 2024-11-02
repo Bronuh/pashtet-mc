@@ -143,9 +143,9 @@ public partial class Main : Node
 		var updateServers = new UpdateServersTask();
 		//var deletePacks = new DeleteServerResourcepackTask();
 		var deployMods = new DeployModpackTask().AfterTasks(modsTask);
-		var run = new RunMinecraftTask().AfterTasks(modsTask, deployMods);
+		var run = new RunMinecraftTask().AfterTasks(modsTask, deployMods, updateServers);
 		
-		TaskManager.AddTasks([modsTask, deployMods, run]);
+		TaskManager.AddTasks([modsTask, deployMods, updateServers,run]);
 	}
 
 	private void UpdatePlayerName(string name)
