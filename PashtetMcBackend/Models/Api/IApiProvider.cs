@@ -10,6 +10,7 @@ public interface IApiProvider
 {
     LocalFile GetJavaFile();
     LocalFile GetMinecraftFile();
+    LocalFile GetVersionFile();
 
     IEnumerable<LocalFile> GetRequiredModsList();
     IEnumerable<LocalFile> GetOptionalModsList();

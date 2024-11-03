@@ -14,6 +14,7 @@ public class DefaultApiProvider : IApiProvider
     public const string JreFileName = "jdk-21.zip";
     public const string MinecraftDirName = "minecraft";
     public const string MinecraftFileName = "minecraft-min.zip";
+    public const string MinecraftVersionFileName = "version.zip";
     
     public const string ModsDirName = "mods";
     public const string OptionalModsDirName = "optional-mods";
@@ -30,6 +31,7 @@ public class DefaultApiProvider : IApiProvider
     public string JreFilePath => Path.Combine(JreDirPath, JreFileName);
     public string MinecraftDirPath => Path.Combine(CoreDirPath, MinecraftDirName);
     public string MinecraftFilePath => Path.Combine(MinecraftDirPath, MinecraftFileName);
+    public string MinecraftVersionFilePath => Path.Combine(MinecraftDirPath, MinecraftVersionFileName);
     
     public string ModsDirPath => Path.Combine(McServerDirPath, ModsDirName);
     public string OptionalModsDirPath => Path.Combine(StorageDirPath, OptionalModsDirName);
@@ -67,6 +69,11 @@ public class DefaultApiProvider : IApiProvider
     public LocalFile GetMinecraftFile()
     {
        return new LocalFile(MinecraftFilePath);
+    }
+
+    public LocalFile GetVersionFile()
+    {
+        return new LocalFile(MinecraftVersionFilePath);
     }
 
 
