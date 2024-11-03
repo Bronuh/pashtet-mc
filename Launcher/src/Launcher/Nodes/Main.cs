@@ -140,10 +140,12 @@ public partial class Main : Node
 
 	private async Task LoadPatches()
 	{
+		Log.Info("Установка патчей...");
 		var remotePatchInfo = await ApiProvider.GetPatchInfoAsync();
 		var localPatchInfo = new LocalFile(Paths.PatchFilePath.AsAbsolute(), ChecksumProvider);
 		if (remotePatchInfo is not null && remotePatchInfo.Checksum != localPatchInfo.GetPrecalculatedChecksum())
 		{
+			Log.Info("Скачивается патч...");
 			var download = new DownloadTask(remotePatchInfo.Url, localPatchInfo.FilePath);
 			await download.RunAsync();
 		}
@@ -152,12 +154,15 @@ public partial class Main : Node
 		AssemblyLoadContext context = AssemblyLoadContext.GetLoadContext(currentAssembly);
 		try
 		{
-			context!.LoadFromAssemblyPath(localPatchInfo.FilePath);
+			Log.Info("Загрузка и запуск патчей...");
+			var asm = context!.LoadFromAssemblyPath(localPatchInfo.FilePath);
+			PatchManager.LoadPatches(asm);
 		}
 		catch (Exception ex)
 		{
 			Log.Warning($"Не удалось загрузить патчи из {localPatchInfo.FilePath}. Существует ли файл?: {ex}");
 		}
+		PatchManager.RunPatches();
 	}
 	
 	private static void SaveSettings()

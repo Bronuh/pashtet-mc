@@ -66,7 +66,7 @@ public class PatchManager
                 }
                 else
                 {
-                    Log.Info($"Зарегистрирован патч:: {patchType.FullName}");
+                    Log.Info($"Зарегистрирован патч: {patchType.FullName}");
                 }
             }
             catch (Exception e)
