@@ -33,7 +33,7 @@ public class RunMinecraftTask : LauncherTask
 
     public override IEnumerable<LauncherTask> OnTaskFinished()
     {
-        Main.GameIsRunning = false;
+        Main.State.IsMinecraftRunning = false;
         return null;
     }
 }

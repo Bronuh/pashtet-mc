@@ -26,7 +26,7 @@ public partial class Main : Node
 	public static TaskManager TaskManager { get; private set; }
 	public static Scheduler Scheduler { get; private set; }
 	public static Settings Settings { get; private set; }
-	public static bool GameIsRunning { get; set; } = false;
+	public static LauncherState State { get; private set; }
 
 	[Export] public LineEdit PlayerNameTextBox;
 	[Export] public LineEdit PasswordTextBox;
@@ -47,6 +47,7 @@ public partial class Main : Node
 		TaskManager = new TaskManager(Scheduler);
 		Settings = SettingsUtils.LoadSettings();
 		ApiProvider = new DefaultApiProvider();
+		State = new LauncherState();
 		ChecksumProvider = DefaultServices.ChecksumProvider;
 		FileDeployer = DefaultServices.FileDeployer;
 		
@@ -135,13 +136,13 @@ public partial class Main : Node
 
 	private void DeployAndRun()
 	{
-		if (GameIsRunning)
+		if (State.CanLaunch)
 		{
-			Log.Error("Game is already running");
+			Log.Error("Attempt to run game while it is already in progress or not ready yet");
 			return;
 		}
 
-		GameIsRunning = true;
+		State.IsMinecraftRunning = true;
 		
 		var modsTask = new CheckModsTask();
 		var updateServers = new UpdateServersTask();
