@@ -3,6 +3,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using HashedFiles;
+using Launcher.Nodes;
 
 #endregion
 
@@ -19,6 +20,7 @@ public class PrepareMinecraftTask : LauncherTask
         
         if (File.Exists(minecraftVersionPath))
         {
+            Main.State.IsMinecraftReady = true;
             return;
         }
         

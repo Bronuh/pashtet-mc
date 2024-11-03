@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using HashedFiles;
 using IO;
+using Launcher.Nodes;
 
 #endregion
 
@@ -22,7 +23,7 @@ public class UnpackMinecraftTask : LauncherTask
         var jrePath = Paths.MinecraftDirPath.AsAbsolute();
         
         if(!File.Exists(zipPath))
-            return;
+            throw new FileNotFoundException($"Minecraft zip not found: {zipPath}");
         
         _unpackTask = new UnpackTask(zipPath, jrePath);
         
@@ -31,6 +32,7 @@ public class UnpackMinecraftTask : LauncherTask
 
     public override IEnumerable<LauncherTask> OnTaskFinished()
     {
+        Main.State.IsMinecraftReady = true;
         return null;
     }
 }

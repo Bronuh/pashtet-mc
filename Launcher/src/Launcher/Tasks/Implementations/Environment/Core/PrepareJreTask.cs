@@ -3,6 +3,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using HashedFiles;
+using Launcher.Nodes;
 
 #endregion
 
@@ -17,6 +18,7 @@ public class PrepareJreTask : LauncherTask
     {
         if (File.Exists(Paths.JreExecutablePath.AsAbsolute()))
         {
+            Main.State.IsJavaReady = true;
             return;
         }
 

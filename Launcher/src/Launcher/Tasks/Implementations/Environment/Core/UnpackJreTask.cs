@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using HashedFiles;
 using IO;
+using Launcher.Nodes;
 
 #endregion
 
@@ -20,9 +21,9 @@ public class UnpackJreTask : LauncherTask
     {
         var zipPath = Paths.JreZipPath.AsAbsolute();
         var jrePath = Paths.JreDirPath.AsAbsolute();
-        
-        if(!File.Exists(zipPath))
-            return;
+
+        if (!File.Exists(zipPath))
+            throw new FileNotFoundException($"Java zip not found: {zipPath}");
         
         _unpackTask = new UnpackTask(zipPath, jrePath);
         
@@ -31,6 +32,7 @@ public class UnpackJreTask : LauncherTask
 
     public override IEnumerable<LauncherTask> OnTaskFinished()
     {
+        Main.State.IsJavaReady = true;
         return null;
     }
 }

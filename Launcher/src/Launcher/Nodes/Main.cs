@@ -62,8 +62,14 @@ public partial class Main : Node
 		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask);
 		
 		TaskManager.AddTasks([serverCheckTask, prepareTask, cleanupDownloadsTask, jreTask, minecraftTask, finishTask]);
+		Scheduler.PeriodicInSeconds(0.1, UpdateButton);
 	}
-	
+
+	private void UpdateButton()
+	{
+		RunButton.Disabled = !State.CanLaunch;
+	}
+
 	public override void _Process(double delta)
 	{
 		Scheduler.Update(delta);
@@ -136,7 +142,7 @@ public partial class Main : Node
 
 	private void DeployAndRun()
 	{
-		if (State.CanLaunch)
+		if (!State.CanLaunch)
 		{
 			Log.Error("Attempt to run game while it is already in progress or not ready yet");
 			return;
