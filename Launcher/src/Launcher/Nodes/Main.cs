@@ -55,11 +55,12 @@ public partial class Main : Node
 
 		var prepareTask = new PrepareEnvironmentTask();
 		var serverCheckTask = new PingServerTask();
-		var jreTask = new PrepareJreTask().AfterTasks(prepareTask);
-		var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask);
+		var cleanupDownloadsTask = new CleanupBrokenDownloads().AfterTasks(prepareTask);
+		var jreTask = new PrepareJreTask().AfterTasks(prepareTask, cleanupDownloadsTask);
+		var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask, cleanupDownloadsTask);
 		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask);
 		
-		TaskManager.AddTasks([serverCheckTask, prepareTask, jreTask, minecraftTask, finishTask]);
+		TaskManager.AddTasks([serverCheckTask, prepareTask, cleanupDownloadsTask, jreTask, minecraftTask, finishTask]);
 	}
 	
 	public override void _Process(double delta)

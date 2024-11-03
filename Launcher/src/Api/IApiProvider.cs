@@ -9,9 +9,11 @@ namespace Api;
 
 public interface IApiProvider
 {
-    public string GetJavaUrl();
-    public string GetMinecraftUrl();
-    public string GetServersUrl();
-    public Task<RemoteFilesList> GetRequiredModsListAsync();
-    public Task<RemoteFilesList> GetOptionalModsListAsync();
+    string GetJavaUrl();
+    string GetMinecraftUrl();
+    string GetServersUrl();
+    Task<RemoteFile> GetMinecraftInfoAsync();
+    Task<RemoteFile> GetJavaInfoAsync();
+    Task<RemoteFilesList> GetRequiredModsListAsync();
+    Task<RemoteFilesList> GetOptionalModsListAsync();
 }

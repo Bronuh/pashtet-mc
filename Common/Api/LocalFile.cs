@@ -23,7 +23,8 @@ public record LocalFile
     public LocalFile(string filePath, IChecksumProvider checksumProvider, string? fileName = null) : this(filePath,
         fileName)
     {
-        _checksum = CalculateChecksum(checksumProvider);
+        if(Exists()) 
+            _checksum = CalculateChecksum(checksumProvider);
     }
 
     public string FilePath { get; init; }

@@ -41,6 +41,24 @@ public class DefaultApiProvider : IApiProvider
         return ServersUrl;
     }
 
+    public async Task<RemoteFile> GetMinecraftInfoAsync()
+    {
+        var infoUrl = GetMinecraftUrl() + "/info";
+        var result = await HttpHelper.GetAsync(infoUrl);
+        var info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
+        
+        return info;
+    }
+
+    public async Task<RemoteFile> GetJavaInfoAsync()
+    {
+        var infoUrl = GetJavaUrl() + "/info";
+        var result = await HttpHelper.GetAsync(infoUrl);
+        var info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
+        
+        return info;
+    }
+
     public async Task<RemoteFilesList> GetRequiredModsListAsync()
     {
         var result = await HttpHelper.GetAsync(RequiredModsUrl);
