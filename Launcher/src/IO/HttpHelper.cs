@@ -17,15 +17,19 @@ public class HttpResponse
 
 public static class HttpHelper
 {
+    public static double HttpGetTimeoutSeconds { get; set; } = 2;
+
     /// <summary>
     /// Synchronous GET request with additional headers.
     /// </summary>
     /// <param name="url">The URL to send the request to.</param>
     /// <param name="customHeaders">Optional custom headers to include in the request.</param>
+    /// <param name="timeoutSeconds"></param>
     /// <returns>HttpResponse object containing body and headers.</returns>
-    public static HttpResponse Get(string url, Dictionary<string, string> customHeaders = null)
+    public static HttpResponse Get(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0)
     {
-        var _client = new HttpClient();
+        var client = new HttpClient();
+        client.Timeout = timeoutSeconds == 0 ? TimeSpan.FromSeconds(HttpGetTimeoutSeconds) : TimeSpan.FromSeconds(timeoutSeconds);
         try
         {
             // Add custom headers if any
@@ -33,11 +37,11 @@ public static class HttpHelper
             {
                 foreach (var header in customHeaders)
                 {
-                    _client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                    client.DefaultRequestHeaders.Add(header.Key, header.Value);
                 }
             }
 
-            HttpResponseMessage response = _client.GetAsync(url).Result; // Sync call
+            HttpResponseMessage response = client.GetAsync(url).Result; // Sync call
             response.EnsureSuccessStatusCode();
             string body = response.Content.ReadAsStringAsync().Result;  // Get response body
             var headers = response.Headers;  // Get headers
@@ -67,9 +71,11 @@ public static class HttpHelper
     /// <param name="url">The URL to send the request to.</param>
     /// <param name="customHeaders">Optional custom headers to include in the request.</param>
     /// <returns>HttpResponse object containing body and headers.</returns>
-    public static async Task<HttpResponse> GetAsync(string url, Dictionary<string, string> customHeaders = null)
+    public static async Task<HttpResponse> GetAsync(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0)
     {
-        var _client = new HttpClient();
+        var client = new HttpClient();
+        client.Timeout = TimeSpan.FromSeconds(HttpGetTimeoutSeconds);
+        client.Timeout = timeoutSeconds == 0 ? TimeSpan.FromSeconds(HttpGetTimeoutSeconds) : TimeSpan.FromSeconds(timeoutSeconds);
         try
         {
             // Add custom headers if any
@@ -77,11 +83,11 @@ public static class HttpHelper
             {
                 foreach (var header in customHeaders)
                 {
-                    _client.DefaultRequestHeaders.Add(header.Key, header.Value);
+                    client.DefaultRequestHeaders.Add(header.Key, header.Value);
                 }
             }
 
-            HttpResponseMessage response = await _client.GetAsync(url); // Async call
+            HttpResponseMessage response = await client.GetAsync(url); // Async call
             response.EnsureSuccessStatusCode();
             string body = await response.Content.ReadAsStringAsync();  // Get response body
             var headers = response.Headers;  // Get headers
