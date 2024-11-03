@@ -31,31 +31,25 @@
         max-file: "10"
     ports:
       - "${MC_PORT}:25565"
-      #- "24454:24454/udp" # Voice chat - unused/reserved
     environment:
       MODE: "${MC_MODE}"
       UID: 1001
       # MC config
-      #SEED: -7273786952444301725
+      SEED: -8059940607247641339
       EULA: true
       VERSION: "1.20.1"
       TYPE: MOHIST # Forge/Bukkit hybrid
-      #FORGE_VERSION: "47.2.0" omit
       MEMORY: "${MC_MEMORY}"
       USE_AIKAR_FLAGS: true
       DIFFICULTY: "${MC_DIFFICULTY}"
-      #MAX_WORLD_SIZE: 100000
       SNOOPER_ENABLED: false
       MAX_BUILD_HEIGHT: 640 #experimental
       ONLINE_MODE: "${MC_ONLINE}"
       ALLOW_FLIGHT: "${MC_FLIGHT}"
-      #RCON_PASSWORD: "${MC_RCON}" use default
       ENABLE_WHITELIST: false
-      #RESOURCE_PACK: https://minecraft.bronuh.ru/api/directory/download/server-resourcepack.zip
-      #RESOURCE_PACK_SHA1: 0ee298e0f0a08c859411cc83ceec392fc2fd7cd3
-      #RESOURCE_PACK_ENFORCE: true
     volumes:
       # attach the relative directory 'data' to the container's /data path
+      # TODO: find out how this container chowns this volume
       - ./data/mcserver:/data
     restart: unless-stopped
     
