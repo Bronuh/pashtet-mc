@@ -74,7 +74,7 @@ public static class EventBus
     /// <param name="event"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static bool TryPublish(CancellableEvent @event)
+    public static bool PublishIsCancelled(CancellableEvent @event)
     {
         return _bus.TryPublish(@event);
     }

@@ -23,6 +23,7 @@ public static class Paths
     
     public const string LauncherDirName = "launcher";
     public const string NewsFileName = "news.txt";
+    public const string PatchFileName = "LauncherPatches.dll";
     
     public const string UserFilesDirName = "user";
     
@@ -47,6 +48,7 @@ public static class Paths
     
     public static string LauncherDirPath => LauncherDirName;
     public static string NewsFilePath => NewsFileName;
+    public static string PatchFilePath => PatchFileName;
     
     
     public static string RootPath => ProjectSettings.GlobalizePath("user://");

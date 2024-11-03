@@ -1,7 +1,9 @@
 ﻿#region
 
 using System.Linq;
+using KludgeBox.Events.Global;
 using KludgeBox.Scheduling;
+using PatchApi.Events;
 
 #endregion
 
@@ -36,6 +38,9 @@ public class TaskManager
 
     public void AddTask(LauncherTask pendingTask)
     {
+        if (EventBus.PublishIsCancelled(new TaskAboutToAddEvent(pendingTask)))
+            return;
+        
         PendingTasks.Add(pendingTask);
         UnfinishedTasks.Add(pendingTask);
     }
@@ -65,19 +70,22 @@ public class TaskManager
                 foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))
                 {
                     var newTasks = finishedTask.OnTaskFinished();
-                    if (newTasks is not null)
+                    if (EventBus.PublishIsCancelled(new TaskFinishedEvent(finishedTask, ref newTasks)))
                     {
-                        foreach (var newTask in newTasks)
+                        if (newTasks is not null)
                         {
-                            if(newTask is not null)
+                            foreach (var newTask in newTasks)
                             {
-                                AddTask(newTask);
-                                newTask.ParentTask = finishedTask;
-                                finishedTask.ChildrenTasks.Add(newTask);
+                                if(newTask is not null)
+                                {
+                                    AddTask(newTask);
+                                    newTask.ParentTask = finishedTask;
+                                    finishedTask.ChildrenTasks.Add(newTask);
+                                }
                             }
                         }
                     }
-
+                    
                     finishedTask.State = TaskState.Finalized;
                 }
             

@@ -18,12 +18,14 @@ public class DefaultApiProvider : IApiProvider
     public string JavaRoute { get; set; } = "api/v1/core/jre";
     public string MinecraftRoute { get; set; } = "api/v1/core/minecraft";
     public string ServersRoute { get; set; } = "api/v1/data/servers";
+    public string PatchInfoRoute { get; set; } = "api/v1/patch/info";
     
     public string RequiredModsUrl => $"{Host}/{RequiredModsRoute}";
     public string OptionalModsUrl => $"{Host}/{OptionalModsRoute}";
     public string JavaUrl => $"{Host}/{JavaRoute}";
     public string MinecraftUrl => $"{Host}/{MinecraftRoute}";
     public string ServersUrl => $"{Host}/{ServersRoute}";
+    public string PatchInfoUrl => $"{Host}/{PatchInfoRoute}";
 
     public string GetJavaUrl()
     {
@@ -54,7 +56,25 @@ public class DefaultApiProvider : IApiProvider
     {
         var infoUrl = GetJavaUrl() + "/info";
         var result = await HttpHelper.GetAsync(infoUrl);
+        
         var info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
+        
+        return info;
+    }
+
+    public async Task<RemoteFile> GetPatchInfoAsync()
+    {
+        var infoUrl = PatchInfoUrl;
+        var result = await HttpHelper.GetAsync(infoUrl);
+        RemoteFile info = null;
+        try
+        {
+            info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
+        }
+        catch
+        {
+            Log.Warning($"Удаленный патч не найден");
+        }
         
         return info;
     }

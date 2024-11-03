@@ -137,7 +137,7 @@ public static class ReflectionExtensions
 	/// <returns>An enumerable collection of types that derive from the specified base type.</returns>
 	public static IEnumerable<Type> FindAllTypesThatDeriveFrom<TBase>()
 	{
-		return GetAllAssemblies().SelectMany(a => a.GetTypes()).Where(type => type.IsSubclassOf(typeof(TBase)));
+		return GetAllAssemblies().SelectMany(a => a.GetTypes()).Where(type => type.IsAssignableTo(typeof(TBase)));
 	}
 
 
@@ -148,7 +148,7 @@ public static class ReflectionExtensions
 	/// <returns>An enumerable collection of types that derive from the specified base type.</returns>
 	public static IEnumerable<Type> FindAllTypesThatDeriveFrom<TBase>(this Assembly assembly)
 	{
-		return assembly.GetTypes().Where(type => type.IsSubclassOf(typeof(TBase)));
+		return assembly.GetTypes().Where(type => type.IsAssignableTo(typeof(TBase)));
 	}
 
 	/// <summary>

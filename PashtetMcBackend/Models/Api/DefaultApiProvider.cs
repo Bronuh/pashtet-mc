@@ -22,6 +22,7 @@ public class DefaultApiProvider : IApiProvider
     
     public const string LauncherDirName = "launcher";
     public const string ServersFileName = "servers.dat";
+    public const string PatchFileName = "LauncherPatches.dll";
     
     public const string StorageDirPath = "/storage";
     public const string McServerDirPath = "/mcserver";
@@ -37,6 +38,7 @@ public class DefaultApiProvider : IApiProvider
     public string OptionalModsDirPath => Path.Combine(StorageDirPath, OptionalModsDirName);
     public string ConfigDirPath => Path.Combine(McServerDirPath, ConfigDirName);
     public string ServersFilePath => Path.Combine(StorageDirPath, ServersFileName);
+    public string PatchFilePath => Path.Combine(StorageDirPath, PatchFileName);
     
 
     public string RootPath { get; private set; } = "";
@@ -74,6 +76,11 @@ public class DefaultApiProvider : IApiProvider
     public LocalFile GetVersionFile()
     {
         return new LocalFile(MinecraftVersionFilePath);
+    }
+
+    public LocalFile GetPatchFile()
+    {
+        return new LocalFile(PatchFilePath);
     }
 
 

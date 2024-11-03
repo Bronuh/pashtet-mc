@@ -1,10 +1,17 @@
 #region
 
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
+using System.Threading.Tasks;
 using Api;
 using Common;
+using Common.Api;
 using Common.FileSystem.Deploy;
 using Common.IO.Checksum;
+using HashedFiles;
+using IO;
+using KludgeBox.Events.Global;
 using KludgeBox.Scheduling;
 using Launcher.Tasks;
 using Launcher.Tasks.Implementations.Environment;
@@ -12,6 +19,8 @@ using Launcher.Tasks.Implementations.Environment.Core;
 using Launcher.Tasks.Implementations.Environment.Mods;
 using Launcher.Tasks.Implementations.Info;
 using Launcher.Tasks.Implementations.Launch;
+using PatchApi;
+using PatchApi.Events;
 
 #endregion
 
@@ -27,6 +36,7 @@ public partial class Main : Node
 	public static Scheduler Scheduler { get; private set; }
 	public static Settings Settings { get; private set; }
 	public static LauncherState State { get; private set; }
+	public static PatchManager PatchManager { get; private set; }
 
 	[Export] public LineEdit PlayerNameTextBox;
 	[Export] public LineEdit PasswordTextBox;
@@ -40,34 +50,44 @@ public partial class Main : Node
 	[Export] public PanelContainer ConfigPanel;
 	[Export] public PackedScene TaskTrackerScene;
 	
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		Instance = this;
-		Scheduler = new ();
-		TaskManager = new TaskManager(Scheduler);
 		Settings = SettingsUtils.LoadSettings();
+		PatchManager = new PatchManager();
+		
+		Scheduler = new Scheduler();
+		TaskManager = new TaskManager(Scheduler);
 		ApiProvider = new DefaultApiProvider();
 		State = new LauncherState();
+		
 		ChecksumProvider = DefaultServices.ChecksumProvider;
 		FileDeployer = DefaultServices.FileDeployer;
 		
-		SetupUi();
 		SettingsUtils.SaveSettings(Settings);
+		Scheduler.PeriodicInSeconds(0.1, UpdateButton);
+		SetupUi();
 
+		await LoadPatches();
+		
+		EventBus.Publish(new CreatingMainTasksEvent());
 		var prepareTask = new PrepareEnvironmentTask();
 		var serverCheckTask = new PingServerTask();
 		var cleanupDownloadsTask = new CleanupBrokenDownloads().AfterTasks(prepareTask);
 		var jreTask = new PrepareJreTask().AfterTasks(prepareTask, cleanupDownloadsTask);
 		var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask, cleanupDownloadsTask);
 		var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask);
+
+		LauncherTask[] preparedTasks = [serverCheckTask, prepareTask, cleanupDownloadsTask, jreTask, minecraftTask, finishTask];
 		
-		TaskManager.AddTasks([serverCheckTask, prepareTask, cleanupDownloadsTask, jreTask, minecraftTask, finishTask]);
-		Scheduler.PeriodicInSeconds(0.1, UpdateButton);
+		EventBus.Publish(new RunningMainTasksOnTaskManagerEvent(preparedTasks));
+		TaskManager.AddTasks(preparedTasks);
 	}
 
 	private void UpdateButton()
 	{
-		RunButton.Disabled = !State.CanLaunch;
+		if(!EventBus.PublishIsCancelled(new RunButtonAboutToUpdate(RunButton)))
+			RunButton.Disabled = !State.CanLaunch;
 	}
 
 	public override void _Process(double delta)
@@ -89,14 +109,14 @@ public partial class Main : Node
 		foreach (var pendingTask in missingPendingTasks)
 		{
 			var pendingTracker = TaskTrackerScene.Instantiate() as TaskTracker;
-			pendingTracker.From(pendingTask);
+			pendingTracker!.From(pendingTask);
 			PendingTasksContainer.AddChild(pendingTracker);
 		}
 		
 		foreach (var runningTask in missingRunningTasks)
 		{
 			var runningTracker = TaskTrackerScene.Instantiate() as TaskTracker;
-			runningTracker.From(runningTask);
+			runningTracker!.From(runningTask);
 			RunningTasksContainer.AddChild(runningTracker);
 		}
 
@@ -118,8 +138,35 @@ public partial class Main : Node
 		return gigs;
 	}
 
+	private async Task LoadPatches()
+	{
+		var remotePatchInfo = await ApiProvider.GetPatchInfoAsync();
+		var localPatchInfo = new LocalFile(Paths.PatchFilePath.AsAbsolute(), ChecksumProvider);
+		if (remotePatchInfo is not null && remotePatchInfo.Checksum != localPatchInfo.GetPrecalculatedChecksum())
+		{
+			var download = new DownloadTask(remotePatchInfo.Url, localPatchInfo.FilePath);
+			await download.RunAsync();
+		}
+		
+		Assembly currentAssembly = Assembly.GetExecutingAssembly();
+		AssemblyLoadContext context = AssemblyLoadContext.GetLoadContext(currentAssembly);
+		try
+		{
+			context!.LoadFromAssemblyPath(localPatchInfo.FilePath);
+		}
+		catch (Exception ex)
+		{
+			Log.Warning($"Не удалось загрузить патчи из {localPatchInfo.FilePath}. Существует ли файл?: {ex}");
+		}
+	}
+	
 	private static void SaveSettings()
 	{
+		if (EventBus.PublishIsCancelled(new SettingsSavingEvent(Settings)))
+		{
+			return;
+		}
+		
 		SettingsUtils.SaveSettings(Settings);
 	}
 
@@ -142,9 +189,15 @@ public partial class Main : Node
 
 	private void DeployAndRun()
 	{
+		if (EventBus.PublishIsCancelled(new RunButtonPressedEvent(RunButton)))
+		{
+			Log.Warning("Запуск игры был отменен одним из обработчиков события");
+			return;
+		}
+			
 		if (!State.CanLaunch)
 		{
-			Log.Error("Attempt to run game while it is already in progress or not ready yet");
+			Log.Error("Попытка запустить игру, когда она уже запущена или еще не готова к запуску");
 			return;
 		}
 
@@ -161,18 +214,30 @@ public partial class Main : Node
 
 	private void UpdatePlayerName(string name)
 	{
+		if (EventBus.PublishIsCancelled(new PlayerNameUpdatingEvent(PlayerNameTextBox)))
+			return;
+		
 		Settings.PlayerName = name;
 		SaveSettings();
 	}
 	
 	private void UpdatePassword(string name)
 	{
+		if (EventBus.PublishIsCancelled(new PlayerPasswordUpdatingEvent(PasswordTextBox)))
+			return;
+		
 		Settings.PlayerName = name;
 		SaveSettings();
 	}
 	
 	private void UpdateRam(double value)
 	{
+		if (EventBus.PublishIsCancelled(new RamValueChangingEvent(ref value)))
+		{
+			RamSlider.SetValueNoSignal(value);
+			return;
+		}
+		
 		Settings.MaxRam = value;
 		RamLabel.Text = $"RAM: {value:N1} / {GetInstalledRamAmount():N1} Gb";
 		SaveSettings();

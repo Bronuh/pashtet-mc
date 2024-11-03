@@ -14,6 +14,7 @@ public interface IApiProvider
     string GetServersUrl();
     Task<RemoteFile> GetMinecraftInfoAsync();
     Task<RemoteFile> GetJavaInfoAsync();
+    Task<RemoteFile> GetPatchInfoAsync();
     Task<RemoteFilesList> GetRequiredModsListAsync();
     Task<RemoteFilesList> GetOptionalModsListAsync();
 }

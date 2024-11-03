@@ -152,7 +152,32 @@ public abstract class LauncherTask
 
     public LauncherTask AfterTasks(params LauncherTask[] tasks)
     {
-        RequiredTasks.AddRange(tasks);
+        foreach (var task in tasks)
+        {
+            if (task.RequiredTasks.Contains(this))
+            {
+                Log.Warning($"Попытка запустить задачу {Name} после {task.Name}, но {task.Name} уже ожидает завершения {Name}");
+                continue;
+            }
+                
+            RequiredTasks.Add(task);
+        }
+        
+        return this;
+    }
+    
+    public LauncherTask BeforeTasks(params LauncherTask[] tasks)
+    {
+        foreach (var task in tasks)
+        {
+            if (RequiredTasks.Contains(task))
+            {
+                Log.Warning($"Попытка запустить задачу {task.Name} после {Name}, но {Name} уже ожидает завершения {task.Name}");
+                continue;
+            }
+            
+            task.RequiredTasks.Add(this);
+        }
         return this;
     }
     
