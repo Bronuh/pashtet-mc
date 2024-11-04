@@ -28,7 +28,17 @@ public class PrepareJreTask : LauncherTask
             return;
         }
 
-        _nextTask = new DownloadJreTask();
+        bool downloadAccepted = false;
+        await Main.Popup.BeginBuild()
+            .WithTitle("Требуется скачать Java")
+            .WithDescription("Для запуска Minecraft необходимо скачать и установить Java.")
+            .WithButton("Скачать", () => downloadAccepted = true)
+            .WithButton("Не скачивать")
+            .PauseScheduler()
+            .EnqueueAndWaitAsync();
+        
+        if (downloadAccepted)
+            _nextTask = new DownloadJreTask();
     }
 
     public override IEnumerable<LauncherTask> OnTaskFinished()

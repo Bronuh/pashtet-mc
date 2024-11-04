@@ -2,6 +2,7 @@
 
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Common.Api;
 using HashedFiles;
@@ -53,6 +54,53 @@ public class CheckModsTask : LauncherTask
                 _modsToDownload.Add(remoteMod);
             }
         }
+        
+        var sb = new StringBuilder();
+        sb.AppendLine("Для игры на сервере необходимо обновить сборку модов.");
+        sb.AppendLine("Ожидаются следующие изменения:");
+        foreach (var modName in _modsToRemove)
+        {
+            sb.Append(" > ");
+            sb.Append(modName);
+            sb.Append(": ");
+            if (_modsToDownload.Any(remote => remote.Name == modName))
+            {
+                sb.Append("Обновление");
+            }
+            else
+            {
+                sb.Append("Удаление");
+            }
+
+            sb.AppendLine();
+        }
+
+        foreach (var mod in _modsToDownload)
+        {
+            sb.Append(" > ");
+            sb.Append(mod.Name);
+            sb.Append(": Скачивание");
+            sb.AppendLine();
+        }
+        
+        bool updateAccepted = false;
+        await Main.Popup.BeginBuild()
+            .WithTitle("Доступно обновление сборки модов")
+            .WithDescription(sb.ToString())
+            .WithButton("Обновить", () => updateAccepted = true)
+            .WithButton("Не обновлять")
+            .WithCancelButton(() => Main.State.RunInterruptRequested = true)
+            .PauseScheduler()
+            .EnqueueAndWaitAsync();
+        
+        if(!updateAccepted)
+            CancelUpdate();
+    }
+
+    private void CancelUpdate()
+    {
+        _modsToRemove.Clear();
+        _modsToDownload.Clear();
     }
 
     public override IEnumerable<LauncherTask> OnTaskFinished()

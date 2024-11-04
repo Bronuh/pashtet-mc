@@ -34,6 +34,7 @@ public class RunMinecraftTask : LauncherTask
     public override IEnumerable<LauncherTask> OnTaskFinished()
     {
         Main.State.IsMinecraftRunning = false;
+        Main.State.RunInterruptRequested = false;
         return null;
     }
 }

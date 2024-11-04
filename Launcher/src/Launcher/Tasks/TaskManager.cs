@@ -63,8 +63,16 @@ public class TaskManager
                 {
                     var runningTask = ReadyToRunTasks.First();
                     PendingTasks.Remove(runningTask);
+
                     RunningTasks.Add(runningTask);
-                    _ = runningTask.Run();
+                    if (runningTask.SkipConditions.Any(condition => condition?.Invoke() ?? true))
+                    {
+                        runningTask.State = TaskState.Finished;
+                    }
+                    else
+                    {
+                        _ = runningTask.Run();
+                    }
                 }
                 
                 foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))

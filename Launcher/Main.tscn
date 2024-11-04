@@ -88,7 +88,7 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "PasswordTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel", "Popup")]
+[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "PasswordTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel", "_popup")]
 script = ExtResource("1_41ihv")
 PlayerNameTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
 PasswordTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/PasswordLine/PasswordBox")
@@ -101,7 +101,7 @@ RunningTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/
 PendingTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
 ConfigPanel = NodePath("Canvas/UiRootControl/ConfigContainer")
 TaskTrackerScene = ExtResource("2_2ek23")
-Popup = NodePath("Canvas/UiRootControl/Popup")
+_popup = NodePath("Canvas/UiRootControl/Popup")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 

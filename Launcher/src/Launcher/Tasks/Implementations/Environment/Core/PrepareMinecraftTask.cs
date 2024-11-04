@@ -30,7 +30,17 @@ public class PrepareMinecraftTask : LauncherTask
             return;
         }
         
-        _nextTask = new DownloadMinecraftTask();
+        bool downloadAccepted = false;
+        await Main.Popup.BeginBuild()
+            .WithTitle("Требуется скачать Minecraft")
+            .WithDescription("Для запуска Minecraft необходимо скачать и установить его основные компоненты.")
+            .WithButton("Скачать", () => downloadAccepted = true)
+            .WithButton("Не скачивать")
+            .PauseScheduler()
+            .EnqueueAndWaitAsync();
+        
+        if (downloadAccepted)
+            _nextTask = new DownloadMinecraftTask();
     }
 
     public override IEnumerable<LauncherTask> OnTaskFinished()

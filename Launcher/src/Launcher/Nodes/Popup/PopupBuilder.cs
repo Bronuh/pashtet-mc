@@ -1,4 +1,6 @@
-﻿namespace Launcher.Nodes;
+﻿using System.Threading.Tasks;
+
+namespace Launcher.Nodes;
 
 public class PopupBuilder
 {
@@ -13,6 +15,11 @@ public class PopupBuilder
         _popup = popup;
     }
 
+    /// <summary>
+    /// This Popup will pause main scheduler when shown, so other tasks will not be processed until this popup is closed.
+    /// </summary>
+    /// <param name="pause"></param>
+    /// <returns></returns>
     public PopupBuilder PauseScheduler(bool pause = true)
     {
         _request.PauseScheduler = pause;
@@ -31,7 +38,7 @@ public class PopupBuilder
         return this;
     }
     
-    public PopupBuilder WithButton(string title, Action action)
+    public PopupBuilder WithButton(string title, Action action = null)
     {
         var button = new ButtonRequest(title, WrapAction(action));
         _request.Buttons.Add(button);
@@ -41,6 +48,7 @@ public class PopupBuilder
     public PopupBuilder WithCancelButton(Action additionalAction = null)
     {
         _cancelButtonRequired = true;
+        _onCancel = additionalAction;
         return this;
     }
 
@@ -54,11 +62,24 @@ public class PopupBuilder
     {
         if (_enqueued)
             throw new InvalidOperationException("Cannot enqueue more than once.");
-
+        _enqueued = true;
+        
         if (_cancelButtonRequired)
-            WithButton("Отмена", WrapAction(_onCancel));
+            WithButton("Отмена", _onCancel);
         
         _popup.QueuePopup(_request);
+    }
+
+    public Task EnqueueAndWaitAsync()
+    {
+        if (_enqueued)
+            throw new InvalidOperationException("Cannot enqueue more than once.");
+        
+        var tcs = new TaskCompletionSource();
+        _request.Closed += (_) => tcs.SetResult();
+        Enqueue();
+        
+        return tcs.Task;
     }
 
     private Action WrapAction(Action action)
@@ -66,7 +87,7 @@ public class PopupBuilder
         return () =>
         {
             action?.Invoke();
-            _popup.Hide();
+            _popup.HidePopup();
         };
     }
 }

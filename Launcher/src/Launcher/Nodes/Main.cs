@@ -37,6 +37,7 @@ public partial class Main : Node
 	public static Settings Settings { get; private set; }
 	public static LauncherState State { get; private set; }
 	public static PatchManager PatchManager { get; private set; }
+	public static Popup Popup => Instance._popup;
 
 	[Export] public LineEdit PlayerNameTextBox;
 	[Export] public LineEdit PasswordTextBox;
@@ -49,7 +50,7 @@ public partial class Main : Node
 	[Export] public VBoxContainer PendingTasksContainer;
 	[Export] public PanelContainer ConfigPanel;
 	[Export] public PackedScene TaskTrackerScene;
-	[Export] public Popup Popup;
+	[Export] public Popup _popup;
 	
 	public override async void _Ready()
 	{
@@ -146,9 +147,24 @@ public partial class Main : Node
 		var localPatchInfo = new LocalFile(Paths.PatchFilePath.AsAbsolute(), ChecksumProvider);
 		if (remotePatchInfo is not null && remotePatchInfo.Checksum != localPatchInfo.GetPrecalculatedChecksum())
 		{
-			Log.Info("Скачивается патч...");
-			var download = new DownloadTask(remotePatchInfo.Url, localPatchInfo.FilePath);
-			await download.RunAsync();
+			bool downloadAccepted = false;
+			await Popup.BeginBuild()
+				.WithTitle("Доступен новый патч")
+				.WithDescription("Новый патч для лаунчера доступен для скачивания.")
+				.WithButton("Скачать", () =>
+				{
+					downloadAccepted = true;
+				})
+				.WithButton("Пропустить") // just close popup
+				.PauseScheduler()
+				.EnqueueAndWaitAsync();
+
+			if (downloadAccepted)
+			{
+				Log.Info("Скачивается патч...");
+				var download = new DownloadTask(remotePatchInfo.Url, localPatchInfo.FilePath);
+				await download.RunAsync();
+			}
 		}
 		
 		Assembly currentAssembly = Assembly.GetExecutingAssembly();
@@ -156,7 +172,7 @@ public partial class Main : Node
 		try
 		{
 			Log.Info("Загрузка и запуск патчей...");
-			var asm = context!.LoadFromAssemblyPath(localPatchInfo.FilePath);
+			var asm = context?.LoadFromAssemblyPath(localPatchInfo.FilePath);
 			PatchManager.LoadPatches(asm);
 		}
 		catch (Exception ex)
@@ -212,10 +228,13 @@ public partial class Main : Node
 		var modsTask = new CheckModsTask();
 		var updateServers = new UpdateServersTask();
 		//var deletePacks = new DeleteServerResourcepackTask();
-		var deployMods = new DeployModpackTask().AfterTasks(modsTask);
-		var run = new RunMinecraftTask().AfterTasks(modsTask, deployMods, updateServers);
+		var deployMods = new DeployModpackTask()
+			.AfterTasks(modsTask);
+		var run = new RunMinecraftTask()
+			.AfterTasks(modsTask, deployMods, updateServers)
+			.SkipIf(() => State.RunInterruptRequested);
 		
-		TaskManager.AddTasks([modsTask, deployMods, updateServers,run]);
+		TaskManager.AddTasks([modsTask, deployMods, updateServers, run]);
 	}
 
 	private void UpdatePlayerName(string name)

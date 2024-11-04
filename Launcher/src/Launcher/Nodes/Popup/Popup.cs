@@ -48,6 +48,9 @@ public partial class Popup : Control
 		if (EventBus.PublishIsCancelled(new PopupTryingToShowEvent(this)))
 			return;
 		
+		if (Visible)
+			return;
+		
 		if (_popupRequests.TryDequeue(out var popup))
 		{
 			ShowPopup(popup);
@@ -68,8 +71,8 @@ public partial class Popup : Control
 			button.Text = buttonRequest.Title;
 			button.Pressed += () =>
 			{
-				popup.OnClosed(buttonRequest);
 				buttonRequest.Action?.Invoke();
+				popup.OnClosed(buttonRequest);
 			};
 				
 			ButtonsContainer.AddChild(button);
@@ -80,7 +83,7 @@ public partial class Popup : Control
 		Visible = true;
 	}
 
-	private void HidePopup()
+	public void HidePopup()
 	{
 		Visible = false;
 		if (CurrentPopupRequest.PauseScheduler)

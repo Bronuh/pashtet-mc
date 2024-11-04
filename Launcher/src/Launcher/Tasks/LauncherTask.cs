@@ -93,6 +93,7 @@ public abstract class LauncherTask
     
     public List<LauncherTask> RequiredTasks { get; private set; } = new List<LauncherTask>();
     public List<Func<bool>> AdditionalConditions { get; private set; } = new List<Func<bool>>();
+    public List<Func<bool>> SkipConditions { get; private set; } = new List<Func<bool>>();
     public LauncherTask ParentTask { get; set; }
     
     public List<LauncherTask> ChildrenTasks { get; private set; } = new List<LauncherTask>();
@@ -147,6 +148,12 @@ public abstract class LauncherTask
     public LauncherTask WithCondition(Func<bool> condition)
     {
         AdditionalConditions.Add(condition);
+        return this;
+    }
+    
+    public LauncherTask SkipIf(Func<bool> condition)
+    {
+        SkipConditions.Add(condition);
         return this;
     }
 
