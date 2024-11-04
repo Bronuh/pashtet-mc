@@ -9,12 +9,34 @@ using Launcher.Tasks;
 namespace PatchApi.Events;
 
 public record struct CreatingMainTasksEvent : IEvent;
-public record struct RunningMainTasksOnTaskManagerEvent(LauncherTask[] task) : IEvent;
+public record struct RunningMainTasksOnTaskManagerEvent(LauncherTask[] Tasks) : IEvent;
 
-public class RunButtonAboutToUpdate(Button RunButton) : CancellableEvent;
-public class RunButtonPressedEvent(Button RunButton) : CancellableEvent;
+public class RunButtonAboutToUpdate(Button runButton) : CancellableEvent
+{
+    public Button RunButton { get; } = runButton;
+}
 
-public class PlayerNameUpdatingEvent(LineEdit NameTextBox) : CancellableEvent;
-public class PlayerPasswordUpdatingEvent(LineEdit PasswordTextBox) : CancellableEvent;
-public class RamValueChangingEvent(ref double AmountGb) : CancellableEvent;
-public class SettingsSavingEvent(Settings Settings) : CancellableEvent;
+public class RunButtonPressedEvent(Button runButton) : CancellableEvent
+{
+    public Button RunButton { get; } = runButton;
+}
+
+public class PlayerNameUpdatingEvent(LineEdit nameTextBox) : CancellableEvent
+{
+    public LineEdit NameTextBox { get; } = nameTextBox;
+}
+
+public class PlayerPasswordUpdatingEvent(LineEdit passwordTextBox) : CancellableEvent
+{
+    public LineEdit PasswordTextBox { get; } = passwordTextBox;
+}
+
+public class RamValueChangingEvent(ref double amountGb) : CancellableEvent
+{
+    public double AmountGb { get; } = amountGb;
+}
+
+public class SettingsSavingEvent(Settings settings) : CancellableEvent
+{
+    public Settings Settings { get; } = settings;
+}

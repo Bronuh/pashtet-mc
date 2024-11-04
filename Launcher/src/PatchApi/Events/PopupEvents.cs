@@ -8,7 +8,24 @@ using Popup = Launcher.Nodes.Popup;
 
 namespace PatchApi.Events;
 
-public class PopupRequestEnqueueEvent(Popup Popup, PopupRequest Request) : CancellableEvent;
-public class PopupTryingToShowEvent(Popup Popup) : CancellableEvent;
-public class PopupShowEvent(Popup Popup, PopupRequest Request) : CancellableEvent;
-public class PopupClearingEvent(Popup Popup) : CancellableEvent;
+public class PopupRequestEnqueueEvent(Popup popup, PopupRequest request) : CancellableEvent
+{
+    public Popup Popup { get; } = popup;
+    public PopupRequest Request { get; } = request;
+}
+
+public class PopupTryingToShowEvent(Popup popup) : CancellableEvent
+{
+    public Popup Popup { get; } = popup;
+}
+
+public class PopupShowEvent(Popup popup, PopupRequest request) : CancellableEvent
+{
+    public Popup Popup { get; } = popup;
+    public PopupRequest Request { get; } = request;
+}
+
+public class PopupClearingEvent(Popup popup) : CancellableEvent
+{
+    public Popup Popup { get; } = popup;
+}

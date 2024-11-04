@@ -157,6 +157,7 @@ public partial class Main : Node
 			};
 
 			var path = paths.FirstOrDefault(File.Exists);
+			Log.Warning($"Загружается отладочный патч по пути: {path}");
 			localPatchInfo = new LocalFile(path);
 		}
 		else

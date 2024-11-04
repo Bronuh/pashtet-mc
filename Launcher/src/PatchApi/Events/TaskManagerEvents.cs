@@ -7,5 +7,13 @@ using Launcher.Tasks;
 
 namespace PatchApi.Events;
 
-public class TaskAboutToAddEvent(LauncherTask Task) : CancellableEvent;
-public class TaskFinishedEvent(LauncherTask FinishedTask, ref IEnumerable<LauncherTask> ChildTasks) : CancellableEvent;
+public class TaskAboutToAddEvent(LauncherTask task) : CancellableEvent
+{
+    public LauncherTask Task { get; } = task;
+}
+
+public class TaskFinishedEvent(LauncherTask finishedTask, IEnumerable<LauncherTask> childTasks) : CancellableEvent
+{
+    public LauncherTask FinishedTask { get; } = finishedTask;
+    public IEnumerable<LauncherTask> ChildTasks { get; set; } = childTasks;
+}
