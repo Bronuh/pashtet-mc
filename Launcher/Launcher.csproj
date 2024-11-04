@@ -23,7 +23,6 @@
       <DirectoriesToCreate Include="$(ProjectDir)bin\win-64" />
       <DirectoriesToCreate Include="$(ProjectDir)bin\win-64\portable" />
       <DirectoriesToCreate Include="$(ProjectDir)bin\win-64\full" />
-      <DirectoriesToCreate Include="$(ProjectDir)bin\android" />
       <FilesToCreate Include="$(ProjectDir)bin\.gdignore" />
     </ItemGroup>
     <MakeDir Directories="@(DirectoriesToCreate)" />
