@@ -2,9 +2,17 @@
 
 public class PopupRequest
 {
+    public event Action<ButtonRequest> Closed;
+    public bool PauseScheduler { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public List<ButtonRequest> Buttons { get; set; } = new ();
+
+
+    public void OnClosed(ButtonRequest buttonRequest)
+    {
+        Closed?.Invoke(buttonRequest);
+    }
 }
 
 public class ButtonRequest

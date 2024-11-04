@@ -13,6 +13,12 @@ public class PopupBuilder
         _popup = popup;
     }
 
+    public PopupBuilder PauseScheduler(bool pause = true)
+    {
+        _request.PauseScheduler = pause;
+        return this;
+    }
+
     public PopupBuilder WithTitle(string title)
     {
         _request.Title = title;
@@ -27,13 +33,20 @@ public class PopupBuilder
     
     public PopupBuilder WithButton(string title, Action action)
     {
-        _request.Buttons.Add(new ButtonRequest(title, WrapAction(action)));
+        var button = new ButtonRequest(title, WrapAction(action));
+        _request.Buttons.Add(button);
         return this;
     }
     
     public PopupBuilder WithCancelButton(Action additionalAction = null)
     {
         _cancelButtonRequired = true;
+        return this;
+    }
+
+    public PopupBuilder WithCloseCallback(Action<ButtonRequest> action)
+    {
+        _request.Closed += action;
         return this;
     }
     

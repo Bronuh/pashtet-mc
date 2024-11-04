@@ -28,6 +28,8 @@ public sealed class Scheduler
     /// </summary>
     public IPendingTask CurrentTask { get; private set; } = null;
     
+    public bool IsPaused { get; private set; } = false;
+    
     private List<IPendingTask> _addBuffer = new();
     private List<IPendingTask> _pendingTasks = new();
     private List<IPendingTask> _nextPendingTasks = new();
@@ -47,7 +49,8 @@ public sealed class Scheduler
         TotalTime += actualDelta;
         TotalTicks++;
 
-        ProcessTasks();
+        if(!IsPaused)
+            ProcessTasks();
     }
 
     /// <summary>
@@ -167,7 +170,21 @@ public sealed class Scheduler
         
         return task;
     }
-    
+
+    public void Pause()
+    {
+        IsPaused = true;
+    }
+
+    public void Resume()
+    {
+        IsPaused = false;
+    }
+
+    public void SetPaused(bool paused)
+    {
+        IsPaused = paused;
+    }
     
     private SchedulerState GetState()
     {

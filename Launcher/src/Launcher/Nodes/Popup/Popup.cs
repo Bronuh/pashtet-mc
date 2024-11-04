@@ -66,16 +66,28 @@ public partial class Popup : Control
 		{
 			var button = new Button();
 			button.Text = buttonRequest.Title;
-			button.Pressed += buttonRequest.Action;
+			button.Pressed += () =>
+			{
+				popup.OnClosed(buttonRequest);
+				buttonRequest.Action?.Invoke();
+			};
+				
 			ButtonsContainer.AddChild(button);
 		}
 		CurrentPopupRequest = popup;
+		Main.Scheduler.SetPaused(popup.PauseScheduler);
+		
 		Visible = true;
 	}
 
 	private void HidePopup()
 	{
 		Visible = false;
+		if (CurrentPopupRequest.PauseScheduler)
+		{
+			Main.Scheduler.Resume();
+		}
+		
 		Clear();
 		TryShowNextPopup();
 	}
