@@ -1,14 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://dykxfs237d0wb"]
+[gd_scene load_steps=5 format=3 uid="uid://dykxfs237d0wb"]
 
 [ext_resource type="Script" path="res://src/Launcher/Nodes/ConfigContainer.cs" id="1_tfe6i"]
+[ext_resource type="Shader" path="res://assets/blur.gdshader" id="1_vxghl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ur1uj"]
+shader = ExtResource("1_vxghl")
+shader_parameter/lod = 2.0
+shader_parameter/brightness = 1.0
+shader_parameter/transparency = 0.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu64c"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_color = Color(0.0807833, 0.0807833, 0.0807833, 1)
 
 [node name="ConfigContainer" type="PanelContainer" node_paths=PackedStringArray("OpenWorkingDirButton", "OpenUserModsDirButton", "ResetConfigButton", "ClearDownloadsButton", "ResetGameFilesButton")]
+material = SubResource("ShaderMaterial_ur1uj")
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fu64c")
 script = ExtResource("1_tfe6i")
 OpenWorkingDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenWorkingDirButton")
 OpenUserModsDirButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/OpenUserModsDirButton")

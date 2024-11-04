@@ -1,0 +1,119 @@
+[gd_scene load_steps=8 format=3 uid="uid://13dnnh5wywh8"]
+
+[ext_resource type="Shader" path="res://assets/blur.gdshader" id="1_deji0"]
+[ext_resource type="Script" path="res://src/Launcher/Nodes/Popup/Popup.cs" id="1_px2of"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d56yx"]
+shader = ExtResource("1_deji0")
+shader_parameter/lod = 2.0
+shader_parameter/brightness = 1.0
+shader_parameter/transparency = 0.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irc8k"]
+bg_color = Color(1, 1, 1, 0.631373)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="FontVariation" id="FontVariation_2rr21"]
+variation_embolden = 0.71
+
+[sub_resource type="LabelSettings" id="LabelSettings_iynle"]
+font = SubResource("FontVariation_2rr21")
+font_size = 21
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u3tsf"]
+font_color = Color(0.154876, 0.154876, 0.154876, 1)
+
+[node name="Popup" type="Control" node_paths=PackedStringArray("ButtonsContainer", "TitleLabel", "DescriptionLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_px2of")
+ButtonsContainer = NodePath("PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer")
+TitleLabel = NodePath("PanelContainer/MarginContainer/VBoxContainer/TitleLabel")
+DescriptionLabel = NodePath("PanelContainer/MarginContainer/VBoxContainer/DescriptionLabel")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+rect = Rect2(0, 0, 1150, 650)
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_d56yx")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_irc8k")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Название окна"
+label_settings = SubResource("LabelSettings_iynle")
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+label_settings = SubResource("LabelSettings_u3tsf")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="DividerLine" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0, 0, 0, 0.219608)
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "AAAAAAAAAAA"
+
+[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ладно."

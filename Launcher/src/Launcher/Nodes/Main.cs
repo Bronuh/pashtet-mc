@@ -49,6 +49,7 @@ public partial class Main : Node
 	[Export] public VBoxContainer PendingTasksContainer;
 	[Export] public PanelContainer ConfigPanel;
 	[Export] public PackedScene TaskTrackerScene;
+	[Export] public Popup Popup;
 	
 	public override async void _Ready()
 	{
