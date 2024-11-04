@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace Api;
+namespace WebApi;
 
 public class DefaultApiProvider : IApiProvider
 {
@@ -45,30 +45,46 @@ public class DefaultApiProvider : IApiProvider
 
     public async Task<RemoteFile> GetMinecraftInfoAsync()
     {
-        var infoUrl = GetMinecraftUrl() + "/info";
-        var result = await HttpHelper.GetAsync(infoUrl);
-        var info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
+        try
+        {
+            var infoUrl = GetMinecraftUrl() + "/info";
+            var result = await HttpHelper.GetAsync(infoUrl);
+            var info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
         
-        return info;
+            return info;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex);
+            return null;
+        }
     }
 
     public async Task<RemoteFile> GetJavaInfoAsync()
     {
-        var infoUrl = GetJavaUrl() + "/info";
-        var result = await HttpHelper.GetAsync(infoUrl);
+        try
+        {
+            var infoUrl = GetJavaUrl() + "/info";
+            var result = await HttpHelper.GetAsync(infoUrl);
+            var info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
         
-        var info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
-        
-        return info;
+            return info;
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex);
+            return null;
+        }
     }
 
     public async Task<RemoteFile> GetPatchInfoAsync()
     {
-        var infoUrl = PatchInfoUrl;
-        var result = await HttpHelper.GetAsync(infoUrl);
         RemoteFile info = null;
         try
         {
+            var infoUrl = PatchInfoUrl;
+            var result = await HttpHelper.GetAsync(infoUrl);
             info = JsonConvert.DeserializeObject<RemoteFile>(result.Body);
         }
         catch
@@ -81,14 +97,20 @@ public class DefaultApiProvider : IApiProvider
 
     public async Task<RemoteFilesList> GetRequiredModsListAsync()
     {
-        var result = await HttpHelper.GetAsync(RequiredModsUrl);
+        var result = await HttpHelper.GetAsync(RequiredModsUrl, ignoreException: true);
+        if (result is null)
+            return null;
+        
         var mods = JsonConvert.DeserializeObject<RemoteFilesList>(result.Body);
         return mods;
     }
 
     public async Task<RemoteFilesList> GetOptionalModsListAsync()
     {
-        var result = await HttpHelper.GetAsync(OptionalModsUrl);
+        var result = await HttpHelper.GetAsync(OptionalModsUrl, ignoreException: true);
+        if (result is null)
+            return null;
+        
         var mods = JsonConvert.DeserializeObject<RemoteFilesList>(result.Body);
         return mods;
     }

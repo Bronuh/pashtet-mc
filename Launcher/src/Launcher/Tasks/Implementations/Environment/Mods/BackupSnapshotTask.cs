@@ -7,7 +7,7 @@ using IO;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Environment.Mods;
+namespace Launcher.Tasks.Environment.Mods;
 
 public class BackupSnapshotTask : LauncherTask
 {

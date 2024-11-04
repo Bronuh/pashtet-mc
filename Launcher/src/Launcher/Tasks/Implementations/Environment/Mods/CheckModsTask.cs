@@ -10,7 +10,7 @@ using Launcher.Nodes;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Environment.Mods;
+namespace Launcher.Tasks.Environment.Mods;
 
 public class CheckModsTask : LauncherTask
 {

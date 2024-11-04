@@ -1,10 +1,10 @@
 #region
 
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
-using Api;
 using Common;
 using Common.Api;
 using Common.FileSystem.Deploy;
@@ -14,13 +14,14 @@ using IO;
 using KludgeBox.Events.Global;
 using KludgeBox.Scheduling;
 using Launcher.Tasks;
-using Launcher.Tasks.Implementations.Environment;
-using Launcher.Tasks.Implementations.Environment.Core;
-using Launcher.Tasks.Implementations.Environment.Mods;
-using Launcher.Tasks.Implementations.Info;
-using Launcher.Tasks.Implementations.Launch;
+using Launcher.Tasks.Environment;
+using Launcher.Tasks.Environment.Core;
+using Launcher.Tasks.Environment.Mods;
+using Launcher.Tasks.Info;
+using Launcher.Tasks.Launch;
 using PatchApi;
 using PatchApi.Events;
+using WebApi;
 
 #endregion
 
@@ -70,7 +71,8 @@ public partial class Main : Node
 		Scheduler.PeriodicInSeconds(0.1, UpdateButton);
 		SetupUi();
 
-		await LoadPatches();
+		if(!CmdArgsService.ContainsInCmdArgs(CmdArgs.SkipPatchKey))
+			await LoadPatches();
 		
 		EventBus.Publish(new CreatingMainTasksEvent());
 		var prepareTask = new PrepareFilesystemTask();
@@ -143,36 +145,54 @@ public partial class Main : Node
 	private async Task LoadPatches()
 	{
 		Log.Info("Установка патчей...");
-		var remotePatchInfo = await ApiProvider.GetPatchInfoAsync();
-		var localPatchInfo = new LocalFile(Paths.PatchFilePath.AsAbsolute(), ChecksumProvider);
-		if (remotePatchInfo is not null && remotePatchInfo.Checksum != localPatchInfo.GetPrecalculatedChecksum())
-		{
-			bool downloadAccepted = false;
-			await Popup.BeginBuild()
-				.WithTitle("Доступен новый патч")
-				.WithDescription("Новый патч для лаунчера доступен для скачивания.")
-				.WithButton("Скачать", () =>
-				{
-					downloadAccepted = true;
-				})
-				.WithButton("Пропустить") // just close popup
-				.PauseScheduler()
-				.EnqueueAndWaitAsync();
 
-			if (downloadAccepted)
+		LocalFile localPatchInfo;
+		if (CmdArgsService.ContainsInCmdArgs(CmdArgs.DebugPatchKey))
+		{
+			var paths = new[]
 			{
-				Log.Info("Скачивается патч...");
-				var download = new DownloadTask(remotePatchInfo.Url, localPatchInfo.FilePath);
-				await download.RunAsync();
+				"../LauncherPatches/bin/Debug/net8.0/LauncherPatches.dll",
+				"../LauncherPatches/bin/Release/net8.0/LauncherPatches.dll",
+				Paths.PatchFilePath.AsAbsolute()
+			};
+
+			var path = paths.FirstOrDefault(File.Exists);
+			localPatchInfo = new LocalFile(path);
+		}
+		else
+		{
+			var remotePatchInfo = await ApiProvider.GetPatchInfoAsync();
+			localPatchInfo = new LocalFile(Paths.PatchFilePath.AsAbsolute(), ChecksumProvider);
+			if (remotePatchInfo is not null && remotePatchInfo.Checksum != localPatchInfo.GetPrecalculatedChecksum())
+			{
+				bool downloadAccepted = false;
+				await Popup.BeginBuild()
+					.WithTitle("Доступен новый патч")
+					.WithDescription("Новый патч для лаунчера доступен для скачивания.")
+					.WithButton("Скачать", () =>
+					{
+						downloadAccepted = true;
+					})
+					.WithButton("Пропустить") // just close popup
+					.PauseScheduler()
+					.EnqueueAndWaitAsync();
+
+				if (downloadAccepted)
+				{
+					Log.Info("Скачивается патч...");
+					var download = new DownloadTask(remotePatchInfo.Url, localPatchInfo.FilePath);
+					await download.RunAsync();
+				}
 			}
 		}
+		
 		
 		Assembly currentAssembly = Assembly.GetExecutingAssembly();
 		AssemblyLoadContext context = AssemblyLoadContext.GetLoadContext(currentAssembly);
 		try
 		{
 			Log.Info("Загрузка и запуск патчей...");
-			var asm = context?.LoadFromAssemblyPath(localPatchInfo.FilePath);
+			var asm = context?.LoadFromAssemblyPath(localPatchInfo.AbsolutePath);
 			PatchManager.LoadPatches(asm);
 		}
 		catch (Exception ex)

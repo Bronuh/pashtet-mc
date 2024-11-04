@@ -1,6 +1,10 @@
-﻿using KludgeBox.Events.EventTypes;
+﻿#region
+
+using KludgeBox.Events.EventTypes;
 using Launcher.Nodes;
 using Popup = Launcher.Nodes.Popup;
+
+#endregion
 
 namespace PatchApi.Events;
 

@@ -1,4 +1,8 @@
-﻿using KludgeBox.Events.EventTypes;
+﻿#region
+
+using KludgeBox.Events.EventTypes;
+
+#endregion
 
 namespace PatchApi.Events;
 

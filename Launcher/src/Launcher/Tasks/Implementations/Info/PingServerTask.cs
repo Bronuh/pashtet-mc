@@ -5,7 +5,7 @@ using MineStatLib;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Info;
+namespace Launcher.Tasks.Info;
 
 public class PingServerTask : LauncherTask
 {

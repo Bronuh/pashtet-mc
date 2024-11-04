@@ -8,7 +8,7 @@ using HashedFiles;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Environment.Mods;
+namespace Launcher.Tasks.Environment.Mods;
 
 public class DownloadModTask : LauncherTask
 {

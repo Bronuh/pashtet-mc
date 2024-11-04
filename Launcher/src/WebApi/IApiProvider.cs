@@ -5,7 +5,7 @@ using Common.Api;
 
 #endregion
 
-namespace Api;
+namespace WebApi;
 
 public interface IApiProvider
 {

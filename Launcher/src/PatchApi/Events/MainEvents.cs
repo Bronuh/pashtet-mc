@@ -1,6 +1,10 @@
-﻿using KludgeBox.Events.EventTypes;
+﻿#region
+
+using KludgeBox.Events.EventTypes;
 using Launcher;
 using Launcher.Tasks;
+
+#endregion
 
 namespace PatchApi.Events;
 

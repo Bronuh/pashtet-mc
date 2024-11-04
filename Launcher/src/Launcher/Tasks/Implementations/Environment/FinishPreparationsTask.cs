@@ -5,7 +5,7 @@ using Launcher.Nodes;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Environment;
+namespace Launcher.Tasks.Environment;
 
 public class FinishPreparationsTask : LauncherTask
 {

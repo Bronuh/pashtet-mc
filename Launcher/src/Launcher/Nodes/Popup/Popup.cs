@@ -1,5 +1,9 @@
+#region
+
 using KludgeBox.Events.Global;
 using PatchApi.Events;
+
+#endregion
 
 namespace Launcher.Nodes;
 

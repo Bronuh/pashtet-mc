@@ -1,11 +1,15 @@
-﻿using System.IO;
+﻿#region
+
+using System.IO;
 using System.Threading.Tasks;
 using Common.Api;
 using Common.IO.Checksum;
 using HashedFiles;
 using Launcher.Nodes;
 
-namespace Launcher.Tasks.Implementations.Environment.Core;
+#endregion
+
+namespace Launcher.Tasks.Environment.Core;
 
 public class CleanupBrokenDownloads : LauncherTask
 {

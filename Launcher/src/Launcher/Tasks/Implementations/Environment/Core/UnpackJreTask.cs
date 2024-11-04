@@ -8,7 +8,7 @@ using Launcher.Nodes;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Environment.Core;
+namespace Launcher.Tasks.Environment.Core;
 
 public class UnpackJreTask : LauncherTask
 {

@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿#region
+
+using System.Linq;
 using System.Reflection;
 using KludgeBox.Collections;
 using KludgeBox.Core;
 using KludgeBox.Events.Global;
 using PatchApi.Events;
+
+#endregion
 
 namespace PatchApi;
 

@@ -8,7 +8,7 @@ using Launcher.Nodes;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Launch;
+namespace Launcher.Tasks.Launch;
 
 public class DeployModpackTask : LauncherTask
 {

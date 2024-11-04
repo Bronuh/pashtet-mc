@@ -25,8 +25,9 @@ public static class HttpHelper
     /// <param name="url">The URL to send the request to.</param>
     /// <param name="customHeaders">Optional custom headers to include in the request.</param>
     /// <param name="timeoutSeconds"></param>
+    /// <param name="ignoreException"></param>
     /// <returns>HttpResponse object containing body and headers.</returns>
-    public static HttpResponse Get(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0)
+    public static HttpResponse Get(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0, bool ignoreException = false)
     {
         var client = new HttpClient();
         client.Timeout = timeoutSeconds == 0 ? TimeSpan.FromSeconds(HttpGetTimeoutSeconds) : TimeSpan.FromSeconds(timeoutSeconds);
@@ -61,7 +62,10 @@ public static class HttpHelper
         }
         catch (Exception ex)
         {
-            throw new Exception($"Error during GET request: {ex.Message}");
+            if(!ignoreException)
+                throw new Exception($"Error during GET request: {ex.Message}", ex);
+            
+            return null;
         }
     }
 
@@ -71,7 +75,7 @@ public static class HttpHelper
     /// <param name="url">The URL to send the request to.</param>
     /// <param name="customHeaders">Optional custom headers to include in the request.</param>
     /// <returns>HttpResponse object containing body and headers.</returns>
-    public static async Task<HttpResponse> GetAsync(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0)
+    public static async Task<HttpResponse> GetAsync(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0, bool ignoreException = false)
     {
         var client = new HttpClient();
         client.Timeout = TimeSpan.FromSeconds(HttpGetTimeoutSeconds);
@@ -107,7 +111,10 @@ public static class HttpHelper
         }
         catch (Exception ex)
         {
-            throw new Exception($"Error during GET request: {ex.Message}");
+            if(!ignoreException)
+                throw new Exception($"Error during GET request: {ex.Message}", ex);
+            
+            return null;
         }
     }
 }

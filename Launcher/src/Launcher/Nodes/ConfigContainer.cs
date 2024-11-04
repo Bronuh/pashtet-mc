@@ -3,9 +3,9 @@
 using System.IO;
 using HashedFiles;
 using KludgeBox.VFS;
-using Launcher.Tasks.Implementations.Environment;
-using Launcher.Tasks.Implementations.Environment.Core;
-using Launcher.Tasks.Implementations.Environment.Mods;
+using Launcher.Tasks.Environment;
+using Launcher.Tasks.Environment.Core;
+using Launcher.Tasks.Environment.Mods;
 
 #endregion
 

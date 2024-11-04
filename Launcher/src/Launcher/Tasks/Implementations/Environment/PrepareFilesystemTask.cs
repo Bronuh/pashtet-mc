@@ -6,7 +6,7 @@ using HashedFiles;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Environment;
+namespace Launcher.Tasks.Environment;
 
 public class PrepareFilesystemTask : LauncherTask
 {

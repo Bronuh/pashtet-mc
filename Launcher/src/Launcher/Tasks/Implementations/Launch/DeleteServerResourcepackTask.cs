@@ -6,7 +6,7 @@ using HashedFiles;
 
 #endregion
 
-namespace Launcher.Tasks.Implementations.Launch;
+namespace Launcher.Tasks.Launch;
 
 public class DeleteServerResourcepackTask : LauncherTask
 {
