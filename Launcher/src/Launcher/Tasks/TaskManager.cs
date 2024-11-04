@@ -70,7 +70,7 @@ public class TaskManager
                 foreach (var finishedTask in RunningTasks.Where(t => t.State is TaskState.Finished))
                 {
                     var newTasks = finishedTask.OnTaskFinished();
-                    if (EventBus.PublishIsCancelled(new TaskFinishedEvent(finishedTask, ref newTasks)))
+                    if (!EventBus.PublishIsCancelled(new TaskFinishedEvent(finishedTask, ref newTasks)))
                     {
                         if (newTasks is not null)
                         {
