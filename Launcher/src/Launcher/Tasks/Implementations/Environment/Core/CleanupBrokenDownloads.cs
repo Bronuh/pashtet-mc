@@ -37,7 +37,7 @@ public class CleanupBrokenDownloads : LauncherTask
         if (localJreZip.Exists())
         {
             var remoteJarZip = await Main.ApiProvider.GetJavaInfoAsync();
-            if (remoteJarZip.Checksum != localMinecraftZip.GetPrecalculatedChecksum())
+            if (remoteJarZip.Checksum != localJreZip.GetPrecalculatedChecksum())
             {
                 Log.Warning($"Контрольная сумма {localJreZip.FileName} не соответствует оригинальной:\n{localJreZip.GetPrecalculatedChecksum()} != {remoteJarZip.Checksum}");
                 File.Delete(localJreZip.FilePath);
