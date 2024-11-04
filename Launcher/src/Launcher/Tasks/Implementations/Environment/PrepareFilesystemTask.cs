@@ -8,9 +8,9 @@ using HashedFiles;
 
 namespace Launcher.Tasks.Implementations.Environment;
 
-public class PrepareEnvironmentTask : LauncherTask
+public class PrepareFilesystemTask : LauncherTask
 {
-    public override string Name { get; } = "Подготовка окружения игры";
+    public override string Name { get; } = "Подготовка файловой системы игры";
     protected override async Task Start()
     {
         Directory.CreateDirectory(Paths.DownloadsDirPath.AsAbsolute());

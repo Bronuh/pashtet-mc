@@ -55,6 +55,9 @@ public class CheckModsTask : LauncherTask
             }
         }
         
+        if (!_modsToRemove.Any() && !_modsToDownload.Any())
+            return;
+        
         var sb = new StringBuilder();
         sb.AppendLine("Для игры на сервере необходимо обновить сборку модов.");
         sb.AppendLine("Ожидаются следующие изменения:");

@@ -61,7 +61,7 @@ public partial class ConfigContainer : PanelContainer
 			Directory.Delete(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "libraries"));
 			Directory.Delete(Path.Combine(Paths.MinecraftDirPath.AsAbsolute(), "versions"));
 			
-			var prepareTask = new PrepareEnvironmentTask();
+			var prepareTask = new PrepareFilesystemTask();
 			var jreTask = new PrepareJreTask().AfterTasks(prepareTask);
 			var minecraftTask = new PrepareMinecraftTask().AfterTasks(prepareTask);
 			var finishTask = new FinishPreparationsTask().AfterTasks(jreTask, minecraftTask);

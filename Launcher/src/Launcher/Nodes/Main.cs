@@ -73,7 +73,7 @@ public partial class Main : Node
 		await LoadPatches();
 		
 		EventBus.Publish(new CreatingMainTasksEvent());
-		var prepareTask = new PrepareEnvironmentTask();
+		var prepareTask = new PrepareFilesystemTask();
 		var serverCheckTask = new PingServerTask();
 		var cleanupDownloadsTask = new CleanupBrokenDownloads().AfterTasks(prepareTask);
 		var jreTask = new PrepareJreTask().AfterTasks(prepareTask, cleanupDownloadsTask);
@@ -224,8 +224,9 @@ public partial class Main : Node
 		}
 
 		State.IsMinecraftRunning = true;
-		
-		var modsTask = new CheckModsTask();
+
+		var filesystemTask = new PrepareFilesystemTask();
+		var modsTask = new CheckModsTask().AfterTasks(filesystemTask);
 		var updateServers = new UpdateServersTask();
 		//var deletePacks = new DeleteServerResourcepackTask();
 		var deployMods = new DeployModpackTask()
@@ -234,7 +235,7 @@ public partial class Main : Node
 			.AfterTasks(modsTask, deployMods, updateServers)
 			.SkipIf(() => State.RunInterruptRequested);
 		
-		TaskManager.AddTasks([modsTask, deployMods, updateServers, run]);
+		TaskManager.AddTasks([filesystemTask, modsTask, deployMods, updateServers, run]);
 	}
 
 	private void UpdatePlayerName(string name)
