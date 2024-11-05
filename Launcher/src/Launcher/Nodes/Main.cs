@@ -12,6 +12,7 @@ using Common.IO.Checksum;
 using HashedFiles;
 using IO;
 using KludgeBox.Events.Global;
+using KludgeBox.SaveLoad.Nbt;
 using KludgeBox.Scheduling;
 using Launcher.Tasks;
 using Launcher.Tasks.Environment;
@@ -38,6 +39,7 @@ public partial class Main : Node
 	public static Settings Settings { get; private set; }
 	public static LauncherState State { get; private set; }
 	public static PatchManager PatchManager { get; private set; }
+	public static TagCompound CustomData { get; private set; }
 	public static Popup Popup => Instance._popup;
 
 	[Export] public LineEdit PlayerNameTextBox;
@@ -58,6 +60,8 @@ public partial class Main : Node
 		Instance = this;
 		Settings = SettingsUtils.LoadSettings();
 		PatchManager = new PatchManager();
+		InitNbtSystems();
+		LoadCustomData();
 		
 		Scheduler = new Scheduler();
 		TaskManager = new TaskManager(Scheduler);
@@ -86,6 +90,31 @@ public partial class Main : Node
 		
 		EventBus.Publish(new RunningMainTasksOnTaskManagerEvent(preparedTasks));
 		TaskManager.AddTasks(preparedTasks);
+	}
+
+	private void LoadCustomData()
+	{
+		byte[] customDataBuffer;
+		TagCompound customDataTag;
+		try
+		{
+			customDataBuffer = File.ReadAllBytes(Paths.CustomDataFilePath.AsAbsolute());
+			customDataTag = TagIO.FromBuffer(customDataBuffer);
+		}
+		catch (Exception ex)
+		{
+			Log.Warning($"Failed to load custom data: {ex.Message}");
+			customDataTag = new TagCompound();
+		}
+		
+		CustomData = customDataTag;
+		SaveCustomData();
+	}
+
+	private void SaveCustomData()
+	{
+		var customDataBuffer = TagIO.ToBuffer(CustomData);
+		File.WriteAllBytes(Paths.CustomDataFilePath.AsAbsolute(), customDataBuffer);
 	}
 
 	private void UpdateButton()
@@ -140,6 +169,16 @@ public partial class Main : Node
 		var gigs = Mathf.RoundToInt(info.TotalAvailableMemoryBytes / 1024d / 1024d / 1024d);
 
 		return gigs;
+	}
+	
+	public override void _Notification(int what)
+	{
+		if (what == NotificationWMCloseRequest)
+		{
+			SaveCustomData();
+			SettingsUtils.SaveSettings(Settings);
+			GetTree().Quit(); // default behavior
+		}
 	}
 
 	private async Task LoadPatches()
@@ -288,5 +327,16 @@ public partial class Main : Node
 		Settings.MaxRam = value;
 		RamLabel.Text = $"RAM: {value:N1} / {GetInstalledRamAmount():N1} Gb";
 		SaveSettings();
+	}
+	
+	private static void InitNbtSystems()
+	{
+		// create NBT and fill it with random data. 
+		var tag = new TagCompound();
+		tag["version"] = 1;
+		tag["vector"] = Vec(100, -3);
+        
+		// Then read it back
+		var vec = tag.Get<Vector2>("vector");
 	}
 }

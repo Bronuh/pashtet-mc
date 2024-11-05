@@ -26,6 +26,7 @@ public static class Paths
     public static string PatchFileName = "LauncherPatches.dll";
     
     public static string UserFilesDirName = "user";
+    public static string CustomDataFileName = "custom-data.nbt";
     
     public static string CoreDirPath => CoreDirName;
     public static string DownloadsDirPath => DownloadsDirName;
@@ -49,6 +50,7 @@ public static class Paths
     public static string LauncherDirPath => LauncherDirName;
     public static string NewsFilePath => NewsFileName;
     public static string PatchFilePath => PatchFileName;
+    public static string CustomDataFilePath => CustomDataFileName;
     
     
     public static string RootPath => ProjectSettings.GlobalizePath("user://");
