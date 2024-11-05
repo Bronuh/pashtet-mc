@@ -190,6 +190,10 @@ texture = ExtResource("4_oob0f")
 expand_mode = 5
 stretch_mode = 5
 
+[node name="SpacingControl" type="Control" parent="Canvas/UiRootControl/MarginContainer/MainVBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
 [node name="PanelContainer" type="PanelContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox"]
 material = SubResource("ShaderMaterial_hwl62")
 layout_mode = 2
