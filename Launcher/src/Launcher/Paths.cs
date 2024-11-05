@@ -8,24 +8,24 @@ namespace Launcher;
 
 public static class Paths
 {
-    public const string DownloadsDirName = "downloads";
-    public const string CoreDirName = "core";
-    public const string JreDirName = "jre";
-    public const string JreFileName = "jdk-21.zip";
-    public const string JreExecutableName = "javaw.exe";
-    public const string MinecraftDirName = "minecraft";
-    public const string MinecraftFileName = "minecraft-min.zip";
+    public static string DownloadsDirName = "downloads";
+    public static string CoreDirName = "core";
+    public static string JreDirName = "jre";
+    public static string JreFileName = "jdk-21.zip";
+    public static string JreExecutableName = "javaw.exe";
+    public static string MinecraftDirName = "minecraft";
+    public static string MinecraftFileName = "minecraft-min.zip";
     
-    public const string SnapshotsDirName = "snapshots";
-    public const string CurrentDirName = "current";
-    public const string ModsDirName = "mods";
-    public const string ConfigDirName = "config";
+    public static string SnapshotsDirName = "snapshots";
+    public static string CurrentDirName = "current";
+    public static string ModsDirName = "mods";
+    public static string ConfigDirName = "config";
     
-    public const string LauncherDirName = "launcher";
-    public const string NewsFileName = "news.txt";
-    public const string PatchFileName = "LauncherPatches.dll";
+    public static string LauncherDirName = "launcher";
+    public static string NewsFileName = "news.txt";
+    public static string PatchFileName = "LauncherPatches.dll";
     
-    public const string UserFilesDirName = "user";
+    public static string UserFilesDirName = "user";
     
     public static string CoreDirPath => CoreDirName;
     public static string DownloadsDirPath => DownloadsDirName;
