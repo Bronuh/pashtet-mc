@@ -35,9 +35,12 @@ public class PatchManager
         {
             try
             {
-                if (!EventBus.PublishIsCancelled(new PatchAboutToRunEnvent(patch)))
+                if (patch.CanRun())
                 {
-                    patch.Run();
+                    if (!EventBus.PublishIsCancelled(new PatchAboutToRunEnvent(patch)))
+                    {
+                        patch.Run();
+                    }
                 }
             }
             catch (Exception e)

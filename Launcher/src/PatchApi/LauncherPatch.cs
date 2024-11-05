@@ -8,4 +8,5 @@ public abstract class LauncherPatch
     /// </summary>
     public long Priority { get; } = 0;
     public abstract void Run();
+    public virtual bool CanRun() => true;
 }
