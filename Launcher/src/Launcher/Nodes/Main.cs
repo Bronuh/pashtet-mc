@@ -30,10 +30,11 @@ namespace Launcher.Nodes;
 
 public partial class Main : Node
 {
-	public static Main Instance { get; private set; }
 	public static IApiProvider ApiProvider { get; set; }
 	public static IChecksumProvider ChecksumProvider { get; set; }
 	public static IFileDeployer FileDeployer { get; set; }
+	public static Main Instance { get; private set; }
+	public static VersionInfo AppVersion { get; private set; }
 	public static TaskManager TaskManager { get; private set; }
 	public static Scheduler Scheduler { get; private set; }
 	public static Settings Settings { get; private set; }
@@ -47,6 +48,7 @@ public partial class Main : Node
 	[Export] public Label RunningTasksLabel;
 	[Export] public Label PendingTasksLabel;
 	[Export] public Label RamLabel;
+	[Export] public Label VersionInfoLabel;
 	[Export] public Button RunButton;
 	[Export] public HSlider RamSlider;
 	[Export] public VBoxContainer RunningTasksContainer;
@@ -58,6 +60,7 @@ public partial class Main : Node
 	public override async void _Ready()
 	{
 		Instance = this;
+		AppVersion = new VersionInfo(new Version(1, 1, 2));
 		Settings = SettingsUtils.LoadSettings();
 		PatchManager = new PatchManager();
 		InitNbtSystems();
@@ -79,6 +82,13 @@ public partial class Main : Node
 			await LoadPatches();
 		
 		EventBus.Publish(new CreatingMainTasksEvent());
+
+		var coreVersionTag = String.IsNullOrWhiteSpace(AppVersion.CoreVersionTag) ? "" : $"-{AppVersion.CoreVersionTag}";
+		var patchVersionTag = String.IsNullOrWhiteSpace(AppVersion.PatchVersionTag) ? "" : $"-{AppVersion.CoreVersionTag}";
+		var patchVersionFull = AppVersion.PatchVersion is null ? "" : $"патч {AppVersion.PatchVersion}-{AppVersion.PatchVersion}";
+		VersionInfoLabel.Text = $"Версия {AppVersion.CoreVersion}{coreVersionTag} {patchVersionFull}";
+		DisplayServer.WindowSetTitle($"Паштетный лаунчер — {VersionInfoLabel.Text}: {TitleMessages.MessagePicker.Pick()}");
+		
 		var prepareTask = new PrepareFilesystemTask();
 		var serverCheckTask = new PingServerTask();
 		var cleanupDownloadsTask = new CleanupBrokenDownloads().AfterTasks(prepareTask);

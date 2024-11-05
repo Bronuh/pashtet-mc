@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://da7d5i2dqlnnr"]
+[gd_scene load_steps=22 format=3 uid="uid://da7d5i2dqlnnr"]
 
 [ext_resource type="Script" path="res://src/Launcher/Nodes/Main.cs" id="1_41ihv"]
 [ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
@@ -88,13 +88,18 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "PasswordTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel", "_popup")]
+[sub_resource type="LabelSettings" id="LabelSettings_0oq0w"]
+font_size = 12
+font_color = Color(1, 1, 1, 0.631373)
+
+[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "PasswordTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "VersionInfoLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel", "_popup")]
 script = ExtResource("1_41ihv")
 PlayerNameTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
 PasswordTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/PasswordLine/PasswordBox")
 RunningTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer/Label")
 PendingTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer/Label")
 RamLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine/RamLabel")
+VersionInfoLabel = NodePath("Canvas/UiRootControl/OuterMarginContainer/VerionInfoLabel")
 RunButton = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/RunButton")
 RamSlider = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine/RamSlider")
 RunningTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
@@ -347,7 +352,6 @@ ConfigButton = NodePath("../OuterMarginContainer/ConfigButton")
 script = ExtResource("7_lcd4k")
 
 [node name="OuterMarginContainer" type="MarginContainer" parent="Canvas/UiRootControl"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -379,6 +383,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jpxdq")
 
 [node name="ShowNode" type="Node" parent="Canvas/UiRootControl/OuterMarginContainer"]
 script = ExtResource("7_lcd4k")
+
+[node name="VerionInfoLabel" type="Label" parent="Canvas/UiRootControl/OuterMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Версия: 8.800.555.35.35"
+label_settings = SubResource("LabelSettings_0oq0w")
 
 [node name="Popup" parent="Canvas/UiRootControl" instance=ExtResource("7_ejxwr")]
 visible = false
