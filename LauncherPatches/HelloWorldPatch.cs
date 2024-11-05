@@ -1,6 +1,7 @@
 ﻿#region
 
 using KludgeBox;
+using KludgeBox.Events;
 using KludgeBox.Events.Global;
 using PatchApi;
 using PatchApi.Events;
@@ -11,7 +12,7 @@ namespace LauncherPatches;
 
 public class HelloWorldPatch : LauncherPatch
 {
-    public override void Run()
+    protected override void Run()
     {
         Log.Info($"Hello world!");
         Log.Debug("THis is debug patch");
@@ -21,5 +22,11 @@ public class HelloWorldPatch : LauncherPatch
     private static void OnMainTasksRun(RunningMainTasksOnTaskManagerEvent evt)
     {
         Log.Info($"Running main tasks hook");
+    }
+
+    [EventListener]
+    public static void AutoRegisteringListener(RunningMainTasksOnTaskManagerEvent evt)
+    {
+        Log.Info($"Running main tasks hook AUTOMATICALLY");
     }
 }

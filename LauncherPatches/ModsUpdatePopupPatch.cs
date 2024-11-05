@@ -8,7 +8,7 @@ namespace LauncherPatches;
 
 public class ModsUpdatePopupPatch : LauncherPatch
 {
-    public override void Run()
+    protected override void Run()
     {
         Log.Info("Применен патч подсчета изменений при обновлении");
         EventBus.Subscribe<PopupRequestEnqueueEvent>(OnPopupRequestEnqueueEvent);

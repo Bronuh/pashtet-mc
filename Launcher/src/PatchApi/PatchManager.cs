@@ -39,7 +39,7 @@ public class PatchManager
                 {
                     if (!EventBus.PublishIsCancelled(new PatchAboutToRunEnvent(patch)))
                     {
-                        patch.Run();
+                        patch.ProcessAndRun();
                     }
                 }
             }
@@ -55,6 +55,9 @@ public class PatchManager
     {
         var patches = assembly.FindAllTypesThatDeriveFrom<LauncherPatch>();
         var nonAbstractPatches = patches.Where(t => !t.IsAbstract && t.HasParameterlessConstructor());
+
+        var types = assembly.GetTypes().ToList();
+        EventBus.RegisterListeners(types);
 
         foreach (var patchType in nonAbstractPatches)
         {

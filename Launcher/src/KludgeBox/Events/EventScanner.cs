@@ -46,7 +46,7 @@ public static class EventScanner
         
         var classes = types.Where(x => x.IsClass); // only yields classes
         var methods = classes.SelectMany(x => x.GetMethods()); // returns all methods defined in those classes
-        var staticMethods = methods.Where(x => x.IsStatic); // returns all methods defined in those classes
+        var staticMethods = methods.Where(x => x.IsStatic); // returns all static methods defined in those classes
         var voidReturns = staticMethods.Where(method => method.ReturnType == typeof(void)); // method should return void
         var singleParameter = voidReturns.Where(x => x.GetParameters().Length == 1); // method should accept only one parameter
         var rightParamType = singleParameter.Where(x => x.GetParameters().First().ParameterType.IsAssignableTo(paramType)); // and that parameter must be assignable to a variable of type

@@ -83,12 +83,16 @@ public partial class Main : Node
 		
 		EventBus.Publish(new CreatingMainTasksEvent());
 
+		// Prepare version info
 		var coreVersionTag = String.IsNullOrWhiteSpace(AppVersion.CoreVersionTag) ? "" : $"-{AppVersion.CoreVersionTag}";
 		var patchVersionTag = String.IsNullOrWhiteSpace(AppVersion.PatchVersionTag) ? "" : $"-{AppVersion.CoreVersionTag}";
 		var patchVersionFull = AppVersion.PatchVersion is null ? "" : $"патч {AppVersion.PatchVersion}-{AppVersion.PatchVersion}";
 		VersionInfoLabel.Text = $"Версия {AppVersion.CoreVersion}{coreVersionTag} {patchVersionFull}";
+		
+		// Apply window title
 		DisplayServer.WindowSetTitle($"Паштетный лаунчер — {VersionInfoLabel.Text}: {TitleMessages.MessagePicker.Pick()}");
 		
+		// Prepare initialization tasks
 		var prepareTask = new PrepareFilesystemTask();
 		var serverCheckTask = new PingServerTask();
 		var cleanupDownloadsTask = new CleanupBrokenDownloads().AfterTasks(prepareTask);
@@ -98,17 +102,17 @@ public partial class Main : Node
 
 		LauncherTask[] preparedTasks = [serverCheckTask, prepareTask, cleanupDownloadsTask, jreTask, minecraftTask, finishTask];
 		
+		// Check and run
 		EventBus.Publish(new RunningMainTasksOnTaskManagerEvent(preparedTasks));
 		TaskManager.AddTasks(preparedTasks);
 	}
 
 	private void LoadCustomData()
 	{
-		byte[] customDataBuffer;
 		TagCompound customDataTag;
 		try
 		{
-			customDataBuffer = File.ReadAllBytes(Paths.CustomDataFilePath.AsAbsolute());
+			var customDataBuffer = File.ReadAllBytes(Paths.CustomDataFilePath.AsAbsolute());
 			customDataTag = TagIO.FromBuffer(customDataBuffer);
 		}
 		catch (Exception ex)
