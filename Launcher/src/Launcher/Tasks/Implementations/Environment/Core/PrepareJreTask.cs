@@ -3,7 +3,9 @@
 using System.IO;
 using System.Threading.Tasks;
 using HashedFiles;
+using KludgeBox.Events.Global;
 using Launcher.Nodes;
+using PatchApi.Events;
 
 #endregion
 
@@ -16,13 +18,24 @@ public class PrepareJreTask : LauncherTask
     
     protected override async Task Start()
     {
-        if (File.Exists(Paths.JreExecutablePath.AsAbsolute()))
+        var fileCheck = File.Exists(Paths.JreExecutablePath.AsAbsolute());
+        var downloadCheck = File.Exists(Paths.JreFileName.AsAbsolute());
+
+        var evt = new CoreChecksPerformedEvent(CoreCheckType.Java, fileCheck, downloadCheck);
+        
+        if (EventBus.PublishIsCancelled(evt))
+            return;
+
+        fileCheck = evt.CoreCheck;
+        downloadCheck = evt.CoreDownloadCheck;
+        
+        if (fileCheck)
         {
             Main.State.IsJavaReady = true;
             return;
         }
 
-        if (File.Exists(Paths.JreFileName.AsAbsolute()))
+        if (downloadCheck)
         {
             _nextTask = new UnpackJreTask();
             return;

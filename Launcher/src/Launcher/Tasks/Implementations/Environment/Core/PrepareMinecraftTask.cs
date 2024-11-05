@@ -3,7 +3,9 @@
 using System.IO;
 using System.Threading.Tasks;
 using HashedFiles;
+using KludgeBox.Events.Global;
 using Launcher.Nodes;
+using PatchApi.Events;
 
 #endregion
 
@@ -18,13 +20,24 @@ public class PrepareMinecraftTask : LauncherTask
         var minecraftPath = Paths.MinecraftDirPath.AsAbsolute();
         var minecraftVersionPath = Path.Combine(minecraftPath, "versions/Forge 1.20.1/Forge 1.20.1.jar");
         
-        if (File.Exists(minecraftVersionPath))
+        var fileCheck = File.Exists(minecraftVersionPath);
+        var downloadCheck = File.Exists(Paths.MinecraftZipPath.AsAbsolute());
+
+        var evt = new CoreChecksPerformedEvent(CoreCheckType.Minecraft, fileCheck, downloadCheck);
+        
+        if (EventBus.PublishIsCancelled(evt))
+            return;
+
+        fileCheck = evt.CoreCheck;
+        downloadCheck = evt.CoreDownloadCheck;
+        
+        if (fileCheck)
         {
             Main.State.IsMinecraftReady = true;
             return;
         }
         
-        if (File.Exists(Paths.MinecraftZipPath.AsAbsolute()))
+        if (downloadCheck)
         {
             _nextTask = new UnpackMinecraftTask();
             return;

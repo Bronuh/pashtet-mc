@@ -2,7 +2,9 @@
 
 using System.Threading.Tasks;
 using HashedFiles;
+using KludgeBox.Events.Global;
 using Launcher.Nodes;
+using PatchApi.Events;
 
 #endregion
 
@@ -25,8 +27,13 @@ public class RunMinecraftTask : LauncherTask
         var maxRam = Main.Settings.MaxRam;
         var playerName = Main.Settings.PlayerName;
         var scheduler = Main.Scheduler;
+
+        var evt = new MinecraftStartingEvent(minecraftPath, jrePath, maxRam, playerName, scheduler);
         
-        var launcher = new BhLauncher(minecraftPath, jrePath, scheduler, playerName, maxRam);
+        if(EventBus.PublishIsCancelled(evt))
+            return;
+        
+        var launcher = new BhLauncher(evt.MinecraftPath, evt.JavaPath, evt.Scheduler, evt.PlayerName, evt.MaxRam);
 
         await launcher.Run();
     }

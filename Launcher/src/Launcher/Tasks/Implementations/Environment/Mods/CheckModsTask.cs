@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Api;
 using HashedFiles;
+using KludgeBox.Events.Global;
 using Launcher.Nodes;
+using PatchApi.Events;
 
 #endregion
 
@@ -54,6 +56,16 @@ public class CheckModsTask : LauncherTask
                 _modsToDownload.Add(remoteMod);
             }
         }
+
+        var listReadyEvt = new ModsUpdateListsPreparedEvent(this, _modsToRemove, _modsToDownload);
+
+        if (EventBus.PublishIsCancelled(listReadyEvt))
+        {
+            return;
+        }
+        
+        _modsToRemove = listReadyEvt.ModsToRemove;
+        _modsToDownload = listReadyEvt.ModsToDownload;
         
         if (!_modsToRemove.Any() && !_modsToDownload.Any())
             return;
