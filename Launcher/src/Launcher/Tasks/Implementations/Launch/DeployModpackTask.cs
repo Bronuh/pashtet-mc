@@ -4,7 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HashedFiles;
+using KludgeBox.Events.EventTypes;
+using KludgeBox.Events.Global;
 using Launcher.Nodes;
+using PatchApi.Events;
 
 #endregion
 
@@ -22,7 +25,8 @@ public class DeployModpackTask : LauncherTask
     protected override async Task Start()
     {
         var deployedMods = Directory.GetFiles(Paths.MinecraftModsDirPath.AsAbsolute());
-
+        
+        
         foreach (var mod in deployedMods)
         {
             Main.FileDeployer.UndeployFile(mod);
@@ -31,14 +35,33 @@ public class DeployModpackTask : LauncherTask
         var modsToDeploy = BuildDeploymentListFrom(Paths.SnapshotModsDirPath.AsAbsolute())
             .Concat(BuildDeploymentListFrom(Paths.UserModsDirPath.AsAbsolute()))
             .ToArray();
+        
+        var modsAboutToDeployEvent = new ModsDeployTaskReadyEvent(this, modsToDeploy);
+        
+        if (EventBus.PublishIsCancelled(modsAboutToDeployEvent))
+            return;
+        
+        modsToDeploy = modsAboutToDeployEvent.ModsToDeploy;
         _workTotal = modsToDeploy.Length;
         
         foreach (var mod in modsToDeploy)
         {
-            var name = Path.GetFileName(mod);
-            var newPath = Path.Combine(Paths.MinecraftModsDirPath.AsAbsolute(), name);
+            try
+            {
+                var name = Path.GetFileName(mod);
+                var newPath = Path.Combine(Paths.MinecraftModsDirPath.AsAbsolute(), name);
+
+                var modDeployingEvent = new ModDeployingEvent(this, mod, newPath);
+                if (EventBus.PublishIsCancelled(modDeployingEvent))
+                    continue;
+
+                Main.FileDeployer.DeployFile(modDeployingEvent.SourcePath, modDeployingEvent.DestinationPath);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
             
-            Main.FileDeployer.DeployFile(mod, newPath);
             _workCompleted++;
         }
     }
