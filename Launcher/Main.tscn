@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://da7d5i2dqlnnr"]
+[gd_scene load_steps=23 format=3 uid="uid://da7d5i2dqlnnr"]
 
 [ext_resource type="Script" path="res://src/Launcher/Nodes/Main.cs" id="1_41ihv"]
 [ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://13dnnh5wywh8" path="res://Popup.tscn" id="7_ejxwr"]
 [ext_resource type="Script" path="res://src/Launcher/Nodes/ShowNode.cs" id="7_lcd4k"]
 [ext_resource type="PackedScene" uid="uid://dh664vii3rc03" path="res://ServerStatusPanel.tscn" id="8_spb00"]
+[ext_resource type="PackedScene" uid="uid://ctbkihoggfk4k" path="res://Notifications.tscn" id="11_gtu0m"]
 
 [sub_resource type="Gradient" id="Gradient_na32n"]
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.603922)
@@ -397,4 +398,7 @@ label_settings = SubResource("LabelSettings_0oq0w")
 
 [node name="Popup" parent="Canvas/UiRootControl" instance=ExtResource("7_ejxwr")]
 visible = false
+layout_mode = 1
+
+[node name="Notifications" parent="Canvas/UiRootControl" instance=ExtResource("11_gtu0m")]
 layout_mode = 1

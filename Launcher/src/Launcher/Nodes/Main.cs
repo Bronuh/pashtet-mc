@@ -42,6 +42,7 @@ public partial class Main : Node
 	public static PatchManager PatchManager { get; private set; }
 	public static TagCompound CustomData { get; private set; }
 	public static Popup Popup => Instance._popup;
+	public static Notifications Notifications => Instance._notifications;
 
 	[Export] public LineEdit PlayerNameTextBox;
 	[Export] public LineEdit PasswordTextBox;
@@ -55,7 +56,8 @@ public partial class Main : Node
 	[Export] public VBoxContainer PendingTasksContainer;
 	[Export] public PanelContainer ConfigPanel;
 	[Export] public PackedScene TaskTrackerScene;
-	[Export] public Popup _popup;
+	[Export] private Popup _popup;
+	[Export] private Notifications _notifications;
 	
 	public override async void _Ready()
 	{
