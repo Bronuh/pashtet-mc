@@ -32,14 +32,13 @@ public sealed class Settings
         _customSettings = new Dictionary<string, string>();
     }
 
-    public string GetCustom(string key)
+    public string GetCustom(string key, string defaultValue = "")
     {
         if (_customSettings.TryGetValue(key, out string value))
         {
             return value;
         }
 
-        var defaultValue = "";
         SetCustom(key, defaultValue);
         
         return defaultValue;
