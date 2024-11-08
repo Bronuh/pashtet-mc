@@ -1,6 +1,7 @@
 ﻿#region
 
 using Common.Api;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -94,11 +95,42 @@ public class DefaultApiProvider : IApiProvider
 
     public IEnumerable<LocalFile> GetOptionalModsList()
     {
-        var modsPaths = Directory.GetFiles(OptionalModsDirPath);
+        var modsPaths = Directory.GetFiles(OptionalModsDirPath).Where(p => p.EndsWith(".jar"));
         var localFiles = modsPaths.Select(modPath => new LocalFile(modPath)).ToList();
         
         return localFiles;
     }
+
+    public IEnumerable<ModInfo> GetOptionalModsInfoList()
+    {
+        var modsInfoPaths = Directory.GetFiles(OptionalModsDirPath).Where(p => p.EndsWith(".json"));
+        var infos = new List<ModInfo>();
+        
+        foreach (var modInfoPath in modsInfoPaths)
+        {
+            var filenameWithoutExtension = Path.GetFileNameWithoutExtension(modInfoPath);
+            try
+            {
+                var content = File.ReadAllText(modInfoPath);
+                var modInfo = JsonConvert.DeserializeObject<ModInfo>(content);
+                modInfo.FileName = filenameWithoutExtension;
+                infos.Add(modInfo);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning($"Unable to read {modInfoPath}: {e.Message}");
+                
+                infos.Add(new ModInfo(
+                    filenameWithoutExtension, 
+                    filenameWithoutExtension, 
+                    "Описание отсутствует",
+                    new ()));
+            }
+        }
+        
+        return infos;
+    }
+
 
     public LocalFile GetRequiredModFile(string modName)
     {

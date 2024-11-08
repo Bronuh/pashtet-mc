@@ -15,6 +15,7 @@ public interface IApiProvider
 
     IEnumerable<LocalFile> GetRequiredModsList();
     IEnumerable<LocalFile> GetOptionalModsList();
+    IEnumerable<ModInfo> GetOptionalModsInfoList();
     
     LocalFile GetRequiredModFile(string modName);
     LocalFile GetOptionalModFile(string modName);
