@@ -18,6 +18,7 @@ public class PrepareFilesystemTask : LauncherTask
         
         Directory.CreateDirectory(Paths.SnapshotsDirPath.AsAbsolute());
         Directory.CreateDirectory(Paths.SnapshotModsDirPath.AsAbsolute());
+        Directory.CreateDirectory(Paths.SnapshotOptionalModsDirPath.AsAbsolute());
         Directory.CreateDirectory(Paths.SnapshotConfigDirPath.AsAbsolute());
         
         Directory.CreateDirectory(Paths.MinecraftDirPath.AsAbsolute());

@@ -20,6 +20,7 @@ public static class Paths
     public static string CurrentDirName = "current";
     public static string ModsDirName = "mods";
     public static string ConfigDirName = "config";
+    public static string OptionalModsDirName = "optional-mods";
     
     public static string LauncherDirName = "launcher";
     public static string NewsFileName = "news.txt";
@@ -41,6 +42,7 @@ public static class Paths
     public static string SnapshotsDirPath => SnapshotsDirName;
     public static string CurrentSnapshotDirPath => Path.Combine(SnapshotsDirPath, CurrentDirName);
     public static string SnapshotModsDirPath => Path.Combine(CurrentSnapshotDirPath, ModsDirName);
+    public static string SnapshotOptionalModsDirPath => Path.Combine(CurrentSnapshotDirPath, OptionalModsDirName);
     public static string SnapshotConfigDirPath => Path.Combine(CurrentSnapshotDirPath, ConfigDirName);
     
     public static string UserFilesDirPath => UserFilesDirName;
