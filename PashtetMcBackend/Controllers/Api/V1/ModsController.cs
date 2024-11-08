@@ -52,6 +52,26 @@ public class ModsController : ControllerBase
         return Ok(modsRemote);
     }
     
+    
+    // GET: api/v1/mods/optional/list/info
+    [HttpGet("optional/list/info")]
+    public IActionResult GetOptionalModsInfoList()
+    {
+        _logger.LogInformation("Optional mods info list requested from {user}", Request.HttpContext.Connection.RemoteIpAddress?.ToString());
+        var modInfos = _apiProvider.GetOptionalModsInfoList().ToList();
+        var baseDownloadUrl = $"{Request.Scheme}://{Request.Host}{Url.Action(nameof(DownloadOptionalMod), new { modName = "" })}";
+        _logger.LogInformation("Base download URL is {baseUrl}.", baseDownloadUrl);
+
+        foreach (var modInfo in modInfos)
+        {
+            var metadata = modInfo.Metadata;
+            var downloadUrl = $"{baseDownloadUrl}/{modInfo.FileName}";
+            metadata[ModInfo.MetaModDownloadUrl] = downloadUrl;
+        }
+
+        return Ok(modInfos);
+    }
+    
     // GET: api/v1/mods/required/download/{*modName}
     [HttpGet("required/download/{*modName}")]
     public IActionResult DownloadRequiredMod(string modName)
