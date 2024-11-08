@@ -11,15 +11,43 @@ namespace Launcher;
 
 public sealed class Settings
 {
+    public string this[string key]
+    {
+        get => GetCustom(key);
+        set => SetCustom(key, value);
+    }
+    
     public double MaxRam;
     public string PlayerName;
     public string Password;
+
+    [JsonProperty]
+    private Dictionary<string, string> _customSettings;
 
     public Settings()
     {
         MaxRam = Main.GetInstalledRamAmount() / 2;
         PlayerName = $"{(new string[] {"Biba", "Boba", "Afafaf", "Mingebag", "Aboba", "Oof"}).GetRandom()}{Rand.Int}";
         Password = "";
+        _customSettings = new Dictionary<string, string>();
+    }
+
+    public string GetCustom(string key)
+    {
+        if (_customSettings.TryGetValue(key, out string value))
+        {
+            return value;
+        }
+
+        var defaultValue = "";
+        SetCustom(key, defaultValue);
+        
+        return defaultValue;
+    }
+
+    public void SetCustom(string key, string value)
+    {
+        _customSettings[key] = value;
     }
 }
 
