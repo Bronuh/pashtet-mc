@@ -311,7 +311,7 @@ public partial class Main : Node
 			.AfterTasks(deployMods, updateServers)
 			.SkipIf(() => State.RunInterruptRequested);
 		
-		TaskManager.AddTasks([filesystemTask, requiredModsTask, deployMods, updateServers, run, optionalModsTask]);
+		TaskManager.AddTasks([filesystemTask, requiredModsTask, optionalModsTask, deployMods, updateServers, run]);
 	}
 
 	private void UpdatePlayerName(string name)
