@@ -32,8 +32,13 @@ public class DeployModpackTask : LauncherTask
             Main.FileDeployer.UndeployFile(mod);
         }
 
-        var modsToDeploy = BuildDeploymentListFrom(Paths.SnapshotModsDirPath.AsAbsolute())
-            .Concat(BuildDeploymentListFrom(Paths.UserModsDirPath.AsAbsolute()))
+        var userMods = BuildDeploymentListFrom(Paths.UserModsDirPath.AsAbsolute());
+        var requiredMods = BuildDeploymentListFrom(Paths.SnapshotModsDirPath.AsAbsolute());
+        var optionalMods = BuildDeploymentListFrom(Paths.SnapshotOptionalModsDirPath.AsAbsolute());
+
+        var modsToDeploy = userMods
+            .Concat(requiredMods)
+            .Concat(optionalMods)
             .ToArray();
         
         var modsAboutToDeployEvent = new ModsDeployTaskReadyEvent(this, modsToDeploy);
