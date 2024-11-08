@@ -17,4 +17,5 @@ public interface IApiProvider
     Task<RemoteFile> GetPatchInfoAsync();
     Task<RemoteFilesList> GetRequiredModsListAsync();
     Task<RemoteFilesList> GetOptionalModsListAsync();
+    Task<List<ModInfo>> GetOptionalModsInfoAsync();
 }

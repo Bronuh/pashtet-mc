@@ -22,6 +22,7 @@ public class DefaultApiProvider : IApiProvider
     
     public string RequiredModsUrl => $"{Host}/{RequiredModsRoute}";
     public string OptionalModsUrl => $"{Host}/{OptionalModsRoute}";
+    public string OptionalModsInfoUrl => $"{Host}/{OptionalModsRoute}/info";
     public string JavaUrl => $"{Host}/{JavaRoute}";
     public string MinecraftUrl => $"{Host}/{MinecraftRoute}";
     public string ServersUrl => $"{Host}/{ServersRoute}";
@@ -112,6 +113,16 @@ public class DefaultApiProvider : IApiProvider
             return null;
         
         var mods = JsonConvert.DeserializeObject<RemoteFilesList>(result.Body);
+        return mods;
+    }
+
+    public async Task<List<ModInfo>> GetOptionalModsInfoAsync()
+    {
+        var result = await HttpHelper.GetAsync(OptionalModsInfoUrl, ignoreException: true);
+        if (result is null)
+            return null;
+        
+        var mods = JsonConvert.DeserializeObject<List<ModInfo>>(result.Body);
         return mods;
     }
 }
