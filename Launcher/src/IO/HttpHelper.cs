@@ -2,6 +2,8 @@
 
 using System.Net.Http;
 using System.Threading.Tasks;
+using KludgeBox.Events.Global;
+using PatchApi.Events;
 using HttpClient = System.Net.Http.HttpClient;
 
 #endregion
@@ -30,6 +32,14 @@ public static class HttpHelper
     public static HttpResponse Get(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0, bool ignoreException = false)
     {
         var client = new HttpClient();
+        
+        var requestEvt = new HttpGetRequestSendingEvent(url, customHeaders, timeoutSeconds, ignoreException);
+        EventBus.Publish(requestEvt); // Event listeners can adjust all the properties
+        url = requestEvt.Url;
+        customHeaders = requestEvt.CustomHeaders;
+        timeoutSeconds = requestEvt.TimeoutSeconds;
+        ignoreException = requestEvt.IgnoreException;
+        
         client.Timeout = timeoutSeconds == 0 ? TimeSpan.FromSeconds(HttpGetTimeoutSeconds) : TimeSpan.FromSeconds(timeoutSeconds);
         try
         {
@@ -54,11 +64,19 @@ public static class HttpHelper
                 headersDict[header.Key] = header.Value;
             }
 
-            return new HttpResponse
+            var wrappedResponse = new HttpResponse
             {
                 Body = body,
                 Headers = headersDict
             };
+
+            var responseEvt =
+                new HttpGetResponseReceivedEvent(url, customHeaders, timeoutSeconds, ignoreException, wrappedResponse);
+            
+            EventBus.Publish(responseEvt);
+            wrappedResponse = responseEvt.HttpResponse;
+
+            return wrappedResponse;
         }
         catch (Exception ex)
         {
@@ -78,7 +96,14 @@ public static class HttpHelper
     public static async Task<HttpResponse> GetAsync(string url, Dictionary<string, string> customHeaders = null, double timeoutSeconds = 0, bool ignoreException = false)
     {
         var client = new HttpClient();
-        client.Timeout = TimeSpan.FromSeconds(HttpGetTimeoutSeconds);
+        
+        var requestEvt = new HttpGetRequestSendingEvent(url, customHeaders, timeoutSeconds, ignoreException);
+        EventBus.Publish(requestEvt);
+        url = requestEvt.Url;
+        customHeaders = requestEvt.CustomHeaders;
+        timeoutSeconds = requestEvt.TimeoutSeconds;
+        ignoreException = requestEvt.IgnoreException;
+        
         client.Timeout = timeoutSeconds == 0 ? TimeSpan.FromSeconds(HttpGetTimeoutSeconds) : TimeSpan.FromSeconds(timeoutSeconds);
         try
         {
@@ -103,11 +128,19 @@ public static class HttpHelper
                 headersDict[header.Key] = header.Value;
             }
 
-            return new HttpResponse
+            var wrappedResponse = new HttpResponse
             {
                 Body = body,
                 Headers = headersDict
             };
+            
+            var responseEvt =
+                new HttpGetResponseReceivedEvent(url, customHeaders, timeoutSeconds, ignoreException, wrappedResponse);
+            
+            EventBus.Publish(responseEvt);
+            wrappedResponse = responseEvt.HttpResponse;
+
+            return wrappedResponse;
         }
         catch (Exception ex)
         {
