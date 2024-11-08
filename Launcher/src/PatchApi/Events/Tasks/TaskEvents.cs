@@ -51,11 +51,25 @@ public class ServersUpdatingEvent : CancellableEvent
 
 public class ModsUpdateListsPreparedEvent : CancellableEvent
 {
-    public CheckModsTask Task { get; }
+    public CheckRequiredModsTask Task { get; }
     public List<string> ModsToRemove { get; set; } 
     public List<RemoteFile> ModsToDownload { get; set; }
 
-    public ModsUpdateListsPreparedEvent(CheckModsTask task, List<string> modsToRemove, List<RemoteFile> modsToDownload)
+    public ModsUpdateListsPreparedEvent(CheckRequiredModsTask task, List<string> modsToRemove, List<RemoteFile> modsToDownload)
+    {
+        Task = task;
+        ModsToRemove = modsToRemove;
+        ModsToDownload = modsToDownload;
+    }
+}
+
+public class OptionalModsUpdateListsPreparedEvent : CancellableEvent
+{
+    public CheckOptionalModsTask Task { get; }
+    public List<string> ModsToRemove { get; set; } 
+    public List<RemoteFile> ModsToDownload { get; set; }
+
+    public OptionalModsUpdateListsPreparedEvent(CheckOptionalModsTask task, List<string> modsToRemove, List<RemoteFile> modsToDownload)
     {
         Task = task;
         ModsToRemove = modsToRemove;

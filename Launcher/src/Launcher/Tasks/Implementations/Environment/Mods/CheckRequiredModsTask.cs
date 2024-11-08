@@ -14,13 +14,13 @@ using PatchApi.Events;
 
 namespace Launcher.Tasks.Environment.Mods;
 
-public class CheckModsTask : LauncherTask
+public class CheckRequiredModsTask : LauncherTask
 {
     private List<LauncherTask> _updateTasks = new();
     
     private List<RemoteFile> _modsToDownload = new();
     private List<string> _modsToRemove = new();
-    public override string Name { get; } = "Проверка модов";
+    public override string Name { get; } = "Проверка обязательных модов";
 
     protected override async Task Start()
     {

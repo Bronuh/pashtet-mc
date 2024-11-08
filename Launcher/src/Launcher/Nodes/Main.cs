@@ -302,16 +302,16 @@ public partial class Main : Node
 		State.IsMinecraftRunning = true;
 
 		var filesystemTask = new PrepareFilesystemTask();
-		var modsTask = new CheckModsTask().AfterTasks(filesystemTask);
+		var requiredModsTask = new CheckRequiredModsTask().AfterTasks(filesystemTask);
+		var optionalModsTask = new CheckOptionalModsTask().AfterTasks(filesystemTask);
 		var updateServers = new UpdateServersTask();
-		//var deletePacks = new DeleteServerResourcepackTask();
 		var deployMods = new DeployModpackTask()
-			.AfterTasks(modsTask);
+			.AfterTasks(requiredModsTask, optionalModsTask);
 		var run = new RunMinecraftTask()
-			.AfterTasks(modsTask, deployMods, updateServers)
+			.AfterTasks(deployMods, updateServers)
 			.SkipIf(() => State.RunInterruptRequested);
 		
-		TaskManager.AddTasks([filesystemTask, modsTask, deployMods, updateServers, run]);
+		TaskManager.AddTasks([filesystemTask, requiredModsTask, deployMods, updateServers, run, optionalModsTask]);
 	}
 
 	private void UpdatePlayerName(string name)

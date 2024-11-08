@@ -67,9 +67,9 @@ public static class SettingsUtils
             var text = file.GetAsText();
             return JsonConvert.DeserializeObject<Settings>(text) ?? new Settings();
         }
-        catch
+        catch(Exception e)
         {
-            
+            Log.Error($"Failed to load settings: {e.Message}");
         }
         
         file?.Close();
@@ -86,9 +86,9 @@ public static class SettingsUtils
             var text = JsonConvert.SerializeObject(settings, Formatting.Indented);
             file.StoreString(text);
         }
-        catch
+        catch(Exception e)
         {
-            
+            Log.Error($"Failed to save settings: {e.Message}");
         }
         file?.Close();
     }
