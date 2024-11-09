@@ -20,11 +20,11 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="FontVariation" id="FontVariation_2rr21"]
+[sub_resource type="FontVariation" id="FontVariation_n6rdu"]
 variation_embolden = 0.71
 
 [sub_resource type="LabelSettings" id="LabelSettings_iynle"]
-font = SubResource("FontVariation_2rr21")
+font = SubResource("FontVariation_n6rdu")
 font_size = 21
 font_color = Color(0, 0, 0, 1)
 

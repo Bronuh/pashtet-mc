@@ -43,6 +43,7 @@ public partial class Main : Node
 	public static TagCompound CustomData { get; private set; }
 	public static Popup Popup => Instance._popup;
 	public static Notifications Notifications => Instance._notifications;
+	public static OptionalModsMenu OptionalModsMenu => Instance._optionalModsMenu;
 
 	[Export] public LineEdit PlayerNameTextBox;
 	[Export] public LineEdit PasswordTextBox;
@@ -51,12 +52,16 @@ public partial class Main : Node
 	[Export] public Label RamLabel;
 	[Export] public Label VersionInfoLabel;
 	[Export] public Button RunButton;
+	[Export] public Button ModsButton;
 	[Export] public HSlider RamSlider;
 	[Export] public VBoxContainer RunningTasksContainer;
 	[Export] public VBoxContainer PendingTasksContainer;
 	[Export] public PanelContainer ConfigPanel;
 	[Export] public PackedScene TaskTrackerScene;
+	
+	// Interactive part
 	[Export] private Popup _popup;
+	[Export] private OptionalModsMenu _optionalModsMenu;
 	[Export] private Notifications _notifications;
 	
 	public override async void _Ready()
@@ -283,6 +288,8 @@ public partial class Main : Node
 		RamSlider.Step = 0.5;
 
 		RunButton.Pressed += DeployAndRun;
+
+		ModsButton.Pressed += OpenModsMenu;
 	}
 
 	private void DeployAndRun()
@@ -355,6 +362,11 @@ public partial class Main : Node
 		Settings.MaxRam = value;
 		RamLabel.Text = $"RAM: {value:N1} / {GetInstalledRamAmount():N1} Gb";
 		SaveSettings();
+	}
+	
+	private void OpenModsMenu()
+	{
+		OptionalModsMenu.ShowMenu();
 	}
 	
 	private static void InitNbtSystems()

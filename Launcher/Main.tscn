@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://da7d5i2dqlnnr"]
+[gd_scene load_steps=24 format=3 uid="uid://da7d5i2dqlnnr"]
 
 [ext_resource type="Script" path="res://src/Launcher/Nodes/Main.cs" id="1_41ihv"]
 [ext_resource type="PackedScene" uid="uid://85dqy3jryuu7" path="res://TaskTracker.tscn" id="2_2ek23"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://13dnnh5wywh8" path="res://Popup.tscn" id="7_ejxwr"]
 [ext_resource type="Script" path="res://src/Launcher/Nodes/ShowNode.cs" id="7_lcd4k"]
 [ext_resource type="PackedScene" uid="uid://dh664vii3rc03" path="res://ServerStatusPanel.tscn" id="8_spb00"]
+[ext_resource type="PackedScene" uid="uid://lmu6ip8dpcxm" path="res://OptionalModsMenu.tscn" id="10_rfg5p"]
 [ext_resource type="PackedScene" uid="uid://ctbkihoggfk4k" path="res://Notifications.tscn" id="11_gtu0m"]
 
 [sub_resource type="Gradient" id="Gradient_na32n"]
@@ -93,7 +94,7 @@ expand_margin_bottom = 3.0
 font_size = 12
 font_color = Color(1, 1, 1, 0.631373)
 
-[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "PasswordTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "VersionInfoLabel", "RunButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel", "_popup")]
+[node name="Main" type="Node" node_paths=PackedStringArray("PlayerNameTextBox", "PasswordTextBox", "RunningTasksLabel", "PendingTasksLabel", "RamLabel", "VersionInfoLabel", "RunButton", "ModsButton", "RamSlider", "RunningTasksContainer", "PendingTasksContainer", "ConfigPanel", "_popup", "_optionalModsMenu", "_notifications")]
 script = ExtResource("1_41ihv")
 PlayerNameTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/NameLine/NameBox")
 PasswordTextBox = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/PasswordLine/PasswordBox")
@@ -102,12 +103,15 @@ PendingTasksLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/Task
 RamLabel = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine/RamLabel")
 VersionInfoLabel = NodePath("Canvas/UiRootControl/OuterMarginContainer/VerionInfoLabel")
 RunButton = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/RunButton")
+ModsButton = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/OptionalModsButton")
 RamSlider = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer/InputVBox/RamLine/RamSlider")
 RunningTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/RunningPanel/MarginContainer/RunningScroll/RunningTasksContainer")
 PendingTasksContainer = NodePath("Canvas/UiRootControl/MarginContainer/MainVBox/TasksHBox/PendingPanel/MarginContainer/PendingScroll/PendingTasksContainer")
 ConfigPanel = NodePath("Canvas/UiRootControl/ConfigContainer")
 TaskTrackerScene = ExtResource("2_2ek23")
 _popup = NodePath("Canvas/UiRootControl/Popup")
+_optionalModsMenu = NodePath("Canvas/UiRootControl/OptionalModsMenu")
+_notifications = NodePath("Canvas/UiRootControl/Notifications")
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
@@ -271,6 +275,11 @@ layout_mode = 2
 disabled = true
 text = "ИГРАТЬ"
 
+[node name="OptionalModsButton" type="Button" parent="Canvas/UiRootControl/MarginContainer/MainVBox/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "МОДЫ"
+
 [node name="CenterContainer" type="CenterContainer" parent="Canvas/UiRootControl/MarginContainer/MainVBox"]
 visible = false
 layout_mode = 2
@@ -357,6 +366,7 @@ ConfigButton = NodePath("../OuterMarginContainer/ConfigButton")
 script = ExtResource("7_lcd4k")
 
 [node name="OuterMarginContainer" type="MarginContainer" parent="Canvas/UiRootControl"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -396,9 +406,18 @@ size_flags_vertical = 8
 text = "Версия: 8.800.555.35.35"
 label_settings = SubResource("LabelSettings_0oq0w")
 
+[node name="OptionalModsMenu" parent="Canvas/UiRootControl" instance=ExtResource("10_rfg5p")]
+visible = false
+layout_mode = 1
+
 [node name="Popup" parent="Canvas/UiRootControl" instance=ExtResource("7_ejxwr")]
 visible = false
 layout_mode = 1
 
 [node name="Notifications" parent="Canvas/UiRootControl" instance=ExtResource("11_gtu0m")]
+visible = false
 layout_mode = 1
+mouse_filter = 2
+
+[node name="ShowNode" type="Node" parent="Canvas/UiRootControl/Notifications"]
+script = ExtResource("7_lcd4k")

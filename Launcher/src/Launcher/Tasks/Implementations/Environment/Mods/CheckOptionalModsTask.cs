@@ -17,7 +17,7 @@ public class CheckOptionalModsTask : LauncherTask
     
     private List<RemoteFile> _modsToDownload = new();
     private List<string> _modsToRemove = new();
-    public override string Name { get; } = "Проверка обязательных модов";
+    public override string Name { get; } = "Проверка опциональных модов";
     protected override async Task Start()
     {
         IChecksumProvider checksumProvider = Main.ChecksumProvider;
@@ -71,12 +71,13 @@ public class CheckOptionalModsTask : LauncherTask
     private List<string> GetEnabledModsList()
     {
         List<string> enabledMods;
-        var enabledModsSettingsValue = Main.Settings.GetCustom("EnabledMods");
+        var enabledModsSettingsValue = Main.Settings.GetCustom(CustomSettingsKeys.EnabledModsList);
         if (!String.IsNullOrWhiteSpace(enabledModsSettingsValue))
         {
             try
             {
                 enabledMods = JsonConvert.DeserializeObject<List<string>>(enabledModsSettingsValue);
+                return enabledMods;
             }
             catch (Exception e)
             {

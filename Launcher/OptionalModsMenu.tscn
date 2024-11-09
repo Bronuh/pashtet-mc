@@ -1,0 +1,149 @@
+[gd_scene load_steps=8 format=3 uid="uid://lmu6ip8dpcxm"]
+
+[ext_resource type="Shader" path="res://assets/blur.gdshader" id="1_bl434"]
+[ext_resource type="Script" path="res://src/Launcher/Nodes/OptionalModsMenu.cs" id="1_ypa86"]
+[ext_resource type="PackedScene" uid="uid://bhq3l8ydux0jq" path="res://ModItem.tscn" id="2_epc5h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_macha"]
+shader = ExtResource("1_bl434")
+shader_parameter/lod = 2.0
+shader_parameter/brightness = 1.0
+shader_parameter/transparency = 0.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_suywd"]
+bg_color = Color(1, 1, 1, 0.631373)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_bpx8g"]
+font_size = 20
+font_color = Color(0.0923971, 0.0923971, 0.0923971, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eo23m"]
+font_size = 12
+font_color = Color(0.099986, 0.099986, 0.099986, 1)
+
+[node name="OptionalModsMenu" type="Control" node_paths=PackedStringArray("OkButton", "CancelButton", "ModsListContainer", "ModDescriptionLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ypa86")
+OkButton = NodePath("PanelContainer/MarginContainer/MainLayout/ButtonsContainer/OkButton")
+CancelButton = NodePath("PanelContainer/MarginContainer/MainLayout/ButtonsContainer/CancelButton")
+ModsListContainer = NodePath("PanelContainer/MarginContainer/MainLayout/ModsContainer/ScrollContainer/ModsList")
+ModDescriptionLabel = NodePath("PanelContainer/MarginContainer/MainLayout/ModsContainer/DescriptionContainer/ModDescription")
+ModItemScene = ExtResource("2_epc5h")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+rect = Rect2(0, 0, 1150, 650)
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_macha")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_suywd")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainLayout" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/MainLayout"]
+layout_mode = 2
+text = "Опциональные моды"
+label_settings = SubResource("LabelSettings_bpx8g")
+horizontal_alignment = 1
+
+[node name="SpacingControl" type="Control" parent="PanelContainer/MarginContainer/MainLayout"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ModsContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/MainLayout/ModsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.63
+
+[node name="ModsList" type="VBoxContainer" parent="PanelContainer/MarginContainer/MainLayout/ModsContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ModItem" parent="PanelContainer/MarginContainer/MainLayout/ModsContainer/ScrollContainer/ModsList" instance=ExtResource("2_epc5h")]
+layout_mode = 2
+
+[node name="ModItem2" parent="PanelContainer/MarginContainer/MainLayout/ModsContainer/ScrollContainer/ModsList" instance=ExtResource("2_epc5h")]
+layout_mode = 2
+
+[node name="SplitLine" type="ColorRect" parent="PanelContainer/MarginContainer/MainLayout/ModsContainer"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+color = Color(0, 0, 0, 0.168627)
+
+[node name="DescriptionContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/MainLayout/ModsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModDescription" type="Label" parent="PanelContainer/MarginContainer/MainLayout/ModsContainer/DescriptionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Описание мода или чет такое короче да"
+label_settings = SubResource("LabelSettings_eo23m")
+autowrap_mode = 3
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainLayout"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="OkButton" type="Button" parent="PanelContainer/MarginContainer/MainLayout/ButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/MarginContainer/MainLayout/ButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Отмена"
