@@ -310,8 +310,18 @@ public partial class Main : Node
 		var run = new RunMinecraftTask()
 			.AfterTasks(deployMods, updateServers)
 			.SkipIf(() => State.RunInterruptRequested);
+
+		LauncherTask[] gameLaunchTaskSet =
+			[filesystemTask, requiredModsTask, optionalModsTask, deployMods, updateServers, run];
+		var evt = new GameAboutToRunEvent(gameLaunchTaskSet);
+		if (EventBus.PublishIsCancelled(evt))
+		{
+			return;
+		}
+
+		gameLaunchTaskSet = evt.TaskSet;
 		
-		TaskManager.AddTasks([filesystemTask, requiredModsTask, optionalModsTask, deployMods, updateServers, run]);
+		TaskManager.AddTasks(gameLaunchTaskSet);
 	}
 
 	private void UpdatePlayerName(string name)

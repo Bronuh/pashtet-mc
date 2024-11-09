@@ -21,6 +21,11 @@ public class RunButtonPressedEvent(Button runButton) : CancellableEvent
     public Button RunButton { get; } = runButton;
 }
 
+public class GameAboutToRunEvent(LauncherTask[] taskSet) : CancellableEvent
+{
+    public LauncherTask[] TaskSet { get; set; } = taskSet;
+}
+
 public class PlayerNameUpdatingEvent(LineEdit nameTextBox) : CancellableEvent
 {
     public LineEdit NameTextBox { get; } = nameTextBox;
