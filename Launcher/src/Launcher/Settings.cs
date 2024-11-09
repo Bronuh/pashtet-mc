@@ -50,7 +50,7 @@ public sealed class Settings
             return deserializedValue;
         }
         
-        stringValue = JsonConvert.SerializeObject(defaultValue);
+        stringValue = JsonConvert.SerializeObject(defaultValue, Formatting.Indented);
         _customSettings[key] = stringValue;
         
         return defaultValue;
@@ -58,7 +58,7 @@ public sealed class Settings
 
     public void SetCustomObject<TValue>(string key, TValue value)
     {
-        _customSettings[key] = JsonConvert.SerializeObject(value);
+        _customSettings[key] = JsonConvert.SerializeObject(value, Formatting.Indented);
     }
 
     public string GetCustom(string key, string defaultValue = "")
