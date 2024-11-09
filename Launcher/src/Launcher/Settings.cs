@@ -8,7 +8,10 @@ using Newtonsoft.Json;
 
 namespace Launcher;
 
-
+public static class CustomSettingsKeys
+{
+    public static string EnabledModsList = "EnabledMods";
+}
 public sealed class Settings
 {
     public string this[string key]
