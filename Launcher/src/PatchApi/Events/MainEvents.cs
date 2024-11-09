@@ -31,7 +31,7 @@ public class PlayerPasswordUpdatingEvent(LineEdit passwordTextBox) : Cancellable
     public LineEdit PasswordTextBox { get; } = passwordTextBox;
 }
 
-public class RamValueChangingEvent(ref double amountGb) : CancellableEvent
+public class RamValueChangingEvent(double amountGb) : CancellableEvent
 {
     public double AmountGb { get; } = amountGb;
 }

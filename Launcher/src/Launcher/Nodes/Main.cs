@@ -334,12 +334,14 @@ public partial class Main : Node
 	
 	private void UpdateRam(double value)
 	{
-		if (EventBus.PublishIsCancelled(new RamValueChangingEvent(ref value)))
+		var evt = new RamValueChangingEvent(value);
+		if (EventBus.PublishIsCancelled(evt))
 		{
-			RamSlider.SetValueNoSignal(value);
+			//RamSlider.SetValueNoSignal(value);
 			return;
 		}
-		
+
+		value = evt.AmountGb;
 		Settings.MaxRam = value;
 		RamLabel.Text = $"RAM: {value:N1} / {GetInstalledRamAmount():N1} Gb";
 		SaveSettings();
