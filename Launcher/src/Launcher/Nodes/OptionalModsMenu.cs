@@ -48,6 +48,11 @@ public partial class OptionalModsMenu : Control
 		var modsInfo = await Main.ApiProvider.GetOptionalModsInfoAsync();
 		var enabledMods = Main.Settings.GetCustomObject<List<string>>(CustomSettingsKeys.EnabledModsList, new ());
 		
+		var buildEvt = new OptionalModsListBuildingEvent(modsInfo, enabledMods);
+		EventBus.Publish(buildEvt);
+		modsInfo = buildEvt.Mods;
+		enabledMods = buildEvt.EnabledModsNames;
+		
 		foreach (var modInfo in modsInfo)
 		{
 			var modItem = ModItemScene.Instantiate() as ModItem;

@@ -45,6 +45,18 @@ public class OptionalModToggleEvent : CancellableEvent
     }
 }
 
+public class OptionalModsListBuildingEvent : IEvent
+{
+    public List<ModInfo> Mods { get; set; }
+    public List<string> EnabledModsNames { get; set; }
+
+    public OptionalModsListBuildingEvent(List<ModInfo> mods, List<string> enabledModsNames)
+    {
+        Mods = mods;
+        EnabledModsNames = enabledModsNames;
+    }
+}
+
 
 public class OptionalModsMenuHidingEvent : CancellableEvent
 {
