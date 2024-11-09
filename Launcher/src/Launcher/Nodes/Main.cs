@@ -67,7 +67,7 @@ public partial class Main : Node
 	public override async void _Ready()
 	{
 		Instance = this;
-		AppVersion = new VersionInfo(new Version(1, 1, 2));
+		AppVersion = new VersionInfo(new Version(1, 2, 0));
 		Settings = SettingsUtils.LoadSettings();
 		PatchManager = new PatchManager();
 		InitNbtSystems();
