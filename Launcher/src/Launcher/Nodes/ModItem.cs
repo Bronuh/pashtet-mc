@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using Common.Api;
 using KludgeBox.Events.Global;
@@ -31,7 +32,7 @@ public partial class ModItem : Control
 			sb.AppendLine();
 			try
 			{
-				sb.AppendLine(ModInfo.Metadata[ModInfo.MetaModDependencies]);
+				sb.AppendLine($"Зависит от: {ModInfo.Metadata[ModInfo.MetaModDependencies]}");
 			}
 			catch
 			{
@@ -51,6 +52,48 @@ public partial class ModItem : Control
 		ModToggle.Toggled += OnModToggled;
 	}
 
+	public void SetEnabled(bool enabled)
+	{
+		ModToggle.ButtonPressed = enabled;
+	}
+
+	public void Enable() => SetEnabled(true);
+	public void Disable() => SetEnabled(false);
+
+	public bool HasDependency(ModInfo supposedDependency)
+	{
+		var dependencyNames = (ModInfo.Metadata[ModInfo.MetaModDependencies] ?? "")
+			.Split(",")
+			.Select(x => x.Trim())
+			.ToList();
+
+		return dependencyNames.Contains(supposedDependency.ReadableName) || dependencyNames.Contains(supposedDependency.FileName);
+	}
+	
+	public bool HasDependency(ModItem supposedDependency)
+	{
+		var dependencyNames = (ModInfo.Metadata[ModInfo.MetaModDependencies] ?? "")
+			.Split(",")
+			.Select(x => x.Trim())
+			.ToList();
+
+		return dependencyNames.Contains(supposedDependency.ModInfo.ReadableName) || dependencyNames.Contains(supposedDependency.ModInfo.FileName);
+	}
+
+	public IEnumerable<ModItem> GetDependencies(IEnumerable<ModItem> modsList)
+	{
+		// ReSharper disable once ArrangeThisQualifier
+		// ReSharper disable once ConvertClosureToMethodGroup
+		// make it explicit
+		var dependencies = modsList.Where(mod => this.HasDependency(mod)); 
+		return dependencies;
+	}
+
+	public IEnumerable<ModItem> GetDependents(IEnumerable<ModItem> modsList)
+	{
+		var dependents = modsList.Where(mod => mod.HasDependency(this));
+		return dependents;
+	}
 
 	public void Setup(ModInfo modInfo, bool isEnabled, Label descriptionLabel)
 	{
