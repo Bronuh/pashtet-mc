@@ -32,6 +32,32 @@ public sealed class Settings
         _customSettings = new Dictionary<string, string>();
     }
 
+    public TValue GetCustomObject<TValue>(string key, TValue defaultValue = default)
+    {
+        string stringValue = null;
+        
+        if (_customSettings.TryGetValue(key, out string value))
+        {
+            stringValue = value;
+        }
+
+        if (stringValue is not null)
+        {
+            TValue deserializedValue = JsonConvert.DeserializeObject<TValue>(stringValue);
+            return deserializedValue;
+        }
+        
+        stringValue = JsonConvert.SerializeObject(defaultValue);
+        _customSettings[key] = stringValue;
+        
+        return defaultValue;
+    }
+
+    public void SetCustomObject<TValue>(string key, TValue value)
+    {
+        _customSettings[key] = JsonConvert.SerializeObject(value);
+    }
+
     public string GetCustom(string key, string defaultValue = "")
     {
         if (_customSettings.TryGetValue(key, out string value))
